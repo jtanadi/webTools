@@ -1,0 +1,50 @@
+.wrapper {
+  width: 19vw;
+  height: 100vh;
+  display: flex;
+  margin: auto;
+  padding: 0 3vw;
+}
+
+ul {
+  flex: 1;
+  margin: auto;
+  list-style-type: none;
+}
+
+li {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 1.5em;
+  padding-bottom: .5em;
+  border-bottom: 1px solid black;
+}
+
+li:hover {
+  cursor: ns-resize;
+}
+
+textarea {
+  margin-top: .5em;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  resize: vertical;
+}
+
+p {
+  font-weight: normal;
+  margin-top: 0.5em;
+}
+
+.listData {
+  height: 12em;
+  transition: all .5s ease-in-out;
+  overflow: hidden;
+}
+
+.hide {
+  height: 0;
+}

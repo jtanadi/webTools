@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>List Tools</title>
+    <link rel="stylesheet" type="text/css" href="_/normalize.css">
+    <link rel="stylesheet" type="text/css" href="_/style.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <form>
+        <fieldset class="list1">
+          <label for="list1_text">List 1</label>
+          <textarea id="list1_text" value=""></textarea>
+        </fieldset>
+
+        <fieldset class="list2">
+          <label for="list2_text">List 2</label>
+          <textarea id="list2_text" value=""></textarea>
+        </fieldset>
+
+        <div id="button_container">
+          <input type="button" id="button_same" value="Find Same">
+          <input type="button" id="button_diff" value="Find Diff">
+          <input type="button" id="button_dupes" value="Remove Dupes">
+          <input type="reset" id="reset" value="Reset">
+        </div>
+
+        <fieldset class="output">
+          <label for="output_text">Output</label>
+          <textarea id="output_text"></textarea>
+        </fieldset>
+      </form>
+    </div>
+
+  </body>
+  <script type="application/javascript" src="_/helpers.js"></script>
+  <script type="application/javascript" src="_/script.js"></script>
+</html>
