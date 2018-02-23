@@ -1,3 +1,11 @@
+/*
+Deprecated as of 2/23/18
+
+The tool uses functions in jsFuncs repo on gitHub instead 
+
+Only here for a good time (as an archive)
+*/
+
 const findDifference = (list1, list2) => {
   /* (arr, arr) -> arr
   Returns an array of items in list1 NOT in list2
