@@ -30,6 +30,8 @@ textarea {
   height: 100%;
   border: 1px solid black;
   outline: none;
+  resize: vertical;
+  font-family: Courier, monospace;
 }
 
 input[type="button"] {
