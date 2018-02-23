@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 95vw;
+  margin: 0 auto;
+}
+
+form {
+  height: 95vh;
+  display: flex;
+  flex-direction: row;
+}
+
+label {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+}
+
+.textAreaGroup{
+  flex: 10;
+  height: 88vh;
+  margin: auto;
+}
+
+textarea {
+  margin-top: 0.5rem;
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  outline: none;
+}
+
+input[type="button"] {
+  flex: 1;
+  height: auto;
+  margin: auto .25rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+input[type="button"]:hover {
+  color: white;
+  background: black;
+}
+
+@media(min-width: 769px) {
+  input[type="button"] {
+    font-size: 3rem;
+  }
+}
+
+@media(min-width: 1800px) {
+  .wrapper {
+    width: 80vw;
+  }
+  
+  input[type="button"] {
+    font-size: 4rem;
+  }
+}
