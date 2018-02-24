@@ -28,7 +28,6 @@ const filterRegEx = function (inputArr, expression) {
   return inputArr.filter(item => {
     return exp.test(item);
   });
-
 }
 
 const getItemIndex = function (inputArr, itemToFind, useRegex) {
