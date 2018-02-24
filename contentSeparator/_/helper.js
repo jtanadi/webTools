@@ -31,7 +31,7 @@ const filterRegEx = function (inputArr, expression) {
 
 }
 
-const indexElement = function (inputArr, itemToFind, useRegex) {
+const getItemIndex = function (inputArr, itemToFind, useRegex) {
   /* (arr, str or regex obj[, bool]) -> arr of nums
 
   Looks through input array and logs the index number(s)
