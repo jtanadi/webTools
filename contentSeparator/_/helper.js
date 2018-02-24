@@ -13,21 +13,56 @@ const textToArray = function (textInput) {
           .map(item => item.trim());
 };
 
-const filterRegEx = function (inputArr, regex) {
-  /* (arr, str) -> arr of strings
+const filterRegEx = function (inputArr, expression) {
+  /* (arr, str or regex obj) -> arr of strings
 
   Returns an array filtered with the passed-in RegEx.
-
   */
+  let exp;
+  if(typeof expression === "string") {
+    exp = new RegExp(expression);
+  } else {
+    exp = expression;
+  }
+
+  return inputArr.filter(item => {
+    return exp.test(item);
+  });
+
 }
 
-const indexElement = function (inputArr, elmtToFind, regex) {
-  /* (arr, str, bool) -> arr of nums
+const indexElement = function (inputArr, itemToFind, useRegex) {
+  /* (arr, str or regex obj[, bool]) -> arr of nums
 
   Looks through input array and logs the index number(s)
   of the passed-in element. 
-  If RegEx is true, the function will treat elmtToFind as 
-  an expression.
-
+  If useRegex is true, the function will treat itemToFind as 
+  an expression. useRegex is false by default.
   */
+  useRegex = useRegex || false;
+  let exp;
+
+  if(useRegex) {
+    if(typeof itemToFind === "string") {
+      exp = new RegExp(itemToFind);
+    
+    } else {
+      exp = itemToFind;
+    }
+  }
+  
+  return inputArr.reduce((itemIndex, item) => {
+    if(useRegex) {
+      if(exp.test(item)) {
+        itemIndex.push(inputArr.indexOf(item));
+      }
+    
+    } else {
+      if(item === itemToFind) {
+        itemIndex.push(inputArr.indexOf(item));
+      }
+    }
+    return itemIndex;
+  }, []);
+
 }
