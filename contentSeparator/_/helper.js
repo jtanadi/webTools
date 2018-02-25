@@ -1,10 +1,15 @@
-const textToArray = function (textInput) {
+/*
+DEPRECATED AS OF 2/25/18
+FUNCTIONS LIVE IN jsFuncs > arrFunctions
+*/
+
+const storiesToArray = function (textInput) {
   /* (str) -> arr of strings
 
   Returns an array of non-empty strings split at \n and
   stripped of empty before and after spaces.
 
-  >>> textToArray("Hello\n How are you?\n\n Great!")
+  >>> storiesToArray("Hello\n How are you?\n\n Great!")
   ["Hello", "How are you", "Great"]
   */
 
@@ -63,5 +68,4 @@ const getItemIndex = function (inputArr, itemToFind, useRegex) {
     }
     return itemIndex;
   }, []);
-
 }
