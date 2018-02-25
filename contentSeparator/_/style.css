@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
 }
 
 .wrapper {
@@ -13,15 +15,19 @@ form {
   flex-direction: row;
 }
 
-label {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-}
 
 .textAreaGroup{
   flex: 10;
   height: 88vh;
   margin: auto;
+  display: flex;
+  flex-flow: column;
+}
+
+input[type="text"] {
+  display: block;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 textarea {
@@ -31,7 +37,6 @@ textarea {
   border: 1px solid black;
   outline: none;
   resize: vertical;
-  font-family: Courier, monospace;
 }
 
 input[type="button"] {

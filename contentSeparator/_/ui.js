@@ -1,9 +1,10 @@
 const contentInput = document.getElementById("rawContent"); 
+const regexInput = document.getElementById("regexInput"); 
+
 
 document.querySelector("input[type='button']").addEventListener("click", () =>{
-  let arrToWrite = textToArray(contentInput.value)
-                    .filter(item => item.includes("_"));
+  let arrToWrite = filterRegEx(storiesToArray(contentInput.value), regexInput.value);
   
   
-  document.querySelector("#codes").value = arrToWrite.join("\n\n");
+  document.querySelector("#output").value = arrToWrite.join("\n\n");
 });
