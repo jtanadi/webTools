@@ -8,6 +8,7 @@ vanilla JS implementation of front-end
 const nameInput = document.getElementById("name");
 const scoreInput = document.getElementById("score");
 const submit = document.getElementById("submit");
+const remove = document.getElementById("remove");
 
 const wordList = document.getElementById("wordList");
 
@@ -34,6 +35,9 @@ const newXHR = (action, word, score) => {
 		
 		} else if(action === "add") {
 			xhr.open("GET", `http://localhost:3000/add/${word}/${score}`);
+		
+		} else if(action === "remove") {
+			xhr.open("GET", `http://localhost:3000/remove/${word}`);	
 		}
 
 		xhr.send();
@@ -50,4 +54,20 @@ newXHR("all");
 submit.addEventListener("click", () => {
 	newXHR("add", nameInput.value, scoreInput.value);
 	newXHR("all");
-})
+});
+
+remove.addEventListener("click", () => {
+	newXHR("remove", nameInput.value);
+	newXHR("all");
+});
+
+
+
+
+
+
+
+
+
+
+
