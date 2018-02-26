@@ -57,23 +57,19 @@ const newXHR = (action, word, score) => {
 
 newXHR("all");
 
-document.getElementById("submit")
-	.addEventListener("click", () => {
-		newXHR("add", nameInput.value, scoreInput.value);
-		newXHR("all");
+document.querySelector("body")
+	.addEventListener("click", (event) => {
+		if(event.target.id === "submit") {
+			newXHR("add", nameInput.value, scoreInput.value);
+			
+		} else if(event.target.id === "remove") {
+			newXHR("remove", nameInput.value);
+		}
+
+		newXHR();
 		nameInput.value = "";
 		scoreInput.value = "";
 	});
-
-document.getElementById("remove")
-	.addEventListener("click", () => {
-		newXHR("remove", nameInput.value);
-		newXHR("all");
-		nameInput.value = "";
-		scoreInput.value = "";
-	});
-
-
 
 
 
