@@ -30,7 +30,7 @@ const newXHR = (action, word, score) => {
 				wordList.innerHTML = "<strong>Word list:</strong><br>";
 
 				for(let key in responseObject) {
-					wordList.innerHTML += `${key} = ${responseObject[key]} <br>`
+					wordList.innerHTML += `${key} — ${responseObject[key]} <br>`
 				}
 			} // end if xhr.readyState
 		}; // end onreadystatechange
@@ -61,12 +61,16 @@ document.getElementById("submit")
 	.addEventListener("click", () => {
 		newXHR("add", nameInput.value, scoreInput.value);
 		newXHR("all");
+		nameInput.value = "";
+		scoreInput.value = "";
 	});
 
 document.getElementById("remove")
 	.addEventListener("click", () => {
 		newXHR("remove", nameInput.value);
 		newXHR("all");
+		nameInput.value = "";
+		scoreInput.value = "";
 	});
 
 
