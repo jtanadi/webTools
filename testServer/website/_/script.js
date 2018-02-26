@@ -7,14 +7,20 @@ vanilla JS implementation of front-end
 
 const nameInput = document.getElementById("name");
 const scoreInput = document.getElementById("score");
-const submit = document.getElementById("submit");
-const remove = document.getElementById("remove");
-
 const wordList = document.getElementById("wordList");
 
 const newXHR = (action, word, score) => {
+	/* (str[, str, num])
+	
+	This function deals with all XMLHttpRequest stuff:
+	- Instantiate new XMLHttpRequest object
+	- Open connection based on action parameter
+	- Send data
+	- Update wordList (if action === "all")
+	*/
 	const xhr = new XMLHttpRequest();
-	if(action === "all") {
+
+	if(typeof action === "undefined" || action === "all") {
 		xhr.open("GET", `http://localhost:3000/all`);
 		xhr.send();
 		
@@ -51,15 +57,17 @@ const newXHR = (action, word, score) => {
 
 newXHR("all");
 
-submit.addEventListener("click", () => {
-	newXHR("add", nameInput.value, scoreInput.value);
-	newXHR("all");
-});
+document.getElementById("submit")
+	.addEventListener("click", () => {
+		newXHR("add", nameInput.value, scoreInput.value);
+		newXHR("all");
+	});
 
-remove.addEventListener("click", () => {
-	newXHR("remove", nameInput.value);
-	newXHR("all");
-});
+document.getElementById("remove")
+	.addEventListener("click", () => {
+		newXHR("remove", nameInput.value);
+		newXHR("all");
+	});
 
 
 
