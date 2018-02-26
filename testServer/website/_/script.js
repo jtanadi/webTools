@@ -40,13 +40,19 @@ const newXHR = (action, word, score) => {
 			xhr.open("GET", `/search/${word}`);
 		
 		} else if(action === "add") {
-			xhr.open("GET", `/add/${word}/${score}`);
+			xhr.open("POST", "/add");
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			let objToSend = {
+				word: word,
+				score: score
+			}
+			xhr.send(JSON.stringify(objToSend));
 		
 		} else if(action === "remove") {
 			xhr.open("GET", `/remove/${word}`);	
+			xhr.send();
 		}
 
-		xhr.send();
 		xhr.onreadystatechange = () => {
 			if(xhr.readyState === 4) {
 				console.log(xhr.responseText);
