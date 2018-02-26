@@ -46,5 +46,4 @@ btnContainer.addEventListener("click", event => {
 
   document.querySelector(".test")
     .classList.toggle("hide");
-
 });
