@@ -21,7 +21,7 @@ const newXHR = (action, word, score) => {
 	const xhr = new XMLHttpRequest();
 
 	if(typeof action === "undefined" || action === "all") {
-		xhr.open("GET", `http://localhost:3000/all`);
+		xhr.open("GET", `/all`);
 		xhr.send();
 		
 		xhr.onreadystatechange = () => {
@@ -37,13 +37,13 @@ const newXHR = (action, word, score) => {
 
 	} else {
 		if(action === "search") {
-			xhr.open("GET", `http://localhost:3000/search/${word}`);
+			xhr.open("GET", `/search/${word}`);
 		
 		} else if(action === "add") {
-			xhr.open("GET", `http://localhost:3000/add/${word}/${score}`);
+			xhr.open("GET", `/add/${word}/${score}`);
 		
 		} else if(action === "remove") {
-			xhr.open("GET", `http://localhost:3000/remove/${word}`);	
+			xhr.open("GET", `/remove/${word}`);	
 		}
 
 		xhr.send();
@@ -61,14 +61,16 @@ document.querySelector("body")
 	.addEventListener("click", (event) => {
 		if(event.target.id === "submit") {
 			newXHR("add", nameInput.value, scoreInput.value);
+			nameInput.value = "";
+			scoreInput.value = "";
 			
 		} else if(event.target.id === "remove") {
 			newXHR("remove", nameInput.value);
+			nameInput.value = "";
+			scoreInput.value = "";
 		}
 
 		newXHR();
-		nameInput.value = "";
-		scoreInput.value = "";
 	});
 
 
