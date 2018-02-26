@@ -60,7 +60,6 @@ app.get("/search/:word", (request, response) => {
 	}
 
 	response.send(reply);
-	
 });
 
 
