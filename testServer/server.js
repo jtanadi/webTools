@@ -38,21 +38,22 @@ app.get("/add/:word/:score?", (request, response) => {
 		words[request.params.word] = score;
 
 		fs.writeFile("words.json", JSON.stringify(words, null, 2), (err) => {
-			console.log("OK");	
+			console.log("Word added");	
 			reply = {
 				status: "success",
 				word: request.params.word,
 				score: words[request.params.word]
 			};
 			response.send(reply);
-		});
-	}
-});
+		}); // end writeFile's callback
+	} // end else
+}); // end add
 
 // Search word
 app.get("/search/:word", (request, response) => {
 	const word = request.params.word;
 	let reply;
+
 	if(words[word]) {
 		reply = {
 			status: "found",
@@ -69,6 +70,32 @@ app.get("/search/:word", (request, response) => {
 
 	response.send(reply);
 });
+
+// Delete word
+app.get("/remove/:word", (request, response) => {
+	const word = request.params.word;
+	let reply;
+
+	if(!words[word]) {
+		reply = {
+			status: "Failed. Word not found",
+			word: request.params.word
+		};
+		response.send(reply);
+	
+	} else {
+		delete words[request.params.word];
+
+		fs.writeFile("words.json", JSON.stringify(words, null, 2), (err) => {
+			console.log("Word deleted");
+			reply = {
+				status: "success",
+				word: request.params.word,
+			};
+			response.send(reply);
+		}); //end writeFile's callback
+	} // end else
+}); // end delete
 
 
 
