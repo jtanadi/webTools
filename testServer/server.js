@@ -8,8 +8,6 @@ console.log("Server is starting");
 const fs = require("fs");
 let words = JSON.parse(fs.readFileSync("words.json"));
 
-console.log(words);
-
 const express = require("express");
 const app = express();
 
@@ -30,7 +28,10 @@ app.get("/add/:word/:score?", (request, response) => {
 	let reply;
 
 	if(!score) {
-		reply = {"message": "Score is required."};
+		reply = {
+			status: "Failed. Score is required",
+			word: request.params.word
+		};
 		response.send(reply);
 	
 	} else {
@@ -39,9 +40,9 @@ app.get("/add/:word/:score?", (request, response) => {
 		fs.writeFile("words.json", JSON.stringify(words, null, 2), (err) => {
 			console.log("OK");	
 			reply = {
-				"word": request.params.word,
-				"score": words[request.params.word],
-				"status": "success"
+				status: "success",
+				word: request.params.word,
+				score: words[request.params.word]
 			};
 			response.send(reply);
 		});
