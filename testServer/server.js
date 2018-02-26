@@ -3,19 +3,18 @@ Based on Daniel Shiffman's Session 8: Building an API with Node.js and Express
 https://www.youtube.com/playlist?list=PLRqwX-V7Uu6Yyn-fBtGHfN0_xCtBwUkBp
 */
 
-let words = {
-	"hello": 3,
-	"bye": 2
-}
-
 console.log("Server is starting");
+
+const fs = require("fs");
+let words = JSON.parse(fs.readFileSync("words.json"));
+
+console.log(words);
 
 const express = require("express");
 const app = express();
 
 const server = app.listen(3000, () => {
 	console.log("listening...");
-	console.log('ba')
 });
 
 app.use(express.static("website"));
@@ -32,13 +31,21 @@ app.get("/add/:word/:score?", (request, response) => {
 
 	if(!score) {
 		reply = {"message": "Score is required."};
+		response.send(reply);
 	
 	} else {
 		words[request.params.word] = score;
-		reply = {"message": "Thank you for your word."};
-	}
 
-	response.send(reply);
+		fs.writeFile("words.json", JSON.stringify(words, null, 2), (err) => {
+			console.log("OK");	
+			reply = {
+				"word": request.params.word,
+				"score": words[request.params.word],
+				"status": "success"
+			};
+			response.send(reply);
+		});
+	}
 });
 
 // Search word
