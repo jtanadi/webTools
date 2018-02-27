@@ -14,7 +14,8 @@ const app = express();
 let words = JSON.parse(fs.readFileSync("words.json"));
 
 const server = app.listen(3000, () => {
-	console.log("listening...");
+	console.log("Server started at http://localhost:3000");
+	console.log("Listening . . .");
 });
 
 app.use(express.static("website"));
@@ -26,40 +27,32 @@ app.get("/all", (request, response) => {
 	response.send(words);
 });
 
-// Add word: score pair
-// app.get("/add/:word/:score?", (request, response) => {
-// 	const score = parseInt(request.params.score);
-// 	let reply;
-
-// 	if(!score) {
-// 		reply = {
-// 			status: "Failed. Score is required",
-// 			word: request.params.word
-// 		};
-// 		response.send(reply);
-	
-// 	} else {
-// 		words[request.params.word] = score;
-
-// 		fs.writeFile("words.json", JSON.stringify(words, null, 2), (err) => {
-// 			console.log("Word added");	
-// 			reply = {
-// 				status: "success",
-// 				word: request.params.word,
-// 				score: words[request.params.word]
-// 			};
-// 			response.send(reply);
-// 		}); // end writeFile's callback
-// 	} // end else
-// }); // end add
-
+// Add using post
 app.post("/add", (request, response) => {
-	console.log(request.body);
-	let reply = {
-		status: "works"
-	}
+	const word = request.body.word;
+	const score = parseInt(request.body.score);
+	let reply;
 
-	response.send(reply);
+	if(!score) {
+		reply = {
+			status: "Failed. Score is required",
+			word: word
+		};
+		response.send(reply);
+	
+	} else {
+		words[word] = score;
+
+		fs.writeFile("words.json", JSON.stringify(words, null, 2), (err) => {
+			console.log("Word added");	
+			reply = {
+				status: "success",
+				word: word,
+				score: score
+			};
+			response.send(reply);
+		}); // end writeFile's callback		
+	} //end else
 }); // end post
 
 
