@@ -5,22 +5,23 @@ https://www.youtube.com/playlist?list=PLRqwX-V7Uu6Yyn-fBtGHfN0_xCtBwUkBp
 
 console.log("Server is starting");
 
-const express = require("express");
-const bodyParser = require('body-parser');
-const fs = require("fs");
+const express = require("express"),
+	cors = require("cors"),
+	bodyParser = require('body-parser'),
+	fs = require("fs");
 
 const app = express();
-
 let words = JSON.parse(fs.readFileSync("words.json"));
+
+app.use(express.static("website"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
 
 const server = app.listen(3000, () => {
 	console.log("Server started at http://localhost:3000");
 	console.log("Listening . . .");
 });
-
-app.use(express.static("website"));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 // Show all
 app.get("/all", (request, response) => {
