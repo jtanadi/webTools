@@ -41,7 +41,7 @@ const newXHR = (action, word, score) => {
 		
 		} else if(action === "add") {
 			xhr.open("POST", "/add");
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 			let objToSend = {
 				word: word,
 				score: score
