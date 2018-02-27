@@ -9,6 +9,14 @@ const nameInput = document.getElementById("name");
 const scoreInput = document.getElementById("score");
 const wordList = document.getElementById("wordList");
 
+const logXHR = (request) => {
+	request.onreadystatechange = () => {
+			if(request.readyState === 4) {
+				console.log(request.responseText);
+			}
+		}; // end onreadystatechange		
+} // end longXHR()
+
 const newXHR = (action, word, score) => {
 	/* (str[, str, num])
 	
@@ -35,29 +43,22 @@ const newXHR = (action, word, score) => {
 			} // end if xhr.readyState
 		}; // end onreadystatechange
 
+	} else if(action === "add") {	
+			xhr.open("POST", "/add");
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+			xhr.send(JSON.stringify({word: word, score: score}));
+			logXHR(xhr);
+
 	} else {
 		if(action === "search") {
 			xhr.open("GET", `/search/${word}`);
 		
-		} else if(action === "add") {
-			xhr.open("POST", "/add");
-			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-			let objToSend = {
-				word: word,
-				score: score
-			}
-			xhr.send(JSON.stringify(objToSend));
-		
 		} else if(action === "remove") {
 			xhr.open("GET", `/remove/${word}`);	
-			xhr.send();
 		}
-
-		xhr.onreadystatechange = () => {
-			if(xhr.readyState === 4) {
-				console.log(xhr.responseText);
-			}
-		}; // end onreadystatechange		
+		
+		xhr.send();
+		logXHR(xhr);
 	} // end else
 }; // end newXHR()
 
