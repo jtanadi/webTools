@@ -93,3 +93,9 @@ const mainGallery = new ContentCollection(
 );
 console.log(mainGallery.returnCodes()); // ["TH_EX01_GP01", "TH_EX01_GP02", "TH_EX01_GP03"]
 ```
+
+### Additional methods
+Also, should methods be public?
+  - ```ContentCollection.prototype.checkCodeDupes()``` -> Checks whether there are duplicated content codes
+  - ```ContentObj.prototype.hasTitle()``` -> Helper function; returns true if this.contentTitle exists.
+  - RegEx stuff for content collection? Filtering, etc.?
