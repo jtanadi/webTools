@@ -28,6 +28,18 @@ const ContentCollection = function(contents) {
   }
 }
 
+
+const story1 = new ContentObj("TH_EX01_GP01", "The War", "Lorem ipsum dolor, bla");
+const story2 = new ContentObj("TH_EX01_GP02", "Post War", "Lorem ipsum dolor, bla");
+
+const collection = new ContentCollection([story1, story2]);
+console.log(collection.returnCodes());
+
+story1.contentCode = "BEEP"
+console.log(collection.returnCodes());
+
+
+
 const input = [
   ["TH_EX01_GP01", "Title 1", "Lorem ipsum dolor, bla"],
   ["TH_EX01_GP02", "Title 2", "Lorem ipsum dolor, bla"],
@@ -42,8 +54,3 @@ const mainGallery = new ContentCollection(
 );
 
 console.log(mainGallery.returnCodes());
-
-// for(let obj in mainGallery) {
-//   console.log(obj.contentCode)
-// }
-
