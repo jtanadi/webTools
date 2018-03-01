@@ -36,8 +36,7 @@ const ContentCollection = function(contents) {
 }
 ```
 
-
-## Basic use:
+### Basic use:
 ```javascript
 const story1 = new ContentObj("TH_EX01_GP01", "Title 1", "Lorem ipsum dolor, bla");
 const story2 = new ContentObj("TH_EX01_GP02", "Title 2", "Lorem ipsum dolor, bla");
@@ -46,8 +45,7 @@ const collection = new ContentCollection([story1, story2]);
 console.log(collection.returnCodes()); // ["TH_EX02_GP01", "TH_EX02_GP02"]
 ```
 
-
-## Other uses:
+### Other uses:
 If "input" is an array of arrays of unlabelled strings, but with repeating the pattern:
   - input[i][0] = Content code
   - input[i][1] = Content title
