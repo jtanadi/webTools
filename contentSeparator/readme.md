@@ -71,23 +71,19 @@ ContentCollection.prototype = {
 ```
 
 **Object literal**<br>
-If we don't need multiple instances, maybe this is better.
+Is this more JS-style? We can use Object.create() to create new objects with the same prototype.
 
 ```javascript
 const contentCollection = {
-  contents: [
-    {
-      code: "TH_EX01_GP01",
-      title: "Lorem Ipsum",
-      body:  "Lorem ipsum dolor sit amet"
-    }
-  ],
-  size: this.contents.length,
-
-  addContent: (obj) => {
-    this.contents.push(obj);
+  contents: [],
+  get size () {
+    return this.contents.length
   },
-  getDupes: () => {
+  // Rest arg & using spread to push
+  addContent: function(...objs) {
+    this.contents.push(...objs);
+  },
+  getDupes: function() {
     let seen = [];
     return this.contents.reduce((dupes, content) => {
       if(seen.includes(content)) {
@@ -99,7 +95,7 @@ const contentCollection = {
       return dupes;
     }, []);
   },
-  returnCodes: () => {
+  returnCodes: function() {
     return this.contents.reduce((codesList, code) => {
       codesList.push(code.contentCode);
       return codesList;
