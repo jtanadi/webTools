@@ -1,6 +1,6 @@
 # Content Separator
-Some notes for a work-in-progress content separator web app for RAA.
-The original implementation of this project is a Python script.
+Some notes for a work-in-progress content separator web app for RAA.<br>
+The original implementation of this project is a Python script with no UI & lots of duct tape.
 
 
 ## Potential objects
