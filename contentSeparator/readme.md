@@ -28,12 +28,12 @@ ContentObj.prototype.returnAsArray = () => {
 }
 ```
 
-### A content collection
+### Content collection
 Maybe a gallery, or just a convenient way to group a bunch of content objects. Has some methods to help analyze the collection (size, if there are dupes, etc.). There might be more that can be pulled from [here](https://github.com/jtanadi/jsFuncs).
 
 The collection can be expressed in a couple of different ways. Not sure which is best yet.
 
-**Constructor function**
+**Constructor function**<br>
 Might need several instances? Not sure if that's true.
 
 ```javascript
@@ -70,7 +70,7 @@ ContentCollection.prototype = {
 }
 ```
 
-**Object literal**
+**Object literal**<br>
 If we don't need multiple instances, maybe this is better.
 
 ```javascript
@@ -108,7 +108,7 @@ const contentCollection = {
 }
 ```
 
-**Map object?**
+**Map object?**<br>
 Similar to a Python dictionary... and already has built-in properties and methods, some of which might be useful for this project:
   - Map.prototype.size
   - Map.prototype.clear()
