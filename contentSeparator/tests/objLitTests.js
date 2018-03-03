@@ -9,7 +9,7 @@ const ContentObj = function(code, title, body) {
   this.contentBody = body;
 };
 
-ContentObj.prototype.returnAsArray = () => {
+ContentObj.prototype.returnAsArray = function() {
   return [this.contentCode, this.contentTitle, this.contentBody];
 }
 

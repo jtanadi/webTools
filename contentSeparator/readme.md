@@ -23,7 +23,7 @@ const ContentObj = function(code, title = "", body) {
   this.contentBody = body;
 }
 
-ContentObj.prototype.returnAsArray = () => {
+ContentObj.prototype.returnAsArray = function() {
   return [this.contentCode, this.contentTitle, this.contentBody];
 }
 ```
@@ -46,10 +46,10 @@ const ContentCollection = function(contents) {
 }
 
 ContentCollection.prototype = {
-  addContent: (obj) => {
+  addContent: function(obj){
     this.contentObjs.push(obj);
   },
-  getDupes: () => {
+  getDupes: function() {
     let seen = [];
     return this.contentObjs.reduce((dupes, content) => {
       if(seen.includes(content)) {
@@ -61,7 +61,7 @@ ContentCollection.prototype = {
       return dupes;
     }, []);
   },
-  returnCodes: () => {
+  returnCodes: function() {
     return this.contentObjs.reduce((codesList, code) => {
       codesList.push(code.contentCode);
       return codesList;

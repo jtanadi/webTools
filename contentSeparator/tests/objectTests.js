@@ -1,30 +1,49 @@
-const ContentObj = function(code, title, body) {
+const ContentObj = function(code, title = "", body) {
   /* (str, str, str)
   Content object constructor function.
   Each object holds content code, title, and body.
+  Title defaults to empty string.
   */
   
   this.contentCode = code;
   this.contentTitle = title;
   this.contentBody = body;
-};
+}
 
-ContentObj.prototype.returnAsArray = () => {
+ContentObj.prototype.returnAsArray = function() {
   return [this.contentCode, this.contentTitle, this.contentBody];
 }
 
-
 const ContentCollection = function(contents) {
   /* (arr of ContentObj)
+  A collection object that holds script objects
   */
   this.contentObjs = contents;
-};
+  this.size = this.contentObjs.length;
+}
 
-ContentCollection.prototype.returnCodes = () => {
-  return this.contentObjs.reduce((list, code) => {
-    list.push(code.contentCode);
-    return list;
-  }, []);
+ContentCollection.prototype = {
+  addContent: function(obj){
+    this.contentObjs.push(obj);
+  },
+  getDupes: function() {
+    let seen = [];
+    return this.contentObjs.reduce((dupes, content) => {
+      if(seen.includes(content)) {
+        dupes.push(content);
+      } else {
+        seen.push(content);
+      }
+
+      return dupes;
+    }, []);
+  },
+  returnCodes: function() {
+    return this.contentObjs.reduce((codesList, code) => {
+      codesList.push(code.contentCode);
+      return codesList;
+    }, []);
+  }
 }
 
 // Test functions... keeping things private w/ IIFEs
@@ -42,7 +61,7 @@ ContentCollection.prototype.returnCodes = () => {
     const story3 = new ContentObj("TH_EX01_GP03", "Post War", "Lorem ipsum dolor, bla");
   
     const collection = new ContentCollection([story1, story2, story3]);
-  
+    
     return collection.returnCodes();
   }();
   
@@ -66,6 +85,7 @@ ContentCollection.prototype.returnCodes = () => {
         return arr;
       }, [])
     );
+
     return mainGallery.returnCodes();
   }();
   
