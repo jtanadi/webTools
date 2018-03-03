@@ -4,7 +4,8 @@ The original implementation of this project is a Python script.
 
 
 ## Potential objects
-**A content object.** Typically holds:
+### Content object
+Typically holds:
   - A content code (ie. "TH_EX01_PT01")
   - Title for that content
   - Body text for that content
@@ -27,11 +28,12 @@ ContentObj.prototype.returnAsArray = () => {
 }
 ```
 
-**A content collection** — maybe a gallery, or just a convenient way to group a bunch of content objects. Has some methods to help analyze the collection (size, if there are dupes, etc.). There might be more that can be pulled from [here](https://github.com/jtanadi/jsFuncs).
+### A content collection
+Maybe a gallery, or just a convenient way to group a bunch of content objects. Has some methods to help analyze the collection (size, if there are dupes, etc.). There might be more that can be pulled from [here](https://github.com/jtanadi/jsFuncs).
 
 The collection can be expressed in a couple of different ways. Not sure which is best yet.
 
-### Constructor function
+**Constructor function**
 Might need several instances? Not sure if that's true.
 
 ```javascript
@@ -68,7 +70,7 @@ ContentCollection.prototype = {
 }
 ```
 
-### Object literal
+**Object literal**
 If we don't need multiple instances, maybe this is better.
 
 ```javascript
@@ -106,7 +108,7 @@ const contentCollection = {
 }
 ```
 
-### Map object?
+**Map object?**
 Similar to a Python dictionary... and already has built-in properties and methods, some of which might be useful for this project:
   - Map.prototype.size
   - Map.prototype.clear()
