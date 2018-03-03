@@ -14,26 +14,26 @@ const ContentObj = function(code, title, body) {
   this.contentCode = code;
   this.contentTitle = title;
   this.contentBody = body;
-
-  // Privileged function. Keep here? Make public?
-  this.returnAsArray = () => {
-    return [this.contentCode, this.contentTitle, this.contentBody];
-  }
 }
+
+ContentObj.prototype.returnAsArray = () => {
+  return [this.contentCode, this.contentTitle, this.contentBody];
+}
+
 
 const ContentCollection = function(contents) {
   /* (arr of ContentObj)
   */
   this.contentObjs = contents;
-  
-  // Privileged function. Keep here? Make public?
-  this.returnCodes = () => {
-    return this.contentObjs.reduce((list, code) => {
-      list.push(code.contentCode);
-      return list;
-    }, []);
-  }
 }
+
+ContentCollection.prototype.returnCodes = () => {
+  return this.contentObjs.reduce((list, code) => {
+    list.push(code.contentCode);
+    return list;
+  }, []);
+}
+
 ```
 
 ### Basic use
@@ -95,7 +95,6 @@ console.log(mainGallery.returnCodes()); // ["TH_EX01_GP01", "TH_EX01_GP02", "TH_
 ```
 
 ### Additional methods
-Also, should methods be public?
   - ```ContentCollection.prototype.checkCodeDupes()``` -> Checks whether there are duplicated content codes
   - ```ContentObj.prototype.hasTitle()``` -> Helper function; returns true if this.contentTitle exists.
   - RegEx stuff for content collection? Filtering, etc.?
