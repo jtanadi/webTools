@@ -45,8 +45,8 @@ const contentObj = (contentCode, contentTitle = "", contentBody) => {
     returnAsArray: () => {
       return [contentCode, contentTitle, contentBody];
     }
-  };
-}
+  }; // end return object
+} // end factory function
 ```
 
 ### Content collection
@@ -93,6 +93,7 @@ ContentCollection.prototype = {
 
 **Object literal**<br>
 Is this more JS-style? We can use Object.create() to create new objects with the same prototype.
+But we can't pass in content objects right away...
 
 ```javascript
 const contentCollection = {
@@ -129,7 +130,13 @@ const contentCollection = {
 Again, a little easier to use?
 ```javascript
 const contentCollection = (contentObjects) => {
-  let contentsArray = [contentObjects];
+  // Needs this in case no contentObjects are passed
+  // Because all the returned 'methods' are run no matter what
+  let contentsArray = [];
+  if(contentObjects) {
+    contentsArray = [contentObjects];
+  } 
+
   return {
     contents: contentsArray,
     size: contents.length,
@@ -155,10 +162,7 @@ const contentCollection = (contentObjects) => {
     } // end returnCodes()
   } // end return object
 } // end factory function
-
-
 ```
-
 
 **Map object?**<br>
 Similar to a Python dictionary... and already has built-in properties and methods, some of which might be useful for this project:
@@ -170,6 +174,7 @@ Similar to a Python dictionary... and already has built-in properties and method
 
 
 ## Usage
+**_Need to spread this over the object creation methods above_**
 Some notes / thoughts on how these objects should / could be used
 
 ### Basic use
@@ -244,7 +249,3 @@ console.log(mainGallery.returnCodes()); // ["TH_EX01_GP01", "TH_EX01_GP02", "TH_
   - How many times will ContentCollection be instantiated per run?
   - Should ContentCollection be a Map instead?
   - Should ContentCollection be an object literal instead?
-
-```javascript
-
-```
