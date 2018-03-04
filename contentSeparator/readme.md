@@ -32,7 +32,7 @@ ContentObj.prototype.returnAsArray = function() {
 **Factory function**<br>
 Seems a bit simpler for this use-case.
 ```javascript
-const contentObj = function(code, title = "", body) {
+const contentObj = (code, title = "", body) => {
   return {
     code,
     title,
@@ -42,7 +42,6 @@ const contentObj = function(code, title = "", body) {
     }
   };
 }
-
 ```
 
 ### Content collection

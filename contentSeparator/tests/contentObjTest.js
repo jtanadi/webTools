@@ -14,7 +14,7 @@ ContentObj.prototype.returnAsArray = function() {
   return [this.contentCode, this.contentTitle, this.contentBody];
 }
 
-const contentObj = function(code, title = "", body) {
+const contentObj = (code, title = "", body) => {
   return {
     code,
     title,
