@@ -32,13 +32,18 @@ ContentObj.prototype.returnAsArray = function() {
 **Factory function**<br>
 Seems a bit simpler for this use-case.
 ```javascript
-const contentObj = (code, title = "", body) => {
+const contentObj = (contentCode, contentTitle = "", contentBody) => {
+  /* (str, str, str) -> {str, str, str}
+  Content object factory function.
+  Each object holds content code, title, and body.
+  Title defaults to empty string.
+  */
   return {
-    code,
-    title,
-    body,
+    contentCode,
+    contentTitle,
+    contentBody,
     returnAsArray: () => {
-      return [code, title, body];
+      return [contentCode, contentTitle, contentBody];
     }
   };
 }
@@ -112,13 +117,48 @@ const contentCollection = {
     }, []);
   },
   returnCodes: function() {
-    return this.contents.reduce((codesList, code) => {
-      codesList.push(code.contentCode);
+    return this.contents.reduce((codesList, content) => {
+      codesList.push(content.contentCode);
       return codesList;
     }, []);
   }
 }
 ```
+
+**Factory function**<br>
+Again, a little easier to use?
+```javascript
+const contentCollection = (contentObjects) => {
+  let contentsArray = [contentObjects];
+  return {
+    contents: contentsArray,
+    size: contents.length,
+    addContent: (...objs) => {
+      contentsArray.push(...objs)
+    },
+    getDupes: () => {
+      let seen = [];
+      return contentsArray.reduce((dupeList, content) => {
+        if(seen.includes(content)) {
+          dupeList.push(content);
+        } else {
+          seen.push(content);
+        }
+        return dupeList;
+      }, []);
+    },
+    returnCodes: () => {
+      return contentsArray.reduce((codesList, content) => {
+        codesList.push(content.contentCode);
+        return codesList;
+      }, []);
+    } // end returnCodes()
+  } // end return object
+} // end factory function
+
+
+```
+
 
 **Map object?**<br>
 Similar to a Python dictionary... and already has built-in properties and methods, some of which might be useful for this project:
