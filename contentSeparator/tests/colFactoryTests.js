@@ -14,38 +14,43 @@ const contentObj = (contentCode, contentTitle = "", contentBody) => {
   }; // end return object
 } // end factory function
 
-const contentCollection = (contentObjects) => {
-  // Needs this in case no contentObjects are passed
-  // Because all the returned 'methods' are run no matter what
-  let contentsArray = [];
-  if(contentObjects) {
-    contentsArray = [contentObjects];
-  } 
-  
+const contentCollection = (contentObjects, ...moreObjs) => {
+  let contentsArray;
+  if(typeof contentObjects === "undefined") {
+    contentsArray = [];
+  } else {
+    // Allows collection to be initialized
+    // with an array or a series of objects
+    if(Array.isArray(contentObjects)) {
+      contentsArray = contentObjects;
+    } else {
+      contentsArray = [contentObjects]
+      contentsArray.push(...moreObjs)
+    }
+  }
   return {
     contents: contentsArray,
-    size: contentsArray.length,
+    get size () {return contentsArray.length},
     addContent: (...objs) => {
       contentsArray.push(...objs)
     },
     getDupes: () => {
       let seen = [];
       return contentsArray.reduce((dupeList, content) => {
-        if(seen.includes(content)) {
-          dupeList.push(content);
+        if(seen.includes(content.contentCode)) {
+          dupeList.push(content.contentCode);
         } else {
-          seen.push(content);
+          seen.push(content.contentCode);
         }
         return dupeList;
       }, []);
     },
     returnCodes: () => {
-      // if(typeof contentsArray === "undefined")
       return contentsArray.reduce((codesList, content) => {
         codesList.push(content.contentCode);
         return codesList;
       }, []);
-    } // end returnCodes()
+    } 
   }; // end return object
 } // end factory function
 
@@ -56,40 +61,49 @@ const contentCollection = (contentObjects) => {
   const actual1 = function() {
     /*() -> arr of strings
 
-    This test creates 3 instances of ContentObj, passes them into an instance
-    of ContentCollect, and returns an array of content codes.
+    This test creates 3 instances of contentObj, passes them into
+    an instance of contentCollect, and returns it.
     */
     const story1 = contentObj("TH_EX01_GP01", "The War", "Lorem ipsum dolor, bla");
     const story2 = contentObj("TH_EX01_GP02", "Post War", "Lorem ipsum dolor, bla");
     const story3 = contentObj("TH_EX01_GP03", "Post War", "Lorem ipsum dolor, bla");
   
-    const collection = contentCollection();
-    collection.addContent(story1, story2, story3);
-    return collection.returnCodes();
+    const collection = contentCollection(story1, story2, story3);
+    console.log(collection.contents)
+    console.log(collection.returnCodes())
+    return collection;
   }();
   
   
-  // const actual2 = function() {
-  //   /*() -> arr of strings
+  const actual2 = function() {
+    /*() -> arr of strings
 
-  //   This test reduces an input array into an array of ContentObj,
-  //   which is then passed into an instance of ContentCollection.
-  //   The test returns an array of content codes.
-  //   */
-  //   const input = [
-  //     ["TH_EX01_GP01", "Title 1", "Lorem ipsum dolor, bla"],
-  //     ["TH_EX01_GP02", "Title 2", "Lorem ipsum dolor, bla"],
-  //     ["TH_EX01_GP03", "Title 3", "Lorem ipsum dolor, bla"]
-  //   ]
+    This test reduces an input array into an array of contentObj,
+    passes them into an instance of contentCollection,which is returned.
+    */
+    const input = [
+      ["TH_EX01_GP01", "Title 1", "Lorem ipsum dolor, bla"],
+      ["TH_EX01_GP02", "Title 2", "Lorem ipsum dolor, bla"],
+      ["TH_EX01_GP03", "Title 3", "Lorem ipsum dolor, bla"]
+    ]
     
-  //   const collection = Object.create(contentCollection);
-  //   collection.addContent(input);
-  //   return collection.returnCodes();
-  // }();
+    const collection = contentCollection();
+    for(let content of input) {
+      collection.addContent(
+        contentObj(content[0], content[1], content.slice(2)));
+    }
+    console.log(collection.contents)
+    console.log(collection.returnCodes())
+    return collection;
+  }();
   
+  console.assert(actual1.size === expected.length, "actual1 size !== expected");
+  console.assert(actual2.size === expected.length, "actual2 size !== expected");
   
-  for(let i = 0; i < actual1.length; i++) {
-    console.assert(actual1[i] === expected[i], "actual1 failed");
-    // console.assert(actual2[i] === expected[i], "actual2 failed");
+  const codes1 = actual1.returnCodes();
+  const codes2 = actual2.returnCodes();
+  for(let i = 0; i < codes1.length; i++) {
+    console.assert(codes1[i] === expected[i], "codes1 !== expected");
+    console.assert(codes2[i] === expected[i], "codes2 !== expected");
   }    
 }();
