@@ -14,65 +14,58 @@ ContentObj.prototype.returnAsArray = function() {
   return [this.contentCode, this.contentTitle, this.contentBody];
 }
 
-const contentObj = (code, title = "", body) => {
+const contentObj = (contentCode, contentTitle = "", contentBody) => {
+  /* (str, str, str) -> {str, str, str}
+  Content object factory function.
+  Each object holds content code, title, and body.
+  Title defaults to empty string.
+  */
   return {
-    code,
-    title,
-    body,
+    contentCode,
+    contentTitle,
+    contentBody,
     returnAsArray: () => {
-      return [code, title, body];
+      return [contentCode, contentTitle, contentBody];
     }
   };
 }
 
 
 
-// // Test functions... keeping things private w/ IIFEs
-// !function() {
-//   const expected = ["TH_EX01_GP01", "TH_EX01_GP02", "TH_EX01_GP03"]
-
-//   const actual1 = function() {
-//     /*() -> arr of strings
-
-//     This test creates 3 instances of ContentObj, passes them into an instance
-//     of ContentCollect, and returns an array of content codes.
-//     */
-//     const story1 = new ContentObj("TH_EX01_GP01", "The War", "Lorem ipsum dolor, bla");
-//     const story2 = new ContentObj("TH_EX01_GP02", "Post War", "Lorem ipsum dolor, bla");
-//     const story3 = new ContentObj("TH_EX01_GP03", "Post War", "Lorem ipsum dolor, bla");
+// Test functions... keeping things private w/ IIFEs
+!function() {
+  const expected = ["TH_EX01_GP01", "TH_EX01_GP02", "TH_EX01_GP03"];
   
-//     const collection = new ContentCollection([story1, story2, story3]);
+  const actual1 = function() {
+    /*() -> arr of strings
+
+    This test creates 3 instances of ContentObj (constructor function)
+    checks each contentObj.contentCode matches the expected codes.
+    */
+    const story1 = new ContentObj("TH_EX01_GP01", "The War", "Lorem ipsum dolor, bla");
+    const story2 = new ContentObj("TH_EX01_GP02", "Post War", "Lorem ipsum dolor, bla");
+    const story3 = new ContentObj("TH_EX01_GP03", "Post War", "Lorem ipsum dolor, bla");
     
-//     return collection.returnCodes();
-//   }();
+    return [story1.contentCode, story2.contentCode, story3.contentCode];
+  }();
   
   
-//   const actual2 = function() {
-//     /*() -> arr of strings
+  const actual2 = function() {
+    /*() -> arr of strings
 
-//     This test reduces an input array into an array of ContentObj,
-//     which is then passed into an instance of ContentCollection.
-//     The test returns an array of content codes.
-//     */
-//     const input = [
-//       ["TH_EX01_GP01", "Title 1", "Lorem ipsum dolor, bla"],
-//       ["TH_EX01_GP02", "Title 2", "Lorem ipsum dolor, bla"],
-//       ["TH_EX01_GP03", "Title 3", "Lorem ipsum dolor, bla"]
-//     ]
-  
-//     const mainGallery = new ContentCollection(
-//       input.reduce((arr, item) => {
-//         arr.push(new ContentObj(item[0], item[1], item[2]));
-//         return arr;
-//       }, [])
-//     );
-
-//     return mainGallery.returnCodes();
-//   }();
+    This test creates 3 instances of contentObj (factory function)
+    checks each contentObj.contentCode matches the expected codes.
+    */
+    const story1 = contentObj("TH_EX01_GP01", "The War", "Lorem ipsum dolor, bla");
+    const story2 = contentObj("TH_EX01_GP02", "Post War", "Lorem ipsum dolor, bla");
+    const story3 = contentObj("TH_EX01_GP03", "Post War", "Lorem ipsum dolor, bla");
+    
+    return [story1.contentCode, story2.contentCode, story3.contentCode];
+  }();
   
   
-//   for(let i = 0; i < actual2.length; i++) {
-//     console.assert(actual1[i] === expected[i], "actual1 failed");
-//     console.assert(actual2[i] === expected[i], "actual2 failed");
-//   }    
-// }();
+  for(let i = 0; i < actual1.length; i++) {
+    console.assert(actual1[i] === expected[i], "actual1 failed");
+    // console.assert(actual2[i] === expected[i], "actual2 failed");
+  }    
+}();
