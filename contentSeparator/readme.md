@@ -10,6 +10,7 @@ Typically holds:
   - Title for that content
   - Body text for that content
 
+**Constructor function**
 ```javascript
 const ContentObj = function(code, title = "", body) {
   /* (str, str, str)
@@ -26,6 +27,22 @@ const ContentObj = function(code, title = "", body) {
 ContentObj.prototype.returnAsArray = function() {
   return [this.contentCode, this.contentTitle, this.contentBody];
 }
+```
+
+**Factory function**<br>
+Seems a bit simpler for this use-case.
+```javascript
+const contentObj = function(code, title = "", body) {
+  return {
+    code,
+    title,
+    body,
+    returnAsArray: () => {
+      return [code, title, body];
+    }
+  };
+}
+
 ```
 
 ### Content collection
