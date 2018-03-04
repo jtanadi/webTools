@@ -23,13 +23,13 @@ const contentCollection = {
 
     return this; // return object (for chaining .init())
   },
-  get size () {
+  get size() {
     return this.contents.length
   },
-  addContent: function(...objs) {
+  addContent(...objs) {
     this.contents.push(...objs);
   },
-  getDupes: function() {
+  getDupes() {
     let seen = [];
     return this.contents.reduce((dupes, content) => {
       if(seen.includes(content)) {
@@ -41,7 +41,7 @@ const contentCollection = {
       return dupes;
     }, []);
   },
-  returnCodes: function() {
+  returnCodes() {
     return this.contents.reduce((codesList, code) => {
       codesList.push(code.contentCode);
       return codesList;

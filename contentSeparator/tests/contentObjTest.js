@@ -24,7 +24,7 @@ const contentObj = (contentCode, contentTitle = "", contentBody) => {
     contentCode,
     contentTitle,
     contentBody,
-    returnAsArray: () => {
+    returnAsArray() {
       return [contentCode, contentTitle, contentBody];
     }
   };

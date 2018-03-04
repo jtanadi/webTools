@@ -25,14 +25,13 @@ const contentCollection = (contentObjects, ...moreObjs) => {
   } else {
     contentsArray = [contentObjects, ...moreObjs]
   }
-  
   return {
     contents: contentsArray,
-    get size () {return contentsArray.length},
-    addContent: (...objs) => {
+    get size() {return contentsArray.length},
+    addContent(...objs) {
       contentsArray.push(...objs)
     },
-    getDupes: () => {
+    getDupes() {
       let seen = [];
       return contentsArray.reduce((dupeList, content) => {
         if(seen.includes(content.contentCode)) {
@@ -43,12 +42,12 @@ const contentCollection = (contentObjects, ...moreObjs) => {
         return dupeList;
       }, []);
     },
-    returnCodes: () => {
+    returnCodes() {
       return contentsArray.reduce((codesList, content) => {
         codesList.push(content.contentCode);
         return codesList;
       }, []);
-    } 
+    }
   }; // end return object
 } // end factory function
 

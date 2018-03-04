@@ -42,7 +42,7 @@ const contentObj = (contentCode, contentTitle = "", contentBody) => {
     contentCode,
     contentTitle,
     contentBody,
-    returnAsArray: () => {
+    returnAsArray() {
       return [contentCode, contentTitle, contentBody];
     }
   }; // end return object
@@ -67,10 +67,10 @@ const ContentCollection = function(contents) {
 }
 
 ContentCollection.prototype = {
-  addContent: function(obj){
+  addContent(obj) {
     this.contentObjs.push(obj);
   },
-  getDupes: function() {
+  getDupes() {
     let seen = [];
     return this.contentObjs.reduce((dupes, content) => {
       if(seen.includes(content)) {
@@ -82,7 +82,7 @@ ContentCollection.prototype = {
       return dupes;
     }, []);
   },
-  returnCodes: function() {
+  returnCodes() {
     return this.contentObjs.reduce((codesList, code) => {
       codesList.push(code.contentCode);
       return codesList;
@@ -105,13 +105,13 @@ const contentCollection = {
     
     return this; // return object (for chaining .init())
   },
-  get size () {
+  get size() {
     return this.contents.length
   },
-  addContent: function(...objs) {
+  addContent(...objs) {
     this.contents.push(...objs);
   },
-  getDupes: function() {
+  getDupes() {
     let seen = [];
     return this.contents.reduce((dupes, content) => {
       if(seen.includes(content)) {
@@ -123,7 +123,7 @@ const contentCollection = {
       return dupes;
     }, []);
   },
-  returnCodes: function() {
+  returnCodes() {
     return this.contents.reduce((codesList, code) => {
       codesList.push(code.contentCode);
       return codesList;
@@ -149,11 +149,11 @@ const contentCollection = (contentObjects, ...moreObjs) => {
   }
   return {
     contents: contentsArray,
-    get size () {return contentsArray.length},
-    addContent: (...objs) => {
+    get size() {return contentsArray.length},
+    addContent(...objs) {
       contentsArray.push(...objs)
     },
-    getDupes: () => {
+    getDupes() {
       let seen = [];
       return contentsArray.reduce((dupeList, content) => {
         if(seen.includes(content.contentCode)) {
@@ -164,12 +164,12 @@ const contentCollection = (contentObjects, ...moreObjs) => {
         return dupeList;
       }, []);
     },
-    returnCodes: () => {
+    returnCodes() {
       return contentsArray.reduce((codesList, content) => {
         codesList.push(content.contentCode);
         return codesList;
       }, []);
-    } 
+    }
   }; // end return object
 } // end factory function
 ```

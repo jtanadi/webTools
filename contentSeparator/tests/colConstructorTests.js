@@ -23,10 +23,10 @@ const ContentCollection = function(contents) {
 }
 
 ContentCollection.prototype = {
-  addContent: function(obj){
+  addContent(obj){
     this.contentObjs.push(obj);
   },
-  getDupes: function() {
+  getDupes() {
     let seen = [];
     return this.contentObjs.reduce((dupes, content) => {
       if(seen.includes(content)) {
@@ -38,7 +38,7 @@ ContentCollection.prototype = {
       return dupes;
     }, []);
   },
-  returnCodes: function() {
+  returnCodes() {
     return this.contentObjs.reduce((codesList, code) => {
       codesList.push(code.contentCode);
       return codesList;
