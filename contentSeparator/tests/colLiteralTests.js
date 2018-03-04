@@ -14,7 +14,15 @@ ContentObj.prototype.returnAsArray = function() {
 }
 
 const contentCollection = {
-  contents: [],
+  init: function(contents) {
+    this.contents = contents;
+
+    // Some catches that overwrite this.contents
+    if(Array.isArray(contents)) this.contents = [...contents];
+    if(typeof contents === "undefined") this.contents = [];
+
+    return this; // return object (for chaining .init())
+  },
   get size () {
     return this.contents.length
   },
@@ -45,7 +53,7 @@ const contentCollection = {
 !function() {
   const expected = ["TH_EX01_GP01", "TH_EX01_GP02", "TH_EX01_GP03"]
 
-  const actual1 = function() {
+  const actual1 = (function() {
     /*() -> arr of strings
 
     This test creates 3 instances of ContentObj, passes them into an instance
@@ -55,13 +63,16 @@ const contentCollection = {
     const story2 = new ContentObj("TH_EX01_GP02", "Post War", "Lorem ipsum dolor, bla");
     const story3 = new ContentObj("TH_EX01_GP03", "Post War", "Lorem ipsum dolor, bla");
   
-    const collection = Object.create(contentCollection);
-    collection.addContent(story1, story2, story3);
-    return collection.returnCodes();
-  }();
+    // Initialize with array of ContentObjs
+    const collection = 
+      Object.create(contentCollection).init([story1, story2, story3]);
+
+    console.log(collection.contents);
+    return collection;
+  })();
   
   
-  const actual2 = function() {
+  const actual2 = (function() {
     /*() -> arr of strings
 
     This test reduces an input array into an array of ContentObj,
@@ -74,14 +85,27 @@ const contentCollection = {
       ["TH_EX01_GP03", "Title 3", "Lorem ipsum dolor, bla"]
     ]
     
-    const collection = Object.create(contentCollection);
-    collection.addContent(input);
-    return collection.returnCodes();
-  }();
-  
-  
-  for(let i = 0; i < actual1.length; i++) {
-    console.assert(actual1[i] === expected[i], "actual1 failed");
-    console.assert(actual2[i] === expected[i], "actual2 failed");
+    // Initialize with nothing & add ContentObj one by one
+    const collection = Object.create(contentCollection).init();
+    for(let content of input) {
+      collection.addContent(
+        new ContentObj(content[0], content[1], content[2])
+      )
+    }
+    console.log(collection.contents);
+    return collection;
+  })();
+
+  console.assert(actual1.size === expected.length,
+    "actual1 size !== expected length");
+
+  console.assert(actual2.size === expected.length,
+    "actual2 size !== expected length");
+
+  const codes1 = actual1.returnCodes();
+  const codes2 = actual2.returnCodes();
+  for(let i = 0; i < codes1.length; i++) {
+    console.assert(codes1[i] === expected[i], "codes1 failed");
+    console.assert(codes2[i] === expected[i], "codes2 failed");
   }    
 }();
