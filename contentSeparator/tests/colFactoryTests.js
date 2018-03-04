@@ -16,18 +16,16 @@ const contentObj = (contentCode, contentTitle = "", contentBody) => {
 
 const contentCollection = (contentObjects, ...moreObjs) => {
   let contentsArray;
+  
+  // Allow collection to be initialized a variety of ways
   if(typeof contentObjects === "undefined") {
     contentsArray = [];
+  } else if(Array.isArray(contentObjects)) {
+    contentsArray = contentObjects;
   } else {
-    // Allows collection to be initialized
-    // with an array or a series of objects
-    if(Array.isArray(contentObjects)) {
-      contentsArray = contentObjects;
-    } else {
-      contentsArray = [contentObjects]
-      contentsArray.push(...moreObjs)
-    }
+    contentsArray = [contentObjects, ...moreObjs]
   }
+  
   return {
     contents: contentsArray,
     get size () {return contentsArray.length},
