@@ -15,7 +15,7 @@ ContentObj.prototype.returnAsArray = function() {
 
 const contentCollection = {
   init: function(contents) {
-    this.contents = contents;
+    this.contents = [contents];
 
     // Some catches that overwrite this.contents
     if(Array.isArray(contents)) this.contents = [...contents];
