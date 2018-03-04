@@ -92,16 +92,22 @@ ContentCollection.prototype = {
 ```
 
 **Object literal**<br>
-Is this more JS-style? We can use Object.create() to create new objects with the same prototype.
-But we can't pass in content objects right away...
+Is this more JS-style? We can use Object.create() to create new objects with the same prototype. But we still have to "initialize" this object...
 
 ```javascript
 const contentCollection = {
-  contents: [],
+  init: function(contents) {
+    this.contents = [contents];
+    
+    // Some catches that overwrite this.contents
+    if(Array.isArray(contents)) this.contents = [...contents];
+    if(typeof contents === "undefined") this.contents = [];
+    
+    return this; // return object (for chaining .init())
+  },
   get size () {
     return this.contents.length
   },
-  // Rest arg & using spread to push
   addContent: function(...objs) {
     this.contents.push(...objs);
   },
@@ -118,38 +124,42 @@ const contentCollection = {
     }, []);
   },
   returnCodes: function() {
-    return this.contents.reduce((codesList, content) => {
-      codesList.push(content.contentCode);
+    return this.contents.reduce((codesList, code) => {
+      codesList.push(code.contentCode);
       return codesList;
     }, []);
   }
-}
+} // end contentCollection obj
 ```
 
 **Factory function**<br>
 Again, a little easier to use?
-```javascript
-const contentCollection = (contentObjects) => {
-  // Needs this in case no contentObjects are passed
-  // Because all the returned 'methods' are run no matter what
-  let contentsArray = [];
-  if(contentObjects) {
-    contentsArray = [contentObjects];
-  } 
 
+```javascript
+const contentCollection = (contentObjects, ...moreObjs) => {
+  let contentsArray;
+  
+  // Allow collection to be initialized a variety of ways
+  if(typeof contentObjects === "undefined") {
+    contentsArray = [];
+  } else if(Array.isArray(contentObjects)) {
+    contentsArray = contentObjects;
+  } else {
+    contentsArray = [contentObjects, ...moreObjs]
+  }
   return {
     contents: contentsArray,
-    size: contents.length,
+    get size () {return contentsArray.length},
     addContent: (...objs) => {
       contentsArray.push(...objs)
     },
     getDupes: () => {
       let seen = [];
       return contentsArray.reduce((dupeList, content) => {
-        if(seen.includes(content)) {
-          dupeList.push(content);
+        if(seen.includes(content.contentCode)) {
+          dupeList.push(content.contentCode);
         } else {
-          seen.push(content);
+          seen.push(content.contentCode);
         }
         return dupeList;
       }, []);
@@ -159,8 +169,8 @@ const contentCollection = (contentObjects) => {
         codesList.push(content.contentCode);
         return codesList;
       }, []);
-    } // end returnCodes()
-  } // end return object
+    } 
+  }; // end return object
 } // end factory function
 ```
 
