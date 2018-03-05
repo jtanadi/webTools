@@ -1,10 +1,8 @@
-# Notes
-
-### Archived 3/5/2018
-# Content Separator
+# Content Separator Notes
 Some notes for a work-in-progress content separator web app for RAA.<br>
 The original implementation of this project is a Python script with no UI & lots of duct tape.
 
+# Archived 3/5/2018:
 
 ## Potential objects
 ### Content object
