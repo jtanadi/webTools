@@ -33,3 +33,4 @@ const contentObj = (code, title="", body) => {
 ```
 
 ## Content Collections
+More tk.
