@@ -105,3 +105,6 @@ const contentCollection = (contentObjects, ...moreObjs) => {
     });
 }; // end contentCollection
 ```
+
+## Basic Usage
+Some instantiation samples here...
