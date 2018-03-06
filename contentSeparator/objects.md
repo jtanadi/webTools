@@ -130,8 +130,7 @@ Method 3:
 ```javascript
 const collection = contentCollection()
 collection.addContent(p1)
-collection.addContent(p2)
-collection.addContent(p3)
+collection.addContent(p2, p3)
 ```
 
 ### Other methods
