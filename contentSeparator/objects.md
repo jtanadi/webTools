@@ -107,4 +107,57 @@ const contentCollection = (contentObjects, ...moreObjs) => {
 ```
 
 ## Basic Usage
-Some instantiation samples here...
+### Instantiating
+```javascript
+const p1 = contentObj("TH_EX01", "", "Lorem ipsum, 01, dolor");
+const p2 = contentObj("TH_EX02", "Title 02", "Lorem ipsum, 02, dolor");
+const p3 = contentObj("TH_EX03", "Title 03", "Lorem ipsum, 03, dolor");
+```
+
+Adding contentObjs to a collection.
+
+Method 1:
+```javascript
+const collection = contentCollection(p1, p2, p3)
+```
+
+Method 2:
+```javascript
+const collection = contentCollection([p1, p2, p3])
+```
+
+Method 3:
+```javascript
+const collection = contentCollection()
+collection.addContent(p1)
+collection.addContent(p2)
+collection.addContent(p3)
+```
+
+### Other methods
+Content object methods
+```javascript
+p1.code
+// Returns "TH_EX01"
+
+p2.returnAsArray()
+// Returns ["TH_EX02", "Title 02", "Lorem ipsum, 02, dolor"]
+
+p3.hasTitle()
+// Returns true
+```
+
+Content collection methods
+```javascript
+collection.codes
+// Returns ["TH_EX01", "TH_EX02", "TH_EX03"]
+
+collection.size
+// Returns 3
+
+collection.returnArrays()
+// Returns [["TH_EX02", "Title 02", "Lorem ipsum, 02, dolor"],
+//          ["TH_EX02", "Title 02", "Lorem ipsum, 02, dolor"],
+//          ["TH_EX02", "Title 02", "Lorem ipsum, 02, dolor"]]
+
+```
