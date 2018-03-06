@@ -1,9 +1,8 @@
 # Content Separator Objects
 Basic outline of objects to be implemented. We are using the factory function method of object creation. Notes on this & other methods can be found [here](https://github.com/jtanadi/webTools/blob/master/contentSeparator/notes.md).
 
-## Content Objects
-### Prototypes
-**contentProto**<br>
+## Prototypes
+### contentProto
 Delegate prototype for base content objects.
 
 ```contentProto``` is a function factory that returns an object with these properties:
@@ -24,7 +23,7 @@ const contentProto = contentObj => {
 }; // end contentProto
 ```
 
-**collectionProto**<br>
+### collectionProto
 Delegate prototype for base collection objects. 
 
 ```collectionProto``` is a function factory that returns and object with these properties:
@@ -47,8 +46,8 @@ const collectionProto = contentsArray => {
   }; // end returned object
 }; // end collectionProto
 ```
-
-### Content Object
+## Objects
+### contentObj
 ```contentObj``` is a factory function that returns a new object based on ```contentProto``` and takes in:
 - code
 - title
@@ -70,7 +69,7 @@ const contentObj = (code, title="", body) => {
 };
 ```
 
-## Content Collections
+## contentCollection
 ```contentCollection``` is a factory function that returns a new object based on ```collectionProto``` and takes in:
 - a series of contObjs (obj1, obj2, obj3)
 OR
