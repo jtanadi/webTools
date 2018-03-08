@@ -66,5 +66,5 @@ const collection = contentCollection(p1, p2, p3)
 console.log(collection.size)
 collection.addContent(p4);
 console.log(collection.size)
-console.log(collection.returnArrays())
+console.log(collection)
 
