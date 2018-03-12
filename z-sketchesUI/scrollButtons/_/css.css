@@ -2,7 +2,7 @@
   font-family: "rhody";
   src: url("./_fonts/Rhododendron-Bold.eot");
   src: url("./_fonts/Rhododendron-Bold.woff2") format("woff2"),
-       url("./_fonts/Rhododendron-Bold.woff") format("woff")
+       url("./_fonts/Rhododendron-Bold.woff") format("woff");
 }
 
 * {
@@ -15,6 +15,7 @@ h1 {
   font-family: "rhody";
   font-size: 70vh;
   letter-spacing: -0.5rem;
+  font-feature-settings: "ss04"
 }
 
 body {
