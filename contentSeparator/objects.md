@@ -1,39 +1,87 @@
 # Content Separator Objects
 Basic outline of objects to be implemented. We are using the factory function method of object creation. Notes on this & other methods can be found [here](https://github.com/jtanadi/webTools/blob/master/contentSeparator/notes.md).
 
-## Prototypes
-### contentProto
-Delegate prototype for base content objects.
+## Content Objects
+### Base object (contentObj)
+```contentObj``` is a factory function that returns a new object with methods inhertited from ```contentMethods```.
 
-```contentProto``` is a function factory that returns an object with these properties:
-- ```code``` getter: returns contentObj.code (contentObj attributes are private otherwise, to prevent attribute overwrites)
-- ```returnAsArray()```: returns array of code, title, body
+```contentObj``` takes in:
+- code
+- title
+- body
 
+The above are private attributes, so they can't be overwritten after instantiation
 
 ```javascript
-const contentProto = contentObj => { 
-  return {
+const contentObj = (code, title = "", body) => {
+  const obj = { code, title, body };
+  return Object.create(contentMethods(obj));
+};
+```
+
+### Prototype methods (contentMethods)
+Delegate prototype for base content objects.
+
+```contentMethods``` is a function factory that returns an object with these properties:
+- ```code``` getter: returns contentObj.code (contentObj attributes are private otherwise, to prevent attribute overwrites)
+- ```getArray()```: returns array of code, title, body
+- ```hasTitle()```: checks if a content object has a title or not (true / false)
+
+```javascript
+const contentMethods = contentObj =>
+  ({
     get code() {
       return contentObj.code;
     },
-    returnAsArray() {
-      return [contentObj.code, contentObj.title, contentObj.body];
-    }
-  }; // end returned object
-}; // end contentProto
+    getArray() {
+      return Array.from(Object.values(contentObj));
+    },
+    hasTitle() {
+      return (!!contentObj.title);
+    },
+  }); // end contentMethods
 ```
 
-### collectionProto
+## Content Collections
+### Base Collection (contentCollection)
+```contentCollection``` is a factory function that returns a new object with methods inhertied from ```collectionMethods```
+
+```contentCollection``` takes in:
+- a series of contObjs (obj1, obj2, obj3)
+OR
+- an array of contObjs ([obj1, obj2, obj3])
+OR
+- nothing at instantiation, with objects added later with ```addContent()```
+
+```flatten()``` is a private method to flatten input array.
+
+```javascript
+const contentCollection = (...contentObjs) => {
+  const flatten = arr => arr.reduce((retArr, item) => {
+    if(Array.isArray(item)) {
+      return retArr.concat(flatten(item));
+    }
+    retArr.push(item);
+    return retArr;
+  }, []);
+
+  const contentsArray = flatten([...contentObjs]);
+  return Object.create(collectionMethods(contentsArray));
+}; // end contentCollection
+```
+
+### Prototype Methods (collectionMethods)
 Delegate prototype for base collection objects. 
 
-```collectionProto``` is a function factory that returns and object with these properties:
+```collectionMethods``` is a function factory that returns an object with these properties:
 - ```size``` getter: returns size of collection
 - ```codes``` getter: returns content codes
 - ```addContent()```: adds however many new content objects
+- ```returnArrays()``` returns an array of contentObject as arrays
 
 ```javascript
-const collectionProto = contentsArray => {
-  return {
+const collectionMethods = contentsArray =>
+  ({
     get size() {
       return contentsArray.length;
     },
@@ -42,68 +90,11 @@ const collectionProto = contentsArray => {
     },
     addContent(...newObjs) {
       contentsArray.push(...newObjs);
-    }
-  }; // end returned object
-}; // end collectionProto
-```
-## Objects
-### contentObj
-```contentObj``` is a factory function that returns a new object based on ```contentProto``` and takes in:
-- code
-- title
-- body
-
-```contentObj``` has:
-- ```hasTitle()``` method
-- Private attributes, so they can't be overwritten after instantiation
-
-```javascript
-const contentObj = (code, title="", body) => {
-  let obj = {code, title, body}
-  return Object.assign(
-    Object.create(contentProto(obj)), {
-      hasTitle() {
-        return (!title) ? false : true;
-      }
-    });
-};
-```
-
-## contentCollection
-```contentCollection``` is a factory function that returns a new object based on ```collectionProto``` and takes in:
-- a series of contObjs (obj1, obj2, obj3)
-OR
-- an array of contObjs ([obj1, obj2, obj3])
-OR
-- nothing at instantiation, with objects added later with ```addContent()```
-
-```contentCollection``` has:
-- ```checkDupes()``` (to be implemented)
-- ```returnArrays()``` returns an array of contentObject as arrays
-
-```javascript
-const contentCollection = (contentObjects, ...moreObjs) => {
-  let contentsArray;  
-  // Allow collection to be initialized a variety of ways
-  if(typeof contentObjects === "undefined") {
-    contentsArray = [];
-  } else if(Array.isArray(contentObjects)) {
-    contentsArray = contentObjects;
-  } else {
-    contentsArray = [contentObjects, ...moreObjs]
-  }
-
-  return Object.assign(
-    Object.create(collectionProto(contentsArray)), 
-    {
-      checkDupes() {
-        console.log("tk")
-      },
-      returnArrays() {
-        return contentsArray.map(obj => obj.returnAsArray());
-      }
-    });
-}; // end contentCollection
+    },
+    getArrays() {
+      return contentsArray.map(obj => obj.getArray());
+    },
+  }); // end collectionMethods
 ```
 
 ## Basic Usage
@@ -116,30 +107,30 @@ const p3 = contentObj("TH_EX03", "Title 03", "Lorem ipsum, 03, dolor");
 
 Adding contentObjs to a collection.
 
-Method 1:
+Option 1:
 ```javascript
 const collection = contentCollection(p1, p2, p3)
 ```
 
-Method 2:
+Option 2:
 ```javascript
 const collection = contentCollection([p1, p2, p3])
 ```
 
-Method 3:
+Option 3:
 ```javascript
 const collection = contentCollection()
 collection.addContent(p1)
 collection.addContent(p2, p3)
 ```
 
-### Other methods
+### Using methods
 Content object methods
 ```javascript
 p1.code
 // Returns "TH_EX01"
 
-p2.returnAsArray()
+p2.getArray()
 // Returns ["TH_EX02", "Title 02", "Lorem ipsum, 02, dolor"]
 
 p3.hasTitle()
@@ -158,5 +149,8 @@ collection.returnArrays()
 // Returns [["TH_EX02", "Title 02", "Lorem ipsum, 02, dolor"],
 //          ["TH_EX02", "Title 02", "Lorem ipsum, 02, dolor"],
 //          ["TH_EX02", "Title 02", "Lorem ipsum, 02, dolor"]]
-
 ```
+
+## Notes
+- Is this unnecessarily complicated? Are methods cumbersome?
+- Should we migrate to FP?
