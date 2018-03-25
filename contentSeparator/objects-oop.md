@@ -1,4 +1,4 @@
-# Content Separator Objects
+# Content Separator Objects (OOP Approach)
 Basic OOP outline of objects to be implemented. We are using the factory function method of object creation. Notes on this & other methods can be found [here](https://github.com/jtanadi/webTools/blob/master/contentSeparator/notes.md).
 
 ## Content Objects
