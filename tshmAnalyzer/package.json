@@ -1,0 +1,16 @@
+{
+  "name": "tshm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape dev/tests/*-test.js | faucet",
+    "watch": "tape-watch --clear **/tests/*-test.js | faucet"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tape": "^4.9.0",
+    "tape-watch": "^2.3.0"
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TSHM Basic</title>
+    <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="_/style.css"/>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <form>
+        <div class="textAreaGroup">
+          <label for="rawContent">Raw content</label>
+          <textarea id="rawContent"></textarea>
+        </div>
+        
+        <div class="controller">
+          <ul>
+            <li>
+              <input type="radio" name="funcToDo" id="findByRegex">
+              <label for="findRegex">Find items (RegEx)</label>
+            </li>
+            <li>
+              <input type="radio" name="funcToDo" id="filterOutRegex">
+              <label for="filterRegex">Filter out items (RegEx)</label>
+            </li>
+            <li>
+              <input type="radio" name="funcToDo" id="showTooLong">
+              <label for="showTooLong">Find items > threshold</label>
+            </li>
+            <li>
+              <input type="button" value="&rarr;">
+            </li>
+          </ul>
+          
+        </div>
+
+        <div class="textAreaGroup">
+          <label for="regexInput">RegEx</label>
+          <input type="text" id="regexInput"/>
+
+          <label for="thresholdInput">Treshold</label>
+          <input type="text" id="thresholdInput"/>
+
+          <label for="output">Output</label>
+          <textarea id="output"></textarea>
+        </div>
+
+      </form>
+    </div>
+
+    <script type="application/javascript" src="_/helperFuncs.js"></script>
+    <script type="application/javascript" src="_/app.js"></script>
+  </body>
+</html>
