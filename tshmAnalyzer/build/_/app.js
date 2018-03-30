@@ -17,6 +17,7 @@ const funcsToRun = {
   filterOutRegex,
   showTooLong,
   sectionWordCounter,
+  findDupes,
 };
 /* eslint-enable no-undef */
 

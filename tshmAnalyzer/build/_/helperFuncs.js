@@ -11,14 +11,6 @@ const getIndices = (inputArr, itemToIndex) => {
   }, []);
 };
 
-const flatten = arr => arr.reduce((retArr, item) => {
-  if(Array.isArray(item)) {
-    return retArr.concat(flatten(item));
-  }
-  retArr.push(item);
-  return retArr;
-}, []);
-
 const codeToObj = (inputArr, regex) => {
   const codeIndices = getIndices(inputArr, regex);
   const retObj = {};
@@ -48,13 +40,6 @@ const paragraphsToArray = (textInput, trimmed = true) => {
   return retArr.map(item => item.trim());
 };
 
-const filterOutRegex = (inputArr, regex) => {
-  let actualExp = regex;
-  if(typeof regex === "string") actualExp = new RegExp(regex);
-
-  return inputArr.filter(item => !actualExp.test(item));
-};
-
 const findByRegex = (inputArr, regex) => {
   let actualExp = regex;
   if(typeof regex === "string") actualExp = new RegExp(regex);
@@ -62,12 +47,35 @@ const findByRegex = (inputArr, regex) => {
   return inputArr.filter(item => actualExp.test(item));
 };
 
+const findDupes = list => {
+  const seen = [];
+
+  return list.reduce((dupes, listItem) => {
+    // Make a copy of the item to transform it
+    const listItemCopy = listItem.toLowerCase();
+    if(!seen.includes(listItemCopy)) {
+      seen.push(listItemCopy);
+    } else {
+      dupes.push(listItem);
+    }
+    
+    return dupes;
+  }, []);
+};
+
+const filterOutRegex = (inputArr, regex) => {
+  let actualExp = regex;
+  if(typeof regex === "string") actualExp = new RegExp(regex);
+
+  return inputArr.filter(item => !actualExp.test(item));
+};
+
+
 const showTooLong = (inputArr, regex, threshold) => {
   const contentObj = codeToObj(inputArr, regex);
 
   const longCodes = [];
   for(const key in contentObj) {
-    // SOMETHING WEIRD HERE. WHY DO I NEED TO FLATTEN?
     const contentArray = contentObj[key];
     
     const wordCount = getWordCountFromArray(contentArray);
