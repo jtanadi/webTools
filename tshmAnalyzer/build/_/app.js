@@ -20,32 +20,24 @@ const funcsToRun = {
 };
 /* eslint-enable no-undef */
 
-const radioChecked = radioGroup => {
-  let answer = false;
-  radioGroup.forEach(radio => {
-    if(radio.checked) answer = true;
-  });
-  return answer;
-};
+funcRadio.forEach(radio => {
+  // Look for default checked
+  if(radio.checked) CHOSENFUNC = radio.id;
 
-funcRadio.forEach(radio => radio.addEventListener("change", e => {
+  radio.addEventListener("change", e => {
   // Each radio button's id corresponds to function name in funcsToRun
-  CHOSENFUNC = e.target.id;
-}));
+    CHOSENFUNC = e.target.id;
+  });
+});
 
 outButton.addEventListener("click", () => {
   // eslint-disable-next-line no-undef
   const text = paragraphsToArray(mainInput.value);
-  let threshold;
+  const regex = regexInput.value;
+  const threshold = thresholdInput.value;
 
-  if(CHOSENFUNC === "showTooLong" && regexInput.value) {
-    threshold = thresholdInput.value;
-  }
-
-  if(radioChecked(funcRadio) && regexInput.value) {
-    const arrToWrite = funcsToRun[CHOSENFUNC](text, regexInput.value, threshold);
-    mainOutput.value = arrToWrite.join("\n\n");
-  }
+  const arrToWrite = funcsToRun[CHOSENFUNC](text, regex, threshold);
+  mainOutput.value = arrToWrite.join("\n\n");
 });
 
 feedButton.addEventListener("click", () => {
