@@ -26,6 +26,7 @@ const codeToObj = function (inputArr, regex) {
     const code = inputArr[codeIndices[i]];
     const text = inputArr.slice(codeIndices[i] + 1, codeIndices[i + 1]);
     
+    // This part doesn't work so well when there are dupes.
     // (!retObj[code]) ? retObj[code] = text : retObj[code].push(text);
     retObj[code] = text;
   }
@@ -67,7 +68,7 @@ const showTooLong = function (inputArr, regex, threshold) {
   const longCodes = [];
   for(const key in contentObj) {
     // SOMETHING WEIRD HERE. WHY DO I NEED TO FLATTEN?
-    const contentArray = flatten(contentObj[key]);
+    const contentArray = contentObj[key];
     
     const wordCount = getWordCountFromArray(contentArray);
     if(wordCount > threshold) longCodes.push(key);
