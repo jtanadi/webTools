@@ -63,13 +63,25 @@ const findDupes = list => {
   }, []);
 };
 
-const filterOutRegex = (inputArr, regex) => {
+const removeItemsRegex = (inputArr, regex) => {
   let actualExp = regex;
   if(typeof regex === "string") actualExp = new RegExp(regex);
 
   return inputArr.filter(item => !actualExp.test(item));
 };
 
+const removeSectionRegex = (inputArr, regexToFollow, regexToRemove) => {
+  const contentObj = codeToObj(inputArr, regexToFollow);
+  const contentCodes = Object.keys(contentObj);
+  const regexRemove = new RegExp(regexToRemove);
+
+  return contentCodes.reduce((collection, code) => {
+    if(!regexRemove.test(code)) {
+      collection.push(`${code}\n${contentObj[code].join("\n\n")}`);
+    }
+    return collection;
+  }, []);
+}
 
 const showTooLong = (inputArr, regex, threshold) => {
   const contentObj = codeToObj(inputArr, regex);

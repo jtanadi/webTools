@@ -15,7 +15,8 @@ const mainOutput = document.getElementById("mainOutput");
 /* eslint-disable no-undef */
 const funcsToRun = {
   findByRegex,
-  filterOutRegex,
+  removeItemsRegex,
+  removeSectionRegex,
   showTooLong,
   sectionWordCounter,
   findDupes,
