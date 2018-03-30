@@ -10,6 +10,7 @@ const thresholdInput = document.getElementById("thresholdInput");
 const mainOutput = document.getElementById("mainOutput");
 
 // Collection of available functions as defined in helperFuncs
+// Any time a new radio-functionality is added, just add it here!
 // Don't lint these because they're in a different file
 /* eslint-disable no-undef */
 const funcsToRun = {
