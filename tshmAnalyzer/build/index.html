@@ -10,8 +10,8 @@
     <div class="wrapper">
       <form>
         <div class="textAreaGroup">
-          <label for="rawContent">Raw content</label>
-          <textarea id="rawContent"></textarea>
+          <label for="mainInput">Raw content</label>
+          <textarea id="mainInput"></textarea>
         </div>
         
         <div class="controller">
@@ -28,8 +28,10 @@
               <input type="radio" name="funcToDo" id="showTooLong">
               <label for="showTooLong">Find items > threshold</label>
             </li>
+            <li><br></li>
             <li>
-              <input type="button" value="&rarr;">
+              <input type="button" id="outButton" value="&rarr;"><br>
+              <input type="button" id="feedButton" value="&larr;">
             </li>
           </ul>
           
@@ -42,8 +44,8 @@
           <label for="thresholdInput">Treshold</label>
           <input type="text" id="thresholdInput"/>
 
-          <label for="output">Output</label>
-          <textarea id="output"></textarea>
+          <label for="mainOutput">Output</label>
+          <textarea id="mainOutput"></textarea>
         </div>
 
       </form>

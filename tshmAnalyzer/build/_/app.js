@@ -3,10 +3,12 @@
 
 let CHOSENFUNC;
 const funcRadio = document.getElementsByName("funcToDo");
-const contentInput = document.getElementById("rawContent");
+const mainInput = document.getElementById("mainInput");
 const regexInput = document.getElementById("regexInput");
 const thresholdInput = document.getElementById("thresholdInput");
-const button = document.querySelector("input[type='button']");
+const mainOutput = document.getElementById("mainOutput");
+const outButton = document.getElementById("outButton");
+const feedButton = document.getElementById("feedButton");
 
 // Collection of available functions
 const funcsToRun = {
@@ -28,8 +30,8 @@ funcRadio.forEach(radio => radio.addEventListener("change", e => {
   CHOSENFUNC = e.target.id;
 }));
 
-button.addEventListener("click", () => {
-  const text = paragraphsToArray(contentInput.value);
+outButton.addEventListener("click", () => {
+  const text = paragraphsToArray(mainInput.value);
   let threshold;
 
   if(CHOSENFUNC === "showTooLong" && regexInput.value) {
@@ -38,6 +40,10 @@ button.addEventListener("click", () => {
 
   if(radioChecked(funcRadio) && regexInput.value) {
     const arrToWrite = funcsToRun[CHOSENFUNC](text, regexInput.value, threshold);
-    document.querySelector("#output").value = arrToWrite.join("\n\n");
+    mainOutput.value = arrToWrite.join("\n\n");
   }
+});
+
+feedButton.addEventListener("click", () => {
+  if(mainOutput.value) mainInput.value = mainOutput.value;
 });
