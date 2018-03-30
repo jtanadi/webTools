@@ -1,4 +1,4 @@
-const getIndices = function(inputArr, itemToIndex) {
+const getIndices = (inputArr, itemToIndex) => {
   if(!Array.isArray(inputArr)) throw new Error("First argument must be an array");
   const exp = new RegExp(itemToIndex);
 
@@ -19,7 +19,7 @@ const flatten = arr => arr.reduce((retArr, item) => {
   return retArr;
 }, []);
 
-const codeToObj = function (inputArr, regex) {
+const codeToObj = (inputArr, regex) => {
   const codeIndices = getIndices(inputArr, regex);
   const retObj = {};
   for(let i = 0; i < codeIndices.length; i++) {
@@ -41,28 +41,28 @@ const getWordCountFromArray = inputArr => inputArr.reduce((sum, item) => {
 // Functions directly used by app below
 // /////////////////////////////////////
 
-const paragraphsToArray = function(textInput, trimmed = true) {
+const paragraphsToArray = (textInput, trimmed = true) => {
   const retArr = textInput.split("\n")
     .filter(item => item);
   if(!trimmed) return retArr;
   return retArr.map(item => item.trim());
 };
 
-const filterOutRegex = function(inputArr, expression) {
-  let exp = expression;
-  if(typeof expression === "string") exp = new RegExp(expression);
+const filterOutRegex = (inputArr, regex) => {
+  let actualExp = regex;
+  if(typeof regex === "string") actualExp = new RegExp(regex);
 
-  return inputArr.filter(item => !exp.test(item));
+  return inputArr.filter(item => !actualExp.test(item));
 };
 
-const findByRegex = function(inputArr, expression) {
-  let exp = expression;
-  if(typeof expression === "string") exp = new RegExp(expression);
+const findByRegex = (inputArr, regex) => {
+  let actualExp = regex;
+  if(typeof regex === "string") actualExp = new RegExp(regex);
   
-  return inputArr.filter(item => exp.test(item));
+  return inputArr.filter(item => actualExp.test(item));
 };
 
-const showTooLong = function (inputArr, regex, threshold) {
+const showTooLong = (inputArr, regex, threshold) => {
   const contentObj = codeToObj(inputArr, regex);
 
   const longCodes = [];
@@ -75,4 +75,15 @@ const showTooLong = function (inputArr, regex, threshold) {
   }
 
   return longCodes.map(code => `${code}\n${contentObj[code].join("\n\n")}`);
+};
+
+const sectionWordCounter = (inputArr, regex) => {
+  const contentObj = codeToObj(inputArr, regex);
+  const contentCodes = Object.keys(contentObj);
+
+  return contentCodes.reduce((container, code) => {
+    const count = getWordCountFromArray(contentObj[code]);
+    container.push(`${code}:\n${count} words`);
+    return container;
+  }, []);
 };

@@ -16,7 +16,7 @@ form {
 }
 
 .textAreaGroup{
-  flex: 3.5;
+  flex: 3;
   height: 88vh;
   margin: auto;
   display: flex;
@@ -79,7 +79,7 @@ input[type="button"]:hover {
 
 @media(min-width: 1800px) {
   .wrapper {
-    width: 80vw;
+    width: 85vw;
   }
   
   input[type="button"] {

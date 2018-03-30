@@ -1,21 +1,24 @@
-// Because some funcs are made available through HTML imports...
-/* eslint-disable no-undef */
-
 let CHOSENFUNC;
-const funcRadio = document.getElementsByName("funcToDo");
 const mainInput = document.getElementById("mainInput");
-const regexInput = document.getElementById("regexInput");
-const thresholdInput = document.getElementById("thresholdInput");
-const mainOutput = document.getElementById("mainOutput");
+
+const funcRadio = document.getElementsByName("funcToDo");
 const outButton = document.getElementById("outButton");
 const feedButton = document.getElementById("feedButton");
 
-// Collection of available functions
+const regexInput = document.getElementById("regexInput");
+const thresholdInput = document.getElementById("thresholdInput");
+const mainOutput = document.getElementById("mainOutput");
+
+// Collection of available functions as defined in helperFuncs
+// Don't lint these because they're in a different file
+/* eslint-disable no-undef */
 const funcsToRun = {
   findByRegex,
   filterOutRegex,
   showTooLong,
+  sectionWordCounter,
 };
+/* eslint-enable no-undef */
 
 const radioChecked = radioGroup => {
   let answer = false;
@@ -31,6 +34,7 @@ funcRadio.forEach(radio => radio.addEventListener("change", e => {
 }));
 
 outButton.addEventListener("click", () => {
+  // eslint-disable-next-line no-undef
   const text = paragraphsToArray(mainInput.value);
   let threshold;
 
