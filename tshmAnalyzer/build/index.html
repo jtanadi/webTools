@@ -9,25 +9,50 @@
   <body>
     <div class="wrapper">
       <form>
-        <div class="textAreaGroup">
-          <label for="mainInput">Raw content</label>
+        <div class="textAreaGroup" style="padding-right: 1em;">
+            <input type="radio" name="funcToDo" id="findByRegex" checked>
+            <label for="findRegex">Find items</label>
+            <input type="text" id="regexInput"/>
+            <select id="recipe">
+              <option value=""></option>
+              <option value="all">All</option>
+              <option value="primaries">Primaries</option>
+              <option value="secondaries">Secondaries</option>
+            </select>
+            <br>
+            
+            <input type="radio" name="funcToDo" id="removeItemsRegex">
+            <label for="removeItemsRegex">Remove items</label>
+            
+            
+            <br>
+            
+            <br>
+
+  
+            <!-- <label for="thresholdInput">Treshold</label><br>
+            <input type="text" id="thresholdInput"/><br> -->
+
+          <label for="mainInput">Input</label>
           <textarea id="mainInput"></textarea>
+
+          <!-- <label for="count">Count</label>
+          <input type="text" id="count"/> -->
         </div>
         
-        <div class="controller">
+        <!-- <div class="controller">
           <ul>
             <li>
-              <input type="radio" name="funcToDo" id="findByRegex" checked>
-              <label for="findRegex">Find items (RegEx)</label>
+              
             </li>
             <li>
               <input type="radio" name="funcToDo" id="findDupes">
               <label for="findDupes">Find dupes</label>
             </li>
             <li>
-              <input type="radio" name="funcToDo" id="removeItemsRegex">
-              <label for="removeItemsRegex">Remove items (RegEx)</label>
+              
             </li>
+            <br>
             <li>
               <input type="radio" name="funcToDo" id="removeSectionRegex">
               <label for="removeSectionRegex">Remove sections (RegEx)</label>
@@ -47,20 +72,20 @@
             </li>
           </ul>
           
-        </div>
+        </div> -->
 
-        <div class="textAreaGroup">
-          <label for="regexInput">RegEx</label>
-          <input type="text" id="regexInput"/>
+        <div class="textAreaGroup" style="padding-left: 1em;">
 
-          <label for="thresholdInput">Treshold</label>
-          <input type="text" id="thresholdInput"/>
-
-          <label for="mainOutput">Output</label>
+          <label for="mainOutput">Output</label><br>
           <textarea id="mainOutput"></textarea>
         </div>
 
       </form>
+
+      <!-- <div>
+        <label for="clipboard">Clipboard</label>
+        <textarea id="clipboard"></textarea>
+      </div> -->
     </div>
 
     <script type="application/javascript" src="_/helperFuncs.js"></script>
