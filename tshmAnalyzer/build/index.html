@@ -9,40 +9,68 @@
   <body>
     <div class="wrapper">
       <form>
-        <div class="textAreaGroup" style="padding-right: 1em;">
+        <div class="textAreaGroup">
             <input type="radio" name="funcToDo" id="findByRegex" checked>
             <label for="findRegex">Find items</label>
-            <input type="text" id="regexInput"/>
-            <select id="recipe">
-              <option value=""></option>
-              <option value="all">All</option>
-              <option value="primaries">Primaries</option>
-              <option value="secondaries">Secondaries</option>
-            </select>
-            <br>
+
+            <input type="radio" name="funcToDo" id="findByRegex">
+            <label for="findRegex">Find sections</label>
             
             <input type="radio" name="funcToDo" id="removeItemsRegex">
             <label for="removeItemsRegex">Remove items</label>
-            
-            
             <br>
             
+            <input type="text" id="regexInput"/>
+            <select class="recipeDropdown">
+              <option value="none" selected></option>
+              <optgroup label="Basics">
+                <option value=".">Any character except newline</option>
+                <option value="[0-9]">Any number</option>
+                <option value="[a-z]">Any letter, lowercase</option>
+                <option value="[A-Z]">Any letter, uppercase</option>
+                <option value="[A-z]">Any letter, any case</option>
+              </optgroup>
+              <optgroup label="Repeater / boolean">
+                <option value="*">0 or more</option>
+                <option value="+">1 or more</option>
+                <option value="?">0 or 1</option>
+                <option value="|">OR</option>
+              </optgroup>
+              <optgroup label="Escaped characters">
+                <option value="\.">Period</option>
+                <option value="\?">Question mark</option>
+                <option value="\\">Backslash</option>
+                <option value="\n">Newline</option>
+                <option value="\t">Tab</option>
+              </optgroup>
+            </select>
             <br>
+            
+            <input type="checkbox" id="removeSectionRegex">
+            <label for="removeSectionRegex">Filter out items</label>
+            <br>
+            <input type="text" id="filterInput" readonly/>
+            <select class="recipeDropdown">
+              <option value=""></option>
+              <option value="all">some saved things</option>
+            </select>
+
+            <br>
+            <!-- <label for="count">Count</label>
+            <input type="text" id="count"/> -->
 
   
             <!-- <label for="thresholdInput">Treshold</label><br>
             <input type="text" id="thresholdInput"/><br> -->
-
+          <br>
           <label for="mainInput">Input</label>
           <textarea id="mainInput"></textarea>
 
-          <!-- <label for="count">Count</label>
-          <input type="text" id="count"/> -->
         </div>
         
-        <!-- <div class="controller">
-          <ul>
-            <li>
+        <div class="controller">
+          <!-- <ul> -->
+            <!-- <li>
               
             </li>
             <li>
@@ -54,8 +82,7 @@
             </li>
             <br>
             <li>
-              <input type="radio" name="funcToDo" id="removeSectionRegex">
-              <label for="removeSectionRegex">Remove sections (RegEx)</label>
+              
             </li>
             <li>
               <input type="radio" name="funcToDo" id="showTooLong">
@@ -65,16 +92,17 @@
               <input type="radio" name="funcToDo" id="sectionWordCounter">
               <label for="sectionWordCounter">Word count per label</label>
             </li>
-            <li><br></li>
-            <li>
-              <input type="button" id="outButton" value="&rarr;"><br>
+            <li><br></li> -->
+            
+              <input type="button" id="outButton" value="&rarr;">
+              <br>
               <input type="button" id="feedButton" value="&larr;">
-            </li>
-          </ul>
+            
           
-        </div> -->
+          
+        </div>
 
-        <div class="textAreaGroup" style="padding-left: 1em;">
+        <div class="textAreaGroup">
 
           <label for="mainOutput">Output</label><br>
           <textarea id="mainOutput"></textarea>

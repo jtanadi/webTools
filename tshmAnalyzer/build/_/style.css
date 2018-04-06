@@ -21,14 +21,14 @@ label {
 }
 
 .textAreaGroup {
-  flex: 3;
+  flex: 10;
   height: 88vh;
   margin: auto;
   /* display: flex; */
   flex-flow: column;
 }
 
-select#recipe {
+select.recipeDropdown {
   width: 35%;
   margin-left: 2%;
   outline: none;
