@@ -7,114 +7,84 @@
   </head>
 
   <body>
-    <div class="wrapper">
-      <form>
-        <div class="textAreaGroup">
-            <input type="radio" name="funcToDo" id="findByRegex" checked>
-            <label for="findRegex">Find items</label>
-
-            <input type="radio" name="funcToDo" id="findByRegex">
-            <label for="findRegex">Find sections</label>
-            
-            <input type="radio" name="funcToDo" id="removeItemsRegex">
-            <label for="removeItemsRegex">Remove items</label>
-            <br>
-            
-            <input type="text" id="regexInput"/>
-            <select class="recipeDropdown">
-              <option value="none" selected></option>
-              <optgroup label="Basics">
-                <option value=".">Any character except newline</option>
-                <option value="[0-9]">Any number</option>
-                <option value="[a-z]">Any letter, lowercase</option>
-                <option value="[A-Z]">Any letter, uppercase</option>
-                <option value="[A-z]">Any letter, any case</option>
-              </optgroup>
-              <optgroup label="Repeater / boolean">
-                <option value="*">0 or more</option>
-                <option value="+">1 or more</option>
-                <option value="?">0 or 1</option>
-                <option value="|">OR</option>
-              </optgroup>
-              <optgroup label="Escaped characters">
-                <option value="\.">Period</option>
-                <option value="\?">Question mark</option>
-                <option value="\\">Backslash</option>
-                <option value="\n">Newline</option>
-                <option value="\t">Tab</option>
-              </optgroup>
-            </select>
-            <br>
-            
-            <input type="checkbox" id="removeSectionRegex">
-            <label for="removeSectionRegex">Filter out items</label>
-            <br>
-            <input type="text" id="filterInput" readonly/>
-            <select class="recipeDropdown">
-              <option value=""></option>
-              <option value="all">some saved things</option>
-            </select>
-
-            <br>
-            <!-- <label for="count">Count</label>
-            <input type="text" id="count"/> -->
-
-  
-            <!-- <label for="thresholdInput">Treshold</label><br>
-            <input type="text" id="thresholdInput"/><br> -->
+    <form>
+      <div class="textAreaGroup">
+        <div class="textAreaRow" id="mainControl">
+          <label for="findInput">Find item(s):</label>
           <br>
-          <label for="mainInput">Input</label>
-          <textarea id="mainInput"></textarea>
-
+          <input type="text" id="findInput"/>
+          <select id="findDropdown">
+          </select>
         </div>
         
-        <div class="controller">
-          <!-- <ul> -->
-            <!-- <li>
-              
-            </li>
-            <li>
-              <input type="radio" name="funcToDo" id="findDupes">
-              <label for="findDupes">Find dupes</label>
-            </li>
-            <li>
-              
-            </li>
-            <br>
-            <li>
-              
-            </li>
-            <li>
-              <input type="radio" name="funcToDo" id="showTooLong">
-              <label for="showTooLong">Word count > threshold</label>
-            </li>
-            <li>
-              <input type="radio" name="funcToDo" id="sectionWordCounter">
-              <label for="sectionWordCounter">Word count per label</label>
-            </li>
-            <li><br></li> -->
-            
-              <input type="button" id="outButton" value="&rarr;">
-              <br>
-              <input type="button" id="feedButton" value="&larr;">
-            
+        <div class="textAreaRow" id="filterControl">
+          <input type="checkbox" id="filterCheck">
+          <label for="filterCheck">Filter out...</label>
+          <br>
           
+          <div class="radioGroup">
+            <div>
+              <input type="radio" name="funcToDo" id="showTooLong" checked disabled>
+              <label class="radioLabel" for="showTooLong">sections > word count</label>
+            </div>
+
+            <div>
+              <input type="radio" name="funcToDo" id="showTooShort" disabled>
+              <label class="radioLabel" for="showTooShort">sections < word count</label>
+            </div>
+          </div>
+          <div class="radioGroup">
+            <div>
+              <input type="radio" name="funcToDo" id="removeSectionsRegex" disabled>
+              <label class="radioLabel" for="removeSectionsRegex">sections</label>
+            </div>
+
+            <div>
+              <input type="radio" name="funcToDo" id="removeItemsRegex" disabled>
+              <label class="radioLabel" for="removeItemsRegex">items</label>
+            </div>
+          </div>
           
+          <input type="text" id="filterInput" class="disabledText" disabled/>
+          <select id="filterDropdown" class="disabledText" disabled>
+          </select>
         </div>
 
-        <div class="textAreaGroup">
+        <div class="textAreaRow" id="textInput">
+          <label for="mainInput">Input</label>
+          <textarea id="mainInput"></textarea>
+        </div>
+      </div>
+      
+      <div id="routerGroup">
+        <svg class="button" id="outButton" xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <line x1="0" y1="0" x2="100%" y2="50%"/>
+          <line x1="100%" y1="50%" x2="0" y2="100%"/>
+        </svg>
+        
+        <svg class="button" id="feedButton" xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <line x1="100%" y1="0" x2="0" y2="50%"/>
+          <line x1="0" y1="50%" x2="100%" y2="100%"/>
+        </svg>
+        
+        <div class="button" id="copyButton">
+          <span>Copy</span>
+        </div>
 
+        <div class="button" id="pasteButton">
+          <span>Paste</span>
+        </div>
+      </div>
+
+      <div class="textAreaGroup">
+        <div class="textAreaRow" id="textOutput">
           <label for="mainOutput">Output</label><br>
           <textarea id="mainOutput"></textarea>
         </div>
-
-      </form>
-
-      <!-- <div>
-        <label for="clipboard">Clipboard</label>
-        <textarea id="clipboard"></textarea>
-      </div> -->
-    </div>
+        
+      </div>
+    </form>
+    
 
     <script type="application/javascript" src="_/helperFuncs.js"></script>
     <script type="application/javascript" src="_/app.js"></script>
