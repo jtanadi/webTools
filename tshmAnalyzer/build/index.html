@@ -12,14 +12,16 @@
         <div class="textAreaRow" id="mainControl">
           <label for="findInput">Find item(s):</label>
           <br>
-          <input type="text" id="findInput"/>
-          <select id="findDropdown">
-          </select>
+          <div class="textDropdownGroup">
+            <input type="text" id="findInput"/>
+            <select id="findDropdown">
+            </select>
+          </div>
         </div>
         
         <div class="textAreaRow" id="filterControl">
           <input type="checkbox" id="filterCheck">
-          <label for="filterCheck">Filter out ...</label>
+          <label for="filterCheck">Filter out...</label>
           <br>
           
           <div class="radioGroup">
@@ -45,9 +47,11 @@
             </div>
           </div>
           
-          <input type="text" id="filterInput" class="disabledText" disabled/>
-          <select id="filterDropdown" class="disabledText" disabled>
-          </select>
+          <div class="textDropdownGroup">
+            <input type="text" id="filterInput" class="disabledText" disabled/>
+            <select id="filterDropdown" class="disabledText" disabled>
+            </select>
+          </div>
         </div>
 
         <div class="textAreaRow" id="textInput">
