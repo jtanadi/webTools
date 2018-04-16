@@ -33,7 +33,7 @@ input[type="text"] {
 textarea {
   margin-top: 0.5rem;
   width: 100%;
-  height: 92%;
+  height: 100%;
   border: 1px solid black;
   outline: none;
   resize: none;
@@ -52,6 +52,7 @@ textarea {
   flex: 10;
   display: flex;
   flex-flow: column;
+  padding-bottom: 2rem;
 }
 
 .textAreaRow {
@@ -66,10 +67,6 @@ textarea {
 #textInput, #textOutput,
 #routerGroup {
   flex: 1;
-}
-
-#mainOutput {
-  height: 95%;
 }
 
 .textDropdownGroup {

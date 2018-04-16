@@ -120,6 +120,7 @@ const funcsToRun = {
   removeItemsRegex,
   removeSectionRegex,
   showTooLong,
+  showTooShort,
   sectionWordCounter,
   findDupes,
   /* eslint-enable no-undef */

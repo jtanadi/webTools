@@ -97,6 +97,22 @@ const showTooLong = (inputArr, regex, threshold) => {
   return longCodes.map(code => `${code}\n${contentObj[code].join("\n\n")}`);
 };
 
+// This is basically duped from showTooLong
+// Find a more concise way to deal with this
+const showTooShort = (inputArr, regex, threshold) => {
+  const contentObj = codeToObj(inputArr, regex);
+
+  const longCodes = [];
+  for(const key in contentObj) {
+    const contentArray = contentObj[key];
+    
+    const wordCount = getWordCountFromArray(contentArray);
+    if(wordCount < threshold) longCodes.push(key);
+  }
+
+  return longCodes.map(code => `${code}\n${contentObj[code].join("\n\n")}`);
+};
+
 const sectionWordCounter = (inputArr, regex) => {
   const contentObj = codeToObj(inputArr, regex);
   const contentCodes = Object.keys(contentObj);
