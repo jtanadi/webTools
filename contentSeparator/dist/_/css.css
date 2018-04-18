@@ -5,6 +5,22 @@
        url("./_fonts/Rhododendron-Bold.woff") format("woff");
 }
 
+h1, h2 {
+  font-family: "rhody";
+  font-feature-settings: "ss04";
+}
+
+h1 {
+  font-size: 30rem;
+  letter-spacing: -0.25rem;
+}
+
+h2 {
+  font-size: 22rem;
+  line-height: 73%;
+  letter-spacing: -0.125rem;
+}
+
 * {
 	padding:0;
 	margin:0;
@@ -21,7 +37,7 @@ body {
 .bg {
 	width: 100%;
 	height: 100vh;
-	display: flex;
+  display: flex;
 }
 
 .container {
@@ -60,10 +76,6 @@ body {
 .main_container h1{
   flex: 0 1 auto;
   margin: auto;
-  font-family: "rhody";
-  font-size: 30rem;
-  letter-spacing: -0.25rem;
-  font-feature-settings: "ss04";
 }
 
 .top {
@@ -75,29 +87,54 @@ body {
   text-decoration: none;
 }
 
-textarea, input[type="text"] {
+::placeholder {
+  color: black;
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: red;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 0;
+  background: url("./arrow.svg") no-repeat 98% 50% !important;
+  background-size: contain;
+}
+
+textarea, input[type="text"], select {
   font-size: 1rem;
   font-family: sans-serif;
+  outline: none;
+  border: 1px solid black;
+  background: none;
+  padding: 0.25rem;
 }
 
 textarea {
   margin: auto;
-  width: 75vw;
   resize: none;
-  outline: none;
-  border: 1px solid black;
-  background: none;
+}
+
+textarea, .text_dropdown_group {
+  width: 75vw;
+  max-width: 1600px;
 }
 
 .tall_textarea {
-  height: 75vh;
+  height: 100%;
 }
 
 .text_dropdown_group {
   flex: 2;
   margin: auto;
-  width: 50vw;
   display: flex;
+}
+
+.text_dropdown_group, .regex_test_container {
+  z-index: 4;
 }
 
 .regex_text {
@@ -108,7 +145,6 @@ textarea {
 
 .regex_dropdown {
   margin: auto 0 auto 1rem;
-  font-size: 1rem;
   flex: 1;
 }
 
@@ -120,3 +156,21 @@ textarea {
   height: 100%;
 }
 
+.background_label {
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  display: flex;
+}
+
+.background_label h2 {
+  flex-shrink: 1;
+  position: relative;
+  left: -50%;
+  margin: auto;
+  color: rgba(0, 0, 0, 0.1);
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;
+}

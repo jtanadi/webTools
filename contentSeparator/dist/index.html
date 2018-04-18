@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Scroll button test</title>
+		<title>Content Separator</title>
 		<link rel="stylesheet" type="text/css" href="_/normalize.css"/>
 		<link rel="stylesheet" type="text/css" href="_/css.css"/>
 	</head>
@@ -13,23 +13,27 @@
         </div>
 
         <div class="main_container">
-          <h1>Hello</h1>
+          <h1>Ready?</h1>
         </div>
 
 				<div class="arrow_container">
-          <p class="down">NEXT</p>
+          <p class="down">START</p>
         </div>
 			</div>
 		</div>
 
-		<div class="bg" style="background: yellow" >
+		<div class="bg" style="background: green" >
       <div class="container">
         <div class="arrow_container">
           <p class="up">PREV</p>
         </div>
 
         <div class="main_container">
-          <textarea class="tall_textarea" id="main_input">This is for all cleaned-up content</textarea>
+          <textarea class="tall_textarea" id="main_input" placeholder="Insert clean content here..."></textarea>
+          
+          <div class="background_label">
+            <h2>Main Content</h2>
+          </div>
         </div>
 
         <div class="arrow_container">
@@ -46,7 +50,7 @@
 
         <div class="main_container" style="flex-direction: column;">
           <div class="text_dropdown_group">
-            <input type="text" class="regex_text" id="main_regex_text" placeholder="Code recipe">
+            <input type="text" class="regex_text" id="main_regex_text" placeholder="Insert RegEx of content codes">
             
             <select class="regex_dropdown" id="main_regex_dropdown">
               <option value="">RegEx option</option>
@@ -54,7 +58,11 @@
           </div>
           
           <div class="regex_test_container">
-            <textarea id="main_regex_output">This is for a list of codes</textarea>
+            <textarea id="main_regex_output" readonly>List of codes will be outputted here...</textarea>
+          </div>
+
+          <div class="background_label">
+            <h2>Main Content</h2>
           </div>
         </div>
 
@@ -70,19 +78,23 @@
           <p class="up">PREV</p>
         </div>
   
-          <div class="main_container" style="flex-direction: column;">
-            <div class="text_dropdown_group">
-              <input type="text" class="regex_text" id="filter_regex_text" placeholder="Filter recipe">  
-              
-              <select class="regex_dropdown" id="filter_regex_dropdown">
-                <option value="">RegEx option</option>
-              </select>
-            </div>
+        <div class="main_container" style="flex-direction: column;">
+          <div class="text_dropdown_group">
+            <input type="text" class="regex_text" id="filter_regex_text" placeholder="Insert RegEx of content codes to filter out">  
             
-            <div class="regex_test_container">
-              <textarea id="filter_regex_output">This is for a list of codes</textarea>
-            </div>
+            <select class="regex_dropdown" id="filter_regex_dropdown">
+              <option value="">RegEx option</option>
+            </select>
           </div>
+          
+          <div class="regex_test_container">
+            <textarea id="filter_regex_output" readonly>List of codes will be outputted here...</textarea>
+          </div>
+
+          <div class="background_label">
+            <h2>Sections to Filter</h2>
+          </div>
+        </div>
 
         <div class="arrow_container">
           <p class="down">NEXT</p>
@@ -90,22 +102,40 @@
       </div>
     </div>
     
-    <div class="bg" style="background: lightcoral;" >
+    <div class="bg" style="background: pink;" >
       <div class="container">
         <div class="arrow_container">
           <p class="up">PREV</p>
         </div>
   
-          <div class="main_container" style="flex-direction: column;">
-            
-            <textarea class="tall_textarea" id="filtered_result">This is for a list of codes</textarea>
-            
+        <div class="main_container" style="flex-direction: column;">
+          <textarea class="tall_textarea" id="filtered_result">This is for a list of codes</textarea>
+          
+          <div class="background_label">
+            <h2>Selected Content</h2>
           </div>
+        </div>
 
-        <div class="arrow_container empty">
+        <div class="arrow_container">
+          <p class="down">NEXT</p>
         </div>
       </div>
     </div>
+
+    <div class="bg" style="background: pink">
+			<div class="container">
+        <div class="arrow_container">
+          <p class="up">PREV</p>
+        </div>
+
+        <div class="main_container">
+          <h1 class="top">Up & Up</h1>
+        </div>
+
+				<div class="arrow_container empty">
+        </div>
+			</div>
+		</div>
 
 	</body>
 	<script type="application/javascript" src="_/scroll.js"></script>
