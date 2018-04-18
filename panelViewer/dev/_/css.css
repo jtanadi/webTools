@@ -1,0 +1,59 @@
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+#nav_container {
+  width: 100vw;
+  height: 4rem;
+  position: fixed;
+  background: black;
+  display: flex;
+}
+
+#nav_container .nav_col{
+  flex: 1;
+  margin: auto;
+}
+
+#nav_container .nav_col select {
+  font-size: 1.5rem;
+  outline: none;
+  background: #fff;
+  width: 90%;
+}
+
+#main_container {
+  background: red;
+  width: 100vw;
+  display: flex;
+  padding-top: 4rem;
+}
+
+#status_container {
+  background: yellow;
+  flex: 1;
+}
+
+#cells_container {
+  flex: 4;
+  display: flex;
+  flex-wrap: wrap;
+  background: green;
+  padding-left: 2rem;
+  padding-bottom: 2rem;
+}
+
+.panel_cell {
+  flex: 1 0 12vw;
+  margin: 2rem 2rem 0 0;
+  max-width: 12vw;
+  height: 12vw;
+  background: blue;
+  transition: all 0.75s;
+}
+
+.panel_cell:hover {
+  max-width: 25vw;
+  height: 25vw;
+}
