@@ -1,8 +1,7 @@
 const panelCells = document.querySelectorAll(".panel_cell");
-const cellsContainer = document.getElementById("cells_container");
-const statusText = document.getElementById("status_container")
-
-let opened = null;
+const mainArea = document.getElementById("main_area");
+const statusText = document.getElementById("status_container");
+const topText = document.querySelector("#top span");
 
 const resetStyles = (elmt) => {
   elmt.style.width = "";
@@ -12,7 +11,8 @@ const resetStyles = (elmt) => {
 
 // Attaching listener to container div
 // instead of using panelCells.forEach
-cellsContainer.addEventListener("click", evt => {
+let opened = null;
+mainArea.addEventListener("click", evt => {
   const clickedObj = evt.target;
   
   // Early break in case user clicks on non-cell items
@@ -58,4 +58,3 @@ window.addEventListener("scroll", e => {
     statusText.style.top = `${window.scrollY - 2}px`;
   }, 100);
 })
-

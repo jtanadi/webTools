@@ -28,15 +28,18 @@
   width: 90%;
 }
 
-#main_container {
+#body_container {
   width: 100%;
   display: flex;
   padding-top: 4rem;
   min-height: 100vh;
 }
 
-#side_container {
+#sidebar {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 2rem;
 }
 
@@ -47,11 +50,11 @@
   transition: all 0.65s;
 }
 
-#side_container #status_container h1 {
+#sidebar #status_container h1 {
   margin: 0;
 }
 
-#cells_container {
+#main_area {
   flex: 5;
   display: flex;
   flex-direction: column;
