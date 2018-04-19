@@ -1,5 +1,6 @@
 const panelCells = document.querySelectorAll(".panel_cell");
 const cellsContainer = document.getElementById("cells_container");
+const statusText = document.getElementById("status_container")
 
 let opened = null;
 
@@ -42,4 +43,19 @@ cellsContainer.addEventListener("click", evt => {
     opened = null;
   } 
 });
+
+let timeOut;
+window.addEventListener("scroll", e => {
+  // This will set a timeout of 100 ms and only then run
+  // the actual callback function. If the scroll event
+  // is fired again and the 100 ms have not passed yet,
+  // it will clear the pending timeout and set a new one.
+
+  // The effect is that the callback is only run once every 100ms.
+  if(timeOut) clearTimeout(timeOut);
+
+  timeOut = setTimeout(() => {
+    statusText.style.top = `${window.scrollY - 2}px`;
+  }, 100);
+})
 
