@@ -30,17 +30,17 @@ which will yield the following Ruby hash / Py dict / JS object:
 ```
 {
   type: "Panel type",
-  dropdowns: {
-    dropdown_1: {
+  selectors: {
+    selector_1: {
       option_1_value: "Option 1 Text",
       option_2_value: "Option 2 Text",
     },
-    dropdown_2: {
+    selector_2: {
       option_1_value: "Option 1 Text",
       option_2_value: "Option 2 Text",
       option_3_value: "Option 3 Text",
     },
-    dropdown_3: {
+    selector_3: {
       option_1_value: "Option 1 Text",
       ...
     }
@@ -76,15 +76,15 @@ Object desc FRE: 23
 ```
 {
   type: "HH_IP_a",
-  dropdowns: {
+  selectors: {
     dropdown_0: {
       human_history: "Human History",
       natural_history: "Natural History"
     },
-    dropdown_1: {
+    selector_1: {
       identification_panel: "Identification Panel"
     },
-    dropdown_2: {
+    selector_2: {
       horizontal: "Horizontal"
     }
   },
@@ -101,18 +101,94 @@ Object desc FRE: 23
 }
 ```
 
-psuedocode
+Some pseudocode to get things started...
 ```
-# text = "HH_IP_a\n
-Human History, Natural History
-Identification Panel
-Horizontal
-###"
+// text = "HH_IP_a \n Human History, Natural History \n Identification Panel \n Horizontal \n ###\n Extra info 1 \n Extra info 2 \n Extra info 3"
 
-split at ###
-index 0:
-  index 0.0 = code
-  index 0.1 -> 0.end = dropdowns
-index 1:
-  extra info
+temp_array = text.split("###\n").strip()
+// ["HH_IP_a \n Human History, Natural History \n Identification Panel \n Horizontal", "Extra info 1 \n Extra info 2 \n Extra info 3"]
+
+head_array = temp_array[0].split("\n")
+  .map(item => item.strip())
+// ["HH_IP_a", "Human History, Natural History", "Identification Panel", "Horizontal"]
+
+extras_array = temp_array[1].split("\n")
+  .map(item => item.strip())
+// ["Extra info 1", "Extra info 2", "Extra info 3"]
+
+object = {}
+object[type] = head_array.shift() // consume first element
+// head_array is now ["Human History, Natural History", "Identification Panel", "Horizontal"]
+// object is:
+// {
+//  code: "HH_IP_a"
+// }
+
+object[selectors] = {}
+key_index = 0
+
+head_array.forEach(item => {
+  selector_key = "selector_" + key_index
+
+  // Look for comma-separated string
+  // and turn it into an array [str1, str2]
+  if(item.includes(", ")) {
+    item = item.split(", ")
+  }
+
+  if(item is Array) {
+    item.map(indv_item => {
+      // "Human History" -> "human_history"
+      val = indv_item.lowercase().to_snake_case()
+
+      // "human_history" : "Human History"
+      object.selectors.selector_key.val = indv_item
+    })
+
+  } else {
+    // "Identification Panel" -> "identification_panel"
+    val = item.lowercase().to_snake_case()
+    
+    // "identification_panel" : "Identification Panel"
+    object.selectors.selector_key.val = item
+  }
+
+  key_index += 1
+})
+
+// After that, object should be:
+// {
+//   code: "HH_IP_a",
+//   selectors: {
+//     selector_0: {
+//       "human_history" : "Human History",
+//       "natural_history" : "Natural History",
+//     },
+//     selector_1: {
+//       "identification_panel" : "Identification Panel"
+//     },
+//     selector_2: {
+//       "horizontal" : "Horizontal"
+//     }
+//   }
+// }
+
+object[extras] = extras_array
+// Now object should be:
+// {
+//   code: "HH_IP_a",
+//   selectors: {
+//     selector_0: {
+//       "human_history" : "Human History",
+//       "natural_history" : "Natural History",
+//     },
+//     selector_1: {
+//       "identification_panel" : "Identification Panel"
+//     },
+//     selector_2: {
+//       "horizontal" : "Horizontal"
+//     }
+//   },
+//   extras: ["Extra info 1", "Extra info 2", "Extra info 3"]
+// }
 ```
