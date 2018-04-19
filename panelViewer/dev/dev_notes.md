@@ -100,3 +100,19 @@ Object desc FRE: 23
   ]
 }
 ```
+
+psuedocode
+```
+# text = "HH_IP_a\n
+Human History, Natural History
+Identification Panel
+Horizontal
+###"
+
+split at ###
+index 0:
+  index 0.0 = code
+  index 0.1 -> 0.end = dropdowns
+index 1:
+  extra info
+```
