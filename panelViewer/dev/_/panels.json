@@ -1,0 +1,58 @@
+[
+  {
+    "code": "HH_IP_a",
+    "selectors": {
+      "selector_0": {
+        "human_history": "Human History",
+        "natural_history": "Natural History"
+      },
+      "selector_1": {
+        "identification_panel": "Identification Panel"
+      },
+      "selector_2": {
+        "horizontal": "Horizontal"
+      }
+    },
+    "extras": [
+      "Title ENG: 5",
+      "Title FRE: 5",
+      "Body ENG: 50",
+      "Body FRE: 60",
+      "Object name ENG: 5",
+      "Object name FRE: 7",
+      "Object desc ENG: 20",
+      "Object desc FRE: 23"
+    ]
+  },
+  {
+    "code": "HH_ROL_GLWD",
+    "selectors": {
+      "selector_0": {
+        "human_history": "Human History"
+      },
+      "selector_1": {
+        "object_label": "Object Label"
+      }
+    },
+    "extras": [
+      "Description for HH_ROL_GLWD"
+    ]
+  },
+  {
+    "code": "HH_SP_H1",
+    "selectors": {
+      "selector_0": {
+        "human_history": "Natural History"
+      },
+      "selector_1": {
+        "story_panel": "Story Panel"
+      },
+      "selector_2": {
+        "vertical": "Vertical"
+      }
+    },
+    "extras": [
+      "Description for HH_SP_H1"
+    ]
+  }
+]

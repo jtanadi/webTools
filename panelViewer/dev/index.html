@@ -14,17 +14,27 @@
     <div class="nav_col empty" style="flex: 3;"></div>
 
     <div class="nav_col">
-      <select id="gallery">
-        <option value="natural_history">Natural History</option>
+      <select id="selector_0">
+        <option value="">ALL</option>
         <option value="human_history">Human History</option>
+        <option value="natural_history">Natural History</option>
       </select>
     </div>
     
     <div class="nav_col">
-      <select id="panel_type">
-        <option value="hanging_story_panel">Hanging Story Panel</option>
-        <option value="rail_story_panel">Rail Story Panel</option>
-        <option value="object_label">Object Label Panel</option>
+      <select id="selector_1">
+        <option value="">ALL</option>
+        <option value="identification_panel">Identification Panel</option>
+        <option value="object_label">Object Label</option>
+        <option value="story_panel">Story Panel</option>
+      </select>
+    </div>
+    
+    <div class="nav_col">
+      <select id="selector_2">
+        <option value="">ALL</option>
+        <option value="horizontal">Horizontal</option>
+        <option value="vertical">Vertical</option>
       </select>
     </div>
   </div>
@@ -60,26 +70,26 @@
     <div id="main_area">
       <div class="panel_row">
         <div class="panel_cell">
-          <img src="./_testImages/HH_IP_a.jpg" alt="HH_IP_a" class="panel">
+          <img src="./_testImages/HH_IP_a.jpg" alt="HH_IP_a" data-selector-0="human_history, natural_history" data-selector-1="identification_panel" data-selector-2="horizontal" class="panel">
         </div>
         
         <div class="panel_cell">
-          <img src="./_testImages/HH_ROL_GLWD.jpg" alt="HH_ROL_GLWD" class="panel">
+          <img src="./_testImages/HH_ROL_GLWD.jpg" data-selector-0="human_history" data-selector-1="object_label" data-selector-2="" alt="HH_ROL_GLWD" class="panel">
         </div>
   
         <div class="panel_cell">
-          <img src="./_testImages/HH_SP_H1.jpg" alt="HH_SP_H1" class="panel">
+          <img src="./_testImages/HH_SP_H1.jpg" data-selector-0="natural_history" data-selector-1="story_panel" data-selector-2="vertical" alt="HH_SP_H1" class="panel">
         </div>
   
-        <div class="panel_cell">
+        <!-- <div class="panel_cell">
           <img src="./_testImages/HH_SP_R1.jpg" alt="HH_SP_R1" class="panel">
         </div>
         <div class="panel_cell">
           <img src="./_testImages/HH_SP_R1.jpg" alt="HH_SP_R1" class="panel">
-        </div>
+        </div> -->
       </div>
      
-      <div class="panel_row">
+      <!-- <div class="panel_row">
         <div class="panel_cell">
           <img src="./_testImages/HH_SP_H3_a.jpg" alt="HH_SP_R1" class="panel">
         </div>
@@ -96,9 +106,9 @@
         <div class="panel_cell">
           <img src="./_testImages/HH_IP_a.jpg" alt="HH_IP_a" class="panel">
         </div>
-      </div>
+      </div> -->
       
-      <div class="panel_row">
+      <!-- <div class="panel_row">
         <div class="panel_cell">
           <img src="./_testImages/HH_SP_R1.jpg" alt="HH_SP_R1" class="panel">
         </div>
@@ -106,7 +116,7 @@
         <div class="panel_cell">
           <img src="./_testImages/HH_SP_H1.jpg" alt="HH_SP_H1" class="panel">
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 
