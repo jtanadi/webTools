@@ -26,6 +26,34 @@ extra_info4
 extra_info5
 ...
 ```
+which will yield the following Ruby hash / Py dict / JS object:
+```
+{
+  type: "Panel type",
+  dropdowns: {
+    dropdown_1: {
+      option_1_value: "Option 1 Text",
+      option_2_value: "Option 2 Text",
+    },
+    dropdown_2: {
+      option_1_value: "Option 1 Text",
+      option_2_value: "Option 2 Text",
+      option_3_value: "Option 3 Text",
+    },
+    dropdown_3: {
+      option_1_value: "Option 1 Text",
+      ...
+    }
+  },
+  extras: [
+    "Extra info",
+    "Extra info",
+    "Extra info",
+    "Extra info",
+    "Extra info"
+  ]
+}
+```
 
 Example:
 ```
@@ -45,7 +73,6 @@ Object desc ENG: 20
 Object desc FRE: 23
 ```
 
-`config.txt` will yield a JS object / Ruby hash that looks like this:
 ```
 {
   type: "HH_IP_a",
@@ -70,33 +97,6 @@ Object desc FRE: 23
     "Object name FRE: 7",
     "Object desc ENG: 20",
     "Object desc FRE: 23",
-  ]
-}
-```
-
-```
-{
-  type: "Panel type",
-  dropdowns: {
-    dropdown_1: {
-      option_1_value: "Option 1 Text",
-      option_2_value: "Option 2 Text",
-    },
-    dropdown_2: {
-      option_1_value: "Option 1 Text",
-      option_2_value: "Option 2 Text",
-    },
-    dropdown_3: {
-      option_1_value: "Option 1 Text",
-      option_2_value: "Option 2 Text",
-    }
-  },
-  extras: [
-    "Extra info",
-    "Extra info",
-    "Extra info",
-    "Extra info",
-    "Extra info"
   ]
 }
 ```
