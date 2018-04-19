@@ -24,14 +24,14 @@
 }
 
 #main_container {
-  width: 100vw;
+  width: 100%;
   display: flex;
   padding-top: 4rem;
   min-height: 100vh;
 }
 
 #status_container {
-  background: yellow;
+  /* background: yellow; */
   flex: 1;
   padding: 2rem;
 }
@@ -46,38 +46,40 @@
 }
 
 #cells_container {
+  /* background: green; */
   flex: 4;
   display: flex;
-  flex-wrap: wrap;
-  background: green;
-  padding-left: 2rem;
-  padding-bottom: 2rem;
-  /* justify-content: center; */
-  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.panel_row {
+  /* background: blue; */
+  flex: 0 1 auto;
+  width: 100%;
+  display: flex;
 }
 
 .panel_cell {
-  flex: 1 0 12vw;
-  margin: 2rem 2rem 0 0;
-  max-width: 12vw;
+  /* background: red; */
+  flex: 0 1 auto;
+  width: calc(100%/ 6);
   height: 12vw;
   transition: all 0.75s;
   display: flex;
-  /* background: blue; */
+  padding: 1.5vw;
 }
 
-/* Use JS to to listen to hover on img.panel instead */
-/* (will need to do that to update status anyway */
-/* .panel_cell:hover {
-  flex: 4 0 20vw;
-  max-width: 20vw;
-  height: 20vw;
-} */
+.panel_row:nth-child(odd) .panel_cell:nth-child(odd),
+.panel_row:nth-child(even) .panel_cell:nth-child(even) {
+  background: black;
+}
 
 img.panel {
-  flex-shrink: 1;
+  flex-shrink: 0 1 auto;
   max-width: 100%;
   max-height: 100%;
   margin: auto;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 }

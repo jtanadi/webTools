@@ -1,72 +1,45 @@
-const panelCellImgs = document.querySelectorAll(".panel_cell img");
 const panelCells = document.querySelectorAll(".panel_cell");
-// const cellsContainer = document.getElementById("cells_container");
+const cellsContainer = document.getElementById("cells_container");
 
-const clicked = false;
-let opened;
+let opened = null;
 
-// panelCellImgs.forEach(cellImg => {
-//   cellImg.addEventListener("click", function() {
-//     if(!clicked && this !== opened) {
-//       this.parentElement.style.flex = "1 0 30vw";
-//       this.parentElement.style.maxWidth = "30vw";
-//       this.parentElement.style.height = "30vw";
-//       clicked = true;
-//       opened = this;
-//     } else if(clicked && this !== opened) {
-//       panelCells.forEach(cell => {
-//         cell.style.flex = "1 0 12vw";
-//         cell.style.maxWidth = "12vw";
-//         cell.style.height = "12vw";
-//       });
-//       this.parentElement.style.flex = "1 0 30vw";
-//       this.parentElement.style.maxWidth = "30vw";
-//       this.parentElement.style.height = "30vw";
-//       clicked = true;
-//       opened = this;
-//     } else if(clicked && this === opened) {
-//       panelCells.forEach(cell => {
-//         cell.style.flex = "1 0 12vw";
-//         cell.style.maxWidth = "12vw";
-//         cell.style.height = "12vw";
-//       });
-//       clicked = false;
-//       opened = null;
-//     }
-//   });
-// });
+const resetStyles = (elmt) => {
+  elmt.style.width = "";
+  elmt.style.height = "";
+  elmt.style.padding = "";
+}
 
-// panelCells.forEach(cellImg => {
-//   cellImg.addEventListener("click", function() {
-//     if(!clicked) {
-//       // this.parentElement.style.display = "block";
-//       // this.style.display = "inline-flex";
-//       this.style.position = "absolute";
-//       this.style.maxWidth = "50vw";
-//       this.style.width = "50vw";
-//       this.style.height = "50vw";
-//       this.style.zIndex = 99;
-//       this.style.top = 0;
-//       this.style.flex = "5 5 auto";
-//       clicked = true;
-//     } else {
-//       this.style.position = "static";
-//       this.style.maxWidth = "12vw";
-//       this.style.width = "12vw";
-//       this.style.height = "12vw";
-//       this.style.zIndex = 0;
-//       this.style.flex = "1 0 12vw";
-//       clicked = false;
-//     }
-//   });
-// });
+// Attaching listener to container div
+// instead of using panelCells.forEach
+cellsContainer.addEventListener("click", evt => {
+  const clickedObj = evt.target;
+  
+  // Early break in case user clicks on non-cell items
+  if(!Array.from(panelCells).includes(clickedObj)) {
+    return
+  }
 
-// panelCellImgs.forEach(cell => {
-//   cell.addEventListener("click", () => {
-//     panelCells.forEach(panelCell => {
-//       panelCell.style.flex = "1 0 12vw";
-//       panelCell.style.maxWidth = "12vw";
-//       panelCell.style.height = "12vw";
-//     });
-//   });
-// });
+  if(clickedObj !== opened) {
+    // If clicked object is not open, 
+    // enlarge clicked object & make everything else smaller
+    const newDivisions = 100 / 6;
+    const newWidth = newDivisions * 2;
+    panelCells.forEach(cell => {
+      cell.style.width = `${newDivisions}%`;
+      cell.style.height = "";
+    });
+    clickedObj.style.width = `${newWidth}%`;
+    clickedObj.style.height = "30vw";
+    clickedObj.style.padding = "1vw";
+    
+    opened = clickedObj;
+    
+  } else if(clickedObj === opened) {
+    // If clicked object is opened, reset everything
+    panelCells.forEach(cell => {
+      resetStyles(cell);
+    });
+    opened = null;
+  } 
+});
+
