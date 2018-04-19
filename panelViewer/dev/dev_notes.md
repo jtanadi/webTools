@@ -27,7 +27,7 @@ extra_info5
 ...
 ```
 which will yield the following Ruby hash / Py dict / JS object:
-```
+``` javascript
 {
   type: "Panel type",
   selectors: {
@@ -73,7 +73,7 @@ Object desc ENG: 20
 Object desc FRE: 23
 ```
 
-```
+``` javascript
 {
   type: "HH_IP_a",
   selectors: {
@@ -102,7 +102,7 @@ Object desc FRE: 23
 ```
 
 Some pseudocode to get things started...
-```
+``` javascript
 // text = "HH_IP_a \n Human History, Natural History \n Identification Panel \n Horizontal \n ###\n Extra info 1 \n Extra info 2 \n Extra info 3"
 
 temp_array = text.split("###\n").strip()
@@ -119,7 +119,8 @@ extras_array = temp_array[1].split("\n")
 object = {}
 object[type] = head_array.shift() // consume first element
 // head_array is now ["Human History, Natural History", "Identification Panel", "Horizontal"]
-// object is:
+
+// At this point, object is:
 // {
 //  code: "HH_IP_a"
 // }
@@ -155,7 +156,6 @@ head_array.forEach(item => {
 
   key_index += 1
 })
-
 // After that, object should be:
 // {
 //   code: "HH_IP_a",
