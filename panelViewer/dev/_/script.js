@@ -2,9 +2,17 @@ const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
 const mainArea = document.getElementById("main_area");
 const statusText = document.getElementById("status_container");
-const topText = document.querySelector("#top span");
+const selectElements = document.querySelectorAll("select");
 
-const selector0 = document.getElementById("selector_0");
+let DROPDOWNSTATE = {}
+const loadState = (elmtWithData, stateContainer) => {
+  elmtWithData.forEach(elmt => {
+    Object.keys(elmt.dataset)
+      .map(data => stateContainer[data] = "")
+  })
+}
+
+loadState(panelImgs, DROPDOWNSTATE);
 
 const resetStyles = (elmt) => {
   elmt.style.width = "";
@@ -62,42 +70,24 @@ window.addEventListener("scroll", e => {
   }, 100);
 })
 
-// Super janky... refactor & make a lot more flexible
-let STATE = {
-  selector_0: "",
-  selector_1: "",
-  selector_2: "",
+const checkState = image => {
+  let show = true;
+  const selectorsArray = Object.keys(image.dataset);
+  
+  selectorsArray.map(key => {
+    if(!image.dataset[key].includes(DROPDOWNSTATE[key])) show = false;
+
+    image.parentElement.style.display = (!show)
+      ? "none"
+      : ""
+  })
 }
 
-const checkImg = image => {
-  if(
-    image.dataset["selector-0"].includes(STATE.selector_0)
-    && image.dataset["selector-1"].includes(STATE.selector_1)
-    && image.dataset["selector-2"].includes(STATE.selector_2)
-  ) {
-    image.parentElement.style.display = ""
-  } else {
-    image.parentElement.style.display = "none"
-  }
-}
-
-selector_0.addEventListener("change", function() {
-  STATE.selector_0 = this.value
-  panelImgs.forEach(img => {
-    checkImg(img)
-  })
-})
-
-selector_1.addEventListener("change", function() {
-  STATE.selector_1 = this.value
-  panelImgs.forEach(img => {
-    checkImg(img)
-  })
-})
-
-selector_2.addEventListener("change", function() {
-  STATE.selector_2 = this.value
-  panelImgs.forEach(img => {
-    checkImg(img)
+selectElements.forEach(select => {
+  select.addEventListener("change", function() {
+    DROPDOWNSTATE[this.id] = this.value;
+    panelImgs.forEach(img => {
+      checkState(img)
+    })
   })
 })
