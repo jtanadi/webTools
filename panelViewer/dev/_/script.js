@@ -1,14 +1,13 @@
 let opened = null;
 let timeOut;
+const DROPDOWNSTATE = {};
 
 const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
 const mainArea = document.getElementById("main_area");
-const panelInfo = document.querySelectorAll(".panel_info");
-const panelInfoShown = document.querySelector(".panel_info .show");
+const shownInfo = document.querySelector(".panel_info .show");
 const dropdowns = document.querySelectorAll("select");
 
-const DROPDOWNSTATE = {};
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
     Object.keys(elmt.dataset)
@@ -29,23 +28,6 @@ const checkState = image => {
   });
 };
 
-const resetStyles = elmt => {
-  elmt.style.width = "";
-  elmt.style.height = "";
-  elmt.style.padding = "";
-};
-
-loadState(panelImgs, DROPDOWNSTATE);
-
-dropdowns.forEach(dropdown => {
-  dropdown.addEventListener("change", function() {
-    DROPDOWNSTATE[this.id] = this.value;
-    panelImgs.forEach(img => {
-      checkState(img);
-    });
-  });
-});
-
 const scrollPanelInfo = () => {
   // This will set a timeout of 100 ms and only then run
   // the actual callback function. If the scroll event
@@ -56,12 +38,20 @@ const scrollPanelInfo = () => {
   if(timeOut) clearTimeout(timeOut);
 
   timeOut = setTimeout(() => {
-    if(!panelInfoShown) return;
-    panelInfoShown.style.top = `${window.scrollY - 2}px`;
+    if(!shownInfo) return;
+    shownInfo.style.top = `${window.scrollY - 2}px`;
   }, 100);
 };
 
+const updateDropdowns = function() {
+  DROPDOWNSTATE[this.id] = this.value;
+  panelImgs.forEach(img => {
+    checkState(img);
+  });
+};
+
 const updatePanelInfo = (target, classToRemove = "", classToAdd = "") => {
+  const panelInfo = document.querySelectorAll(".panel_info");
   const panelCode = target.querySelector("img").alt;
   // const info = document.getElementById(panelCode);
   panelInfo.forEach(info => {
@@ -75,7 +65,12 @@ const updatePanelInfo = (target, classToRemove = "", classToAdd = "") => {
 
 const enlargeOnFocus = evt => {
   const clickedObj = evt.target;
-  // console.log(clickedObj);
+  const resetStyles = elmt => {
+    elmt.style.width = "";
+    elmt.style.height = "";
+    elmt.style.padding = "";
+  };
+
   // Early break in case user clicks on non-cell items
   if(!Array.from(panelCells).includes(clickedObj)) return;
 
@@ -92,7 +87,7 @@ const enlargeOnFocus = evt => {
     clickedObj.style.height = "30vw";
     clickedObj.style.padding = "1vw";
     
-    updatePanelInfo(clickedObj, "", "show");
+    updatePanelInfo(clickedObj, "show", "show");
     opened = clickedObj;
   } else if(clickedObj === opened) {
     // If clicked object is opened, reset everything
@@ -104,6 +99,11 @@ const enlargeOnFocus = evt => {
   }
 };
 
+loadState(panelImgs, DROPDOWNSTATE);
+
+dropdowns.forEach(dropdown => {
+  dropdown.addEventListener("change", updateDropdowns);
+});
 
 // Attaching listener to container div
 // instead of using panelCells.forEach. not sure why?
