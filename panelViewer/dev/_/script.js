@@ -1,38 +1,60 @@
+let opened = null;
+let timeOut;
+
 const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
 const mainArea = document.getElementById("main_area");
 const statusText = document.getElementById("status_container");
-const selectElements = document.querySelectorAll("select");
+const dropdowns = document.querySelectorAll("select");
 
-let DROPDOWNSTATE = {}
+const DROPDOWNSTATE = {};
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
     Object.keys(elmt.dataset)
-      .map(data => stateContainer[data] = "")
-  })
-}
+      .map(data => stateContainer[data] = "");
+  });
+};
 
-loadState(panelImgs, DROPDOWNSTATE);
+const checkState = image => {
+  let show = true;
+  const selectorsArray = Object.keys(image.dataset);
+  
+  selectorsArray.forEach(key => {
+    if(!image.dataset[key].includes(DROPDOWNSTATE[key])) show = false;
 
-const resetStyles = (elmt) => {
+    image.parentElement.style.display = (!show)
+      ? "none"
+      : "";
+  });
+};
+
+const resetStyles = elmt => {
   elmt.style.width = "";
   elmt.style.height = "";
   elmt.style.padding = "";
-}
+};
+
+loadState(panelImgs, DROPDOWNSTATE);
+
+dropdowns.forEach(dropdown => {
+  dropdown.addEventListener("change", function() {
+    DROPDOWNSTATE[this.id] = this.value;
+    panelImgs.forEach(img => {
+      checkState(img);
+    });
+  });
+});
 
 // Attaching listener to container div
 // instead of using panelCells.forEach
-let opened = null;
 mainArea.addEventListener("click", evt => {
   const clickedObj = evt.target;
   
   // Early break in case user clicks on non-cell items
-  if(!Array.from(panelCells).includes(clickedObj)) {
-    return
-  }
+  if(!Array.from(panelCells).includes(clickedObj)) return;
 
   if(clickedObj !== opened) {
-    // If clicked object is not open, 
+    // If clicked object is not open,
     // enlarge clicked object & make everything else smaller
     const newDivisions = 100 / 6;
     const newWidth = newDivisions * 2;
@@ -45,18 +67,16 @@ mainArea.addEventListener("click", evt => {
     clickedObj.style.padding = "1vw";
     
     opened = clickedObj;
-    
   } else if(clickedObj === opened) {
     // If clicked object is opened, reset everything
     panelCells.forEach(cell => {
       resetStyles(cell);
     });
     opened = null;
-  } 
+  }
 });
 
-let timeOut;
-window.addEventListener("scroll", e => {
+window.addEventListener("scroll", () => {
   // This will set a timeout of 100 ms and only then run
   // the actual callback function. If the scroll event
   // is fired again and the 100 ms have not passed yet,
@@ -68,26 +88,4 @@ window.addEventListener("scroll", e => {
   timeOut = setTimeout(() => {
     statusText.style.top = `${window.scrollY - 2}px`;
   }, 100);
-})
-
-const checkState = image => {
-  let show = true;
-  const selectorsArray = Object.keys(image.dataset);
-  
-  selectorsArray.map(key => {
-    if(!image.dataset[key].includes(DROPDOWNSTATE[key])) show = false;
-
-    image.parentElement.style.display = (!show)
-      ? "none"
-      : ""
-  })
-}
-
-selectElements.forEach(select => {
-  select.addEventListener("change", function() {
-    DROPDOWNSTATE[this.id] = this.value;
-    panelImgs.forEach(img => {
-      checkState(img)
-    })
-  })
-})
+});
