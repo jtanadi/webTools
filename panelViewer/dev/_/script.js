@@ -4,7 +4,8 @@ let timeOut;
 const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
 const mainArea = document.getElementById("main_area");
-const statusText = document.getElementById("status_container");
+const panelInfo = document.querySelectorAll(".panel_info");
+const panelInfoShown = document.querySelector(".panel_info .show");
 const dropdowns = document.querySelectorAll("select");
 
 const DROPDOWNSTATE = {};
@@ -45,11 +46,36 @@ dropdowns.forEach(dropdown => {
   });
 });
 
-// Attaching listener to container div
-// instead of using panelCells.forEach
-mainArea.addEventListener("click", evt => {
+const scrollPanelInfo = () => {
+  // This will set a timeout of 100 ms and only then run
+  // the actual callback function. If the scroll event
+  // is fired again and the 100 ms have not passed yet,
+  // it will clear the pending timeout and set a new one.
+
+  // The effect is that the callback is only run once every 100ms.
+  if(timeOut) clearTimeout(timeOut);
+
+  timeOut = setTimeout(() => {
+    if(!panelInfoShown) return;
+    panelInfoShown.style.top = `${window.scrollY - 2}px`;
+  }, 100);
+};
+
+const updatePanelInfo = (target, classToRemove = "", classToAdd = "") => {
+  const panelCode = target.querySelector("img").alt;
+  // const info = document.getElementById(panelCode);
+  panelInfo.forEach(info => {
+    if(info.classList.contains(classToRemove)) {
+      info.classList.remove(classToRemove);
+    } else if(classToAdd && info.id === panelCode) {
+      info.classList.add(classToAdd);
+    }
+  });
+};
+
+const enlargeOnFocus = evt => {
   const clickedObj = evt.target;
-  
+  // console.log(clickedObj);
   // Early break in case user clicks on non-cell items
   if(!Array.from(panelCells).includes(clickedObj)) return;
 
@@ -66,26 +92,21 @@ mainArea.addEventListener("click", evt => {
     clickedObj.style.height = "30vw";
     clickedObj.style.padding = "1vw";
     
+    updatePanelInfo(clickedObj, "", "show");
     opened = clickedObj;
   } else if(clickedObj === opened) {
     // If clicked object is opened, reset everything
     panelCells.forEach(cell => {
       resetStyles(cell);
     });
+    updatePanelInfo(clickedObj, "show");
     opened = null;
   }
-});
+};
 
-window.addEventListener("scroll", () => {
-  // This will set a timeout of 100 ms and only then run
-  // the actual callback function. If the scroll event
-  // is fired again and the 100 ms have not passed yet,
-  // it will clear the pending timeout and set a new one.
 
-  // The effect is that the callback is only run once every 100ms.
-  if(timeOut) clearTimeout(timeOut);
+// Attaching listener to container div
+// instead of using panelCells.forEach. not sure why?
+mainArea.addEventListener("click", enlargeOnFocus);
 
-  timeOut = setTimeout(() => {
-    statusText.style.top = `${window.scrollY - 2}px`;
-  }, 100);
-});
+window.addEventListener("scroll", scrollPanelInfo);

@@ -43,15 +43,25 @@
   padding: 2rem;
 }
 
-#status_container {
+.panel_info {
   position: relative;
   width: 85%;
   top: -2px;
   transition: all 0.65s;
+  display: none;
 }
 
-#sidebar #status_container h1 {
+.show {
+  display: block;
+}
+
+#sidebar .panel_info h1 {
   margin: 0;
+}
+
+#sidebar_footnote {
+  flex: 0 1 auto;
+  margin-top: auto;
 }
 
 #main_area {
