@@ -3,6 +3,11 @@
   box-sizing: border-box;
 }
 
+p {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+}
+
 .rule {
   width: 100%;
   border-bottom: 1px solid black;
@@ -11,27 +16,36 @@
 #nav_container {
   width: 100vw;
   height: 4rem;
+  padding: 1rem 2rem;
   position: fixed;
   background: black;
   display: flex;
 }
 
-#nav_container .nav_col{
+#nav_container .nav_item {
   flex: 1;
-  margin: auto;
+  margin: auto 0;
 }
 
-#nav_container .nav_col select {
+#nav_container .nav_item:first-child {
+  margin-left: calc(20% + 3rem);
+}
+
+#nav_container .nav_item:not(:last-child) {
+  margin-right: 2%;
+}
+
+.nav_item select {
+  width: 100%;
   font-size: 1.5rem;
   outline: none;
   background: #fff;
-  width: 90%;
 }
 
 #body_container {
   width: 100%;
   display: flex;
-  padding-top: 4rem;
+  padding-top: 3.5rem;
   min-height: 100vh;
 }
 
@@ -56,6 +70,8 @@
 }
 
 #sidebar .panel_info h1 {
+  font-size: 1.5rem;
+  font-weight: normal;
   margin: 0;
 }
 
@@ -65,7 +81,7 @@
 }
 
 #main_area {
-  flex: 5;
+  flex: 4;
   display: flex;
   flex-direction: column;
   padding: 2rem;
