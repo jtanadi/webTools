@@ -5,8 +5,9 @@ const DROPDOWNSTATE = {};
 const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
 const mainArea = document.getElementById("main_area");
-const shownInfo = document.querySelector(".panel_info .show");
 const dropdowns = document.querySelectorAll("select");
+
+// console.log(shownInfo);
 
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
@@ -29,6 +30,8 @@ const checkState = image => {
 };
 
 const scrollPanelInfo = () => {
+  const shownInfo = document.querySelector(".panel_info.show");
+  
   // This will set a timeout of 100 ms and only then run
   // the actual callback function. If the scroll event
   // is fired again and the 100 ms have not passed yet,
@@ -36,7 +39,7 @@ const scrollPanelInfo = () => {
 
   // The effect is that the callback is only run once every 100ms.
   if(timeOut) clearTimeout(timeOut);
-
+  
   timeOut = setTimeout(() => {
     if(!shownInfo) return;
     shownInfo.style.top = `${window.scrollY - 2}px`;
