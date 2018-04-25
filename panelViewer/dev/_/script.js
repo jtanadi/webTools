@@ -2,10 +2,10 @@ let opened = null;
 let timeOut;
 const DROPDOWNSTATE = {};
 
+const dropdowns = document.querySelectorAll("select");
 const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
 const mainArea = document.getElementById("main_area");
-const dropdowns = document.querySelectorAll("select");
 
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
@@ -90,7 +90,7 @@ const enlargeOnFocus = evt => {
     
     updatePanelInfo(clickedObj, "show", "show");
     opened = clickedObj;
-  } else if(clickedObj === opened) {
+  } else {
     // If clicked object is opened, reset everything
     panelCells.forEach(cell => {
       resetStyles(cell);
