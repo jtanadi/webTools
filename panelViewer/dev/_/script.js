@@ -52,7 +52,7 @@ const updateDropdowns = function() {
 };
 
 const updatePanelInfo = (target, classToRemove = "", classToAdd = "") => {
-  const panelInfo = document.querySelectorAll(".panel_info");
+  const panelInfo = document.querySelectorAll("#sidebar .panel_info");
   const panelCode = target.querySelector("img").alt;
 
   panelInfo.forEach(info => {
