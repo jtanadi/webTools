@@ -108,11 +108,6 @@
   transition: all 0.75s;
 }
 
-.panel_row:nth-child(odd) .panel_cell:nth-child(odd),
-.panel_row:nth-child(even) .panel_cell:nth-child(even) {
-  background: black;
-}
-
 img.panel {
   flex: 0 1 auto;
   max-width: 100%;
