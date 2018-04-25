@@ -7,8 +7,6 @@ const panelImgs = document.querySelectorAll(".panel_cell img");
 const mainArea = document.getElementById("main_area");
 const dropdowns = document.querySelectorAll("select");
 
-// console.log(shownInfo);
-
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
     Object.keys(elmt.dataset)
@@ -31,7 +29,7 @@ const checkState = image => {
 
 const scrollPanelInfo = () => {
   const shownInfo = document.querySelector(".panel_info.show");
-  
+
   // This will set a timeout of 100 ms and only then run
   // the actual callback function. If the scroll event
   // is fired again and the 100 ms have not passed yet,
@@ -56,7 +54,7 @@ const updateDropdowns = function() {
 const updatePanelInfo = (target, classToRemove = "", classToAdd = "") => {
   const panelInfo = document.querySelectorAll(".panel_info");
   const panelCode = target.querySelector("img").alt;
-  // const info = document.getElementById(panelCode);
+
   panelInfo.forEach(info => {
     if(info.classList.contains(classToRemove)) {
       info.classList.remove(classToRemove);
