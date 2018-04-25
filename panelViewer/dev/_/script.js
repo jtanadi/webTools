@@ -51,7 +51,7 @@ const updateDropdowns = function() {
   });
 };
 
-const updatePanelInfo = (target, classToRemove = "", classToAdd = "") => {
+const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
   const panelInfo = document.querySelectorAll("#sidebar .panel_info");
   const panelCode = target.querySelector("img").alt;
 
@@ -88,14 +88,14 @@ const enlargeOnFocus = evt => {
     clickedObj.style.height = "30vw";
     clickedObj.style.padding = "1vw";
     
-    updatePanelInfo(clickedObj, "show", "show");
+    togglePanelInfo(clickedObj, "show", "show");
     opened = clickedObj;
   } else {
     // If clicked object is opened, reset everything
     panelCells.forEach(cell => {
       resetStyles(cell);
     });
-    updatePanelInfo(clickedObj, "show");
+    togglePanelInfo(clickedObj, "show");
     opened = null;
   }
 };
