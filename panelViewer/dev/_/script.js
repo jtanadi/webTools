@@ -7,6 +7,38 @@ const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
 const mainArea = document.getElementById("main_area");
 
+
+const panelRows = document.querySelectorAll(".panel_row");
+
+/* .panel_row:nth-child(odd) .panel_cell:nth-child(odd),
+.panel_row:nth-child(even) .panel_cell:nth-child(even) {
+  background: black;
+} */
+
+const makeCheckerboard = () => {
+  panelRows.forEach((row, index) => {
+    const cells = row.querySelectorAll(".panel_cell");
+    const visibleCells = [];
+    cells.forEach(cell => {
+      if(cell.style.display !== "none") {
+        visibleCells.push(cell);
+        cell.style.background = "";
+      }
+    });
+
+    if(index % 2 === 0) {
+      visibleCells.forEach((cell, i) => {
+        if(i % 2 === 0) cell.style.background = "black";
+      });
+    } else {
+      visibleCells.forEach((cell, i) => {
+        if(i % 2 !== 0) cell.style.background = "black";
+      });
+    }
+  });
+};
+
+
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
     Object.keys(elmt.dataset)
@@ -49,6 +81,7 @@ const updateDropdowns = function() {
   panelImgs.forEach(img => {
     checkState(img);
   });
+  makeCheckerboard();
 };
 
 const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
@@ -101,6 +134,7 @@ const enlargeOnFocus = evt => {
 };
 
 loadState(panelImgs, DROPDOWNSTATE);
+makeCheckerboard();
 
 dropdowns.forEach(dropdown => {
   dropdown.addEventListener("change", updateDropdowns);
