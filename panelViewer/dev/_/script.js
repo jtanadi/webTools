@@ -3,20 +3,14 @@ let timeOut;
 const DROPDOWNSTATE = {};
 
 const dropdowns = document.querySelectorAll("select");
+
+const mainArea = document.getElementById("main_area");
+const panelRows = document.querySelectorAll(".panel_row");
 const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
-const mainArea = document.getElementById("main_area");
-
-
-const panelRows = document.querySelectorAll(".panel_row");
-
-/* .panel_row:nth-child(odd) .panel_cell:nth-child(odd),
-.panel_row:nth-child(even) .panel_cell:nth-child(even) {
-  background: black;
-} */
 
 const makeCheckerboard = () => {
-  panelRows.forEach((row, index) => {
+  panelRows.forEach((row, rowIndex) => {
     const cells = row.querySelectorAll(".panel_cell");
     const visibleCells = [];
     cells.forEach(cell => {
@@ -26,13 +20,13 @@ const makeCheckerboard = () => {
       }
     });
 
-    if(index % 2 === 0) {
-      visibleCells.forEach((cell, i) => {
-        if(i % 2 === 0) cell.style.background = "black";
+    if(rowIndex % 2 === 0) {
+      visibleCells.forEach((cell, cellIndex) => {
+        if(cellIndex % 2 === 0) cell.style.background = "black";
       });
     } else {
-      visibleCells.forEach((cell, i) => {
-        if(i % 2 !== 0) cell.style.background = "black";
+      visibleCells.forEach((cell, cellIndex) => {
+        if(cellIndex % 2 !== 0) cell.style.background = "black";
       });
     }
   });
