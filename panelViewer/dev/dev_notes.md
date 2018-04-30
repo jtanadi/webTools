@@ -77,7 +77,7 @@ Object desc FRE: 23
 {
   type: "HH_IP_a",
   selectors: {
-    dropdown_0: {
+    selector_0: {
       human_history: "Human History",
       natural_history: "Natural History"
     },
