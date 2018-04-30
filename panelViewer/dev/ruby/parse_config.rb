@@ -1,7 +1,4 @@
-output = '<div class="nav_item">'
-
 all_panels = []
-all_selectors = {}
 
 def snake_case(str)
   str.split(" ").join("_")
