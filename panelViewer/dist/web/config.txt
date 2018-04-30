@@ -1,0 +1,27 @@
+HH_IP_a
+Natural History, Human History
+Identification Panel
+Horizontal
+###
+Title ENG: 5
+Title FRE: 7
+Body ENG: 50
+Body FRE: 60
+Object name ENG: 5
+Object name FRE: 7
+Object desc ENG: 20
+Object desc FRE: 23
+
+HH_ROL_GLWD
+Human History
+Object Label
+Vertical
+###
+Description for HH_ROL_GLWD
+
+HH_SP_H1
+Natural History
+Story Panel
+Vertical
+###
+Description for HH_SP_H1
