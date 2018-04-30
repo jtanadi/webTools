@@ -32,7 +32,6 @@ const makeCheckerboard = () => {
   });
 };
 
-
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
     Object.keys(elmt.dataset)
