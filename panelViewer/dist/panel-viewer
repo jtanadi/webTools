@@ -150,6 +150,7 @@ def read_config()
     panel_info = []
 
     config.split("\n\n").each do |panel|
+      next unless panel.include? "\n###\n"
       info_array = panel.split("\n###\n")
 
       panel_extras = info_array[1].split("\n")
