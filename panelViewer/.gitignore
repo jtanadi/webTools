@@ -2,4 +2,5 @@ _testImages
 test_dist/
 web/
 web_example/
-
+*.mov
+*.m4v
