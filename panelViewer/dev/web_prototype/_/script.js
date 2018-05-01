@@ -52,8 +52,13 @@ const checkState = image => {
   });
 };
 
-const scrollPanelInfo = () => {
+const scrollPanelInfo = evt => {
   const shownInfo = document.querySelector(".panel_info.show");
+
+  if(evt.type === "click" && shownInfo) {
+    shownInfo.style.top = `${window.scrollY - 2}px`;
+    return;
+  }
 
   // This will set a timeout of 100 ms and only then run
   // the actual callback function. If the scroll event
@@ -91,7 +96,7 @@ const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
 };
 
 const enlargeOnFocus = evt => {
-  scrollPanelInfo();
+  scrollPanelInfo(evt);
   const clickedObj = evt.target;
   const resetStyles = elmt => {
     elmt.style.width = "";
