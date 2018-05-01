@@ -96,7 +96,6 @@ const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
 };
 
 const enlargeOnFocus = evt => {
-  scrollPanelInfo(evt);
   const clickedObj = evt.target;
   const resetStyles = elmt => {
     elmt.style.width = "";
@@ -130,6 +129,7 @@ const enlargeOnFocus = evt => {
     togglePanelInfo(clickedObj, "show");
     opened = null;
   }
+  scrollPanelInfo(evt);
 };
 
 loadState(panelImgs, DROPDOWNSTATE);
