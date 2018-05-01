@@ -147,17 +147,19 @@ def read_config()
   config_file = find_config(WORKINGDIR) 
   File.open("#{WORKINGDIR}/#{config_file}", "r") do |file|
     config = file.read
-    panel_info = []
-
+    
     config.split("\n\n").each do |panel|
-      next unless panel.include? "\n###\n"
-      info_array = panel.split("\n###\n")
+      panel_info = []
+      panel_extras = []
 
-      panel_extras = info_array[1].split("\n")
-                                  .map { |item| item.chomp }
+      if panel.include? "\n###\n"
+        info_array = panel.split("\n###\n")
 
-      panel_info = info_array[0].split("\n")
-                                .map { |item| item.chomp }
+        panel_extras = info_array[1].split("\n").map(&:chomp)
+        panel_info = info_array[0].split("\n").map(&:chomp)
+      else
+        panel_info = panel.split("\n").map(&:chomp)
+      end
 
       ret_array << create_panel_hash(panel_info, panel_extras)
     end
