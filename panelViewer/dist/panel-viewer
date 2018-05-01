@@ -3,6 +3,14 @@
 ACCEPTEDFORMAT = [".jpg", ".jpeg", ".gif", ".png", ".tif", ".tiff", ".tga", ".bmp"]
 WORKINGDIR = Dir.getwd
 
+def find_config(directory)
+  files = Dir.entries(directory)
+
+  files.each do |file|
+    return file if File.basename(file).include? "config.txt"
+  end
+end
+
 def snake_case(str)
   str.split(" ").join("_")
 end
@@ -26,7 +34,7 @@ def create_panel_hash(info_arr, extras_arr)
         val = (snake_case(item.downcase)).to_sym
         return_hash[:selectors][selector_key][val] = item
       end
-    
+
     else
       val = (snake_case(selector.downcase)).to_sym
       return_hash[:selectors][selector_key][val] = selector
@@ -34,7 +42,7 @@ def create_panel_hash(info_arr, extras_arr)
 
     selector_index += 1
   end
-  
+
   return_hash
 end
 
@@ -51,7 +59,7 @@ def get_selectors(arr)
 
       ret_selectors[key] = {} unless ret_selectors.has_key?(key)
 
-      selector[key].each do |selector_key, selector_val|
+      selector[key].each do |selector_key, _selector_val|
         ret_selectors[key][selector_key] = selector[key][selector_key]
       end
 
@@ -65,7 +73,7 @@ def make_dropdowns(hash)
   ret_string = "<div id=\"nav_container\">"
   hash.each do |key, value|
     ret_string += "<div class=\"nav_item\">"
-    ret_string += "<select id=\"#{key.to_s}\">"
+    ret_string += "<select id=\"#{key}\">"
     ret_string += "<option value=\"\">ALL</option>"
 
     value.each do |dropdown_key, dropdown_val|
@@ -83,12 +91,10 @@ def parse_images(directory, panels_arr)
 
   files = Dir.entries(directory)
   images = files.select { |file| ACCEPTEDFORMAT.include? File.extname(file) }
-  
+
   images.each.with_index do |image, index|
-    if index == 0
-      ret_string += "<div class=\"panel_row\">"
-    # elsif index % 5 == 0 && index != 0
-    #   ret_string += "</div><div class=\"panel_row\">"
+    if (index % 5).zero? && !index.zero?
+      ret_string += "</div><div class=\"panel_row\">"
     end
 
     alt_name = File.basename(image, ".*")
@@ -96,22 +102,21 @@ def parse_images(directory, panels_arr)
     ret_string += "<img src=\"./#{image}\" class=\"panel\" alt=\"#{alt_name}\" "
 
     panels_arr.each do |panel|
-      if panel[:code] == alt_name
-        panel[:selectors].each do |selector_num, selector_data|
-          data_name = "data-" + selector_num.to_s
-          data_values = []
-          selector_data.each do |key, val|
-            data_values << key.to_s
-          end
-          ret_string += "#{data_name}=\"#{data_values.join(", ")}\" "
+      next unless panel[:code] == alt_name
+      panel[:selectors].each do |selector_num, selector_data|
+        data_name = "data-" + selector_num.to_s
+        data_values = []
+        selector_data.each do |key, _val|
+          data_values << key.to_s
         end
+        ret_string += "#{data_name}=\"#{data_values.join(", ")}\" "
       end
     end
 
     ret_string += "></div>"
   end
   ret_string += "</div></div>"
-  ret_string  
+  ret_string
 end
 
 def make_sidebar(panels_arr)
@@ -121,8 +126,8 @@ def make_sidebar(panels_arr)
     ret_string += "<div class=\"panel_info\" id=\"#{panel[:code]}\">"
     ret_string += "<h1>#{panel[:code]}</h1><p class=\"rule\"></p>"
 
-    panel[:selectors].each do |selector_num, selector_data|
-      selector_data.each do |key, value|
+    panel[:selectors].each do |_selector_num, selector_data|
+      selector_data.each do |_key, value|
         ret_string += "<p>#{value}</p>"
       end
       ret_string += "<p class=\"rule\"></p>"
@@ -139,19 +144,20 @@ end
 
 def read_config()
   ret_array = []
-  File.open("#{WORKINGDIR}/config.txt", "r") do |file|
+  config_file = find_config(WORKINGDIR) 
+  File.open("#{WORKINGDIR}/#{config_file}", "r") do |file|
     config = file.read
     panel_info = []
 
     config.split("\n\n").each do |panel|
       info_array = panel.split("\n###\n")
-      
+
       panel_extras = info_array[1].split("\n")
-        .map { |item| item.chomp }
-      
+                                  .map { |item| item.chomp }
+
       panel_info = info_array[0].split("\n")
-        .map { |item| item.chomp }
-      
+                                .map { |item| item.chomp }
+
       ret_array << create_panel_hash(panel_info, panel_extras)
     end
   end
