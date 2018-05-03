@@ -32,6 +32,13 @@ const makeCheckerboard = () => {
   });
 };
 
+const addSpacers = (elements) => {
+  elements.forEach(element => {
+    const existingHTML = element.innerHTML;
+    element.innerHTML = '<div class="spacers top left"></div><div class="spacers top right"></div><div class="spacers btm left"></div><div class="spacers btm right"></div>' + existingHTML;
+  })
+}
+
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
     Object.keys(elmt.dataset)
@@ -134,6 +141,8 @@ const enlargeOnFocus = evt => {
 
 loadState(panelImgs, DROPDOWNSTATE);
 // makeCheckerboard();
+
+addSpacers(panelCells);
 
 dropdowns.forEach(dropdown => {
   dropdown.addEventListener("change", updateDropdowns);
