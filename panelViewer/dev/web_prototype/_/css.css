@@ -85,7 +85,7 @@
 }
 
 #sidebar .panel_info p,
-#sidebar_footnote span {
+#sidebar_footnote p {
   font-size: 0.9rem;
   line-height: 125%;
   margin: 0.5rem 0;
@@ -99,6 +99,13 @@
 #sidebar_footnote {
   flex: 0 1 auto;
   margin-top: auto;
+  width: 100%;
+  max-width: 12rem;
+  /* background: yellow; */
+}
+
+#sidebar_footnote p:last-child{
+  margin-bottom: 0;
 }
 
 #main_area {
@@ -156,6 +163,12 @@
   bottom: -.5vw;
   left: -.5vw;
   z-index: 32;
+}
+
+.panel_cell .new_panel {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
 }
 
 img.panel {
