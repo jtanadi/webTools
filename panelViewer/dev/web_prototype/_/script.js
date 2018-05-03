@@ -34,8 +34,20 @@ const makeCheckerboard = () => {
 
 const addSpacers = (elements) => {
   elements.forEach(element => {
-    const existingHTML = element.innerHTML;
-    element.innerHTML = '<div class="spacers top left"></div><div class="spacers top right"></div><div class="spacers btm left"></div><div class="spacers btm right"></div>' + existingHTML;
+    const topL = document.createElement("DIV");
+    const topR = document.createElement("DIV");
+    const btmL = document.createElement("DIV");
+    const btmR = document.createElement("DIV");
+    
+    topL.classList.add("spacers", "top", "left");
+    topR.classList.add("spacers", "top", "right");
+    btmL.classList.add("spacers", "btm", "left");
+    btmR.classList.add("spacers", "btm", "right");
+    
+    element.appendChild(topL)
+    element.appendChild(topR)
+    element.appendChild(btmL)
+    element.appendChild(btmR)
   })
 }
 
@@ -49,10 +61,9 @@ const loadState = (elmtWithData, stateContainer) => {
 const checkState = image => {
   let show = true;
   const selectorsArray = Object.keys(image.dataset);
-  
+
   selectorsArray.forEach(key => {
     if(!image.dataset[key].includes(DROPDOWNSTATE[key])) show = false;
-
     image.parentElement.style.display = (!show)
       ? "none"
       : "";
@@ -86,7 +97,7 @@ const updateDropdowns = function() {
   panelImgs.forEach(img => {
     checkState(img);
   });
-  makeCheckerboard();
+  // makeCheckerboard();
 };
 
 const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
