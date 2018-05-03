@@ -152,6 +152,7 @@
   background: #fff;
   position: absolute;
   z-index: 300;
+  border-radius: 50%;
 }
 
 .spacers.top {
@@ -169,28 +170,6 @@
 .spacers.right {
   right: -0.5vw;
 }
-
-/* .panel_cell::after {
-  content: "";
-  width: 1vw;
-  height: 1vw;
-  background: white;
-  position: absolute;
-  bottom: -.5vw;
-  right: -.5vw;
-  z-index: 30;
-}
-
-.panel_cell::before {
-  content: "";
-  width: 1vw;
-  height: 1vw;
-  background: white;
-  position: absolute;
-  bottom: -.5vw;
-  left: -.5vw;
-  z-index: 32;
-} */
 
 .panel_cell .new_panel {
   position: absolute;
