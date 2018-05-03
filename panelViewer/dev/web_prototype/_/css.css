@@ -88,8 +88,11 @@
 #sidebar_footnote p {
   font-size: 0.9rem;
   line-height: 125%;
-  margin: 0.5rem 0;
   letter-spacing: 0.5px;
+}
+
+#sidebar .panel_info p {
+  margin: 0.5rem 0;
 }
 
 #sidebar .panel_info.show {
@@ -100,12 +103,28 @@
   flex: 0 1 auto;
   margin-top: auto;
   width: 100%;
-  max-width: 12rem;
-  /* background: yellow; */
+  display: flex;
+  flex-direction: column;
 }
 
-#sidebar_footnote p:last-child{
-  margin-bottom: 0;
+#sidebar_footnote p {
+  margin: 0.25rem;
+}
+
+.legend_row {
+  flex: 0 1 auto;
+  position: relative;
+}
+
+.symbol {
+  position: absolute;
+  width: 1rem;
+  left: -0.25rem;
+}
+
+.legend {
+  margin-left: 1.25rem;
+  width: 75%;
 }
 
 #main_area {
