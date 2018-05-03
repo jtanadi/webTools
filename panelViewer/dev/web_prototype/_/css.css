@@ -11,32 +11,26 @@
 #nav_container {
   width: 100%;
   height: 3.5rem;
-  padding: 1rem 2rem;
+  padding: .8rem 0;
   position: fixed;
   left: 0;
   background: #fff;
   border-bottom: 1px solid black;
   display: flex;
-  
+  justify-content: flex-end;
 }
 
 #nav_container .nav_item {
-  flex: 1;
+  flex: 1 0 15%;
   margin: auto 0;
   max-width: 15%;
   position: relative;
-}
-
-#nav_container .nav_item:first-child {
-  margin-left: calc(100% / 6 + .5rem);
-}
-
-#nav_container .nav_item:not(:last-child) {
   margin-right: 2%;
 }
 
 .nav_item select {
-  font-size: 1rem;
+  font-size: .8rem;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
   width: 100%;
   padding-bottom: .5rem;
@@ -51,10 +45,9 @@
 
 .nav_item::after {
   content: "\25CD";
-  
   position: absolute;
-  top: 0rem;
-  right: .5rem;
+  top: 0;
+  right: 0;
   height: 1rem;
   pointer-events: none;
   transform: rotate(45deg);
@@ -86,9 +79,8 @@
 
 #sidebar .panel_info h1 {
   font-size: 1rem;
-  text-align: center;
   font-weight: normal;
-  margin: 0;
+  margin: 0 0 1.5rem 0;
 }
 
 #sidebar .panel_info p,
@@ -128,6 +120,32 @@
   height: 12vw;
   padding: 1.5vw;
   transition: width 0.75s, height 0.75s;
+  position: relative;
+  border-right: .5px solid black;
+  border-bottom: 1px solid black;
+}
+.panel_cell:last-child{
+  border-right: 0;
+}
+
+.panel_cell::after {
+  content: "";
+  width: 1vw;
+  height: 1vw;
+  background: white;
+  position: absolute;
+  bottom: -.5vw;
+  right: -.5vw;
+}
+
+.panel_cell::before {
+  content: "";
+  width: 1vw;
+  height: 1vw;
+  background: white;
+  position: absolute;
+  bottom: -.5vw;
+  left: -.5vw;
 }
 
 img.panel {
@@ -135,6 +153,6 @@ img.panel {
   max-width: 100%;
   max-height: 100%;
   margin: auto;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5); */
   pointer-events: none;
 }

@@ -133,7 +133,7 @@ const enlargeOnFocus = evt => {
 };
 
 loadState(panelImgs, DROPDOWNSTATE);
-makeCheckerboard();
+// makeCheckerboard();
 
 dropdowns.forEach(dropdown => {
   dropdown.addEventListener("change", updateDropdowns);
