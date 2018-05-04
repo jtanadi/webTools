@@ -9,30 +9,7 @@ const panelRows = document.querySelectorAll(".panel_row");
 const panelCells = document.querySelectorAll(".panel_cell");
 const panelImgs = document.querySelectorAll(".panel_cell img");
 
-const makeCheckerboard = () => {
-  panelRows.forEach((row, rowIndex) => {
-    const cells = row.querySelectorAll(".panel_cell");
-    const visibleCells = [];
-    cells.forEach(cell => {
-      if(cell.style.display !== "none") {
-        visibleCells.push(cell);
-        cell.style.background = "";
-      }
-    });
-
-    if(rowIndex % 2 === 0) {
-      visibleCells.forEach((cell, cellIndex) => {
-        if(cellIndex % 2 === 0) cell.style.background = "black";
-      });
-    } else {
-      visibleCells.forEach((cell, cellIndex) => {
-        if(cellIndex % 2 !== 0) cell.style.background = "black";
-      });
-    }
-  });
-};
-
-const addSpacers = (elements) => {
+const addSpacers = elements => {
   elements.forEach(element => {
     const topL = document.createElement("DIV");
     const topR = document.createElement("DIV");
@@ -44,12 +21,12 @@ const addSpacers = (elements) => {
     btmL.classList.add("spacers", "btm", "left");
     btmR.classList.add("spacers", "btm", "right");
     
-    element.appendChild(topL)
-    element.appendChild(topR)
-    element.appendChild(btmL)
-    element.appendChild(btmR)
-  })
-}
+    element.appendChild(topL);
+    element.appendChild(topR);
+    element.appendChild(btmL);
+    element.appendChild(btmR);
+  });
+};
 
 const loadState = (elmtWithData, stateContainer) => {
   elmtWithData.forEach(elmt => {
@@ -97,7 +74,6 @@ const updateDropdowns = function() {
   panelImgs.forEach(img => {
     checkState(img);
   });
-  // makeCheckerboard();
 };
 
 const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
@@ -151,7 +127,6 @@ const enlargeOnFocus = evt => {
 };
 
 loadState(panelImgs, DROPDOWNSTATE);
-// makeCheckerboard();
 
 addSpacers(panelCells);
 
