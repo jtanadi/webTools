@@ -5,5 +5,5 @@ web_example/
 *.mov
 *.m4v
 .cache
-web_prototype/dist
-_/dist
+dev/web_prototype/dist/
+dev/web_prototype/_/dist/
