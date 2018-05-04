@@ -63,7 +63,8 @@
 }
 
 #sidebar {
-  flex: 1;
+  flex: 1.125;
+  min-width: 15rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -85,8 +86,7 @@
   margin: 0 0 1.5rem 0;
 }
 
-#sidebar .panel_info p,
-#sidebar_footnote p {
+#sidebar .panel_info p {
   font-size: 0.9rem;
   letter-spacing: 0.5px;
 }
@@ -109,6 +109,7 @@
 }
 
 #sidebar_footnote p {
+  font-size: 0.8rem;
   margin: 0.25rem 0;
   line-height: 110%;
 }
