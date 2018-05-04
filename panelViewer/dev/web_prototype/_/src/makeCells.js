@@ -1,10 +1,8 @@
 import panelsObj from "./panelsObj";
+import { mainArea } from "./elements";
 
-const makePanelRow = () => {
-  // const retHTML = "<div class=\"panel_row\">";
-
-  let row;
-  Object.entries(panelsObj).forEach((panel, index) => {
+const getShownPanels = () => {
+  return Object.entries(panelsObj).reduce((shownArr, panel) => {
     let show = true;
     const{ code, selectors } = panel[1];
 
@@ -15,26 +13,33 @@ const makePanelRow = () => {
       if(!selectorVal.includes(dropdownValue)) show = false;
     });
 
-    if(!show) return;
+    if(show) shownArr.push(code);
+    return shownArr;
+  }, []);
+};
 
+const makeCells = () => {
+  let row;
+  const panelsToShow = getShownPanels();
+
+  return panelsToShow.forEach((panelCode, index) => {
     if(index % 5 === 0) {
       row = document.createElement("DIV");
       row.classList.add("panel_row");
+      mainArea.appendChild(row);
     }
-
+    
     const cell = document.createElement("DIV");
     cell.classList.add("panel_cell");
-    
+        
     const img = document.createElement("IMG");
-    img.src = `./_testImages/${code}.jpg`;
-    img.alt = `${code}`;
+    img.src = `./_testImages/${panelCode}.jpg`;
+    img.alt = `${panelCode}`;
     img.classList.add("panel");
-
+    
     cell.appendChild(img);
     row.appendChild(cell);
   });
-  
-  return row;
 };
 
-export default makePanelRow;
+export default makeCells;

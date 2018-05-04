@@ -1,9 +1,9 @@
-import makePanelRow from "./makePanelRow";
+import makeCells from "./makeCells";
 import { mainArea } from "./elements";
 
 const populateMainArea = () => {
   mainArea.innerHTML = "";
-  if(makePanelRow()) mainArea.appendChild(makePanelRow());
+  makeCells();
 };
 
 export default populateMainArea;
