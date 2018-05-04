@@ -1,4 +1,4 @@
-import { dropdowns, panelImgs, panelCells, mainArea } from "./src/elements";
+import { dropdowns, panelCells, mainArea } from "./src/elements";
 import makePanelRow from "./src/makePanelRow";
 import addSpacers from "./src/addSpacers";
 // import updateDropdowns from "./src/updateDropdowns";
