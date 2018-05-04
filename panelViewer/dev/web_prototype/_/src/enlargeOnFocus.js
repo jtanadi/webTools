@@ -1,7 +1,7 @@
-import { panelCells } from "./elements";
 import scrollPanelInfo from "./scrollPanelInfo";
 
 let opened = null;
+const panelCells = document.querySelectorAll(".panel_cell");
 
 const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
   const panelInfo = document.querySelectorAll("#sidebar .panel_info");
