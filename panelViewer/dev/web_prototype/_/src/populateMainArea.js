@@ -1,9 +1,14 @@
 import makeCells from "./makeCells";
 import { mainArea } from "./elements";
+import addSpacers from "./addSpacers";
+
+/* eslint-disable import/no-mutable-exports */
+let SHOWNCELLS;
 
 const populateMainArea = () => {
   mainArea.innerHTML = "";
-  makeCells();
+  SHOWNCELLS = makeCells();
+  addSpacers(SHOWNCELLS);
 };
 
-export default populateMainArea;
+export { populateMainArea, SHOWNCELLS };

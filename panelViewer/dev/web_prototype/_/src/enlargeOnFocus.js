@@ -1,7 +1,6 @@
 import scrollPanelInfo from "./scrollPanelInfo";
 
 let opened = null;
-const panelCells = document.querySelectorAll(".panel_cell");
 
 const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
   const panelInfo = document.querySelectorAll("#sidebar .panel_info");
@@ -16,7 +15,8 @@ const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
   });
 };
 
-const enlargeOnFocus = evt => {
+const enlargeOnFocus = (evt, cellsArr) => {
+  console.log(cellsArr);
   const clickedObj = evt.target;
   const resetStyles = elmt => {
     elmt.style.width = "";
@@ -25,14 +25,14 @@ const enlargeOnFocus = evt => {
   };
 
   // Early break in case user clicks on non-cell items
-  if(!Array.from(panelCells).includes(clickedObj)) return;
+  if(!cellsArr.includes(clickedObj)) return;
 
   if(clickedObj !== opened) {
     // If clicked object is not open,
     // enlarge clicked object & make everything else smaller
     const newDivisions = 100 / 6;
     const newWidth = newDivisions * 2;
-    panelCells.forEach(cell => {
+    cellsArr.forEach(cell => {
       cell.style.width = `${newDivisions}%`;
       cell.style.height = "";
     });
@@ -44,7 +44,7 @@ const enlargeOnFocus = evt => {
     opened = clickedObj;
   } else {
     // If clicked object is opened, reset everything
-    panelCells.forEach(cell => {
+    cellsArr.forEach(cell => {
       resetStyles(cell);
     });
     togglePanelInfo(clickedObj, "show");

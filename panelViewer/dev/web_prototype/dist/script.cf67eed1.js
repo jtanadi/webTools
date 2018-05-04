@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({14:[function(require,module,exports) {
+})({8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -85,16 +85,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 var dropdowns = document.querySelectorAll("select");
 var mainArea = document.getElementById("main_area");
-var panelRows = document.querySelectorAll(".panel_row");
-var panelCells = document.querySelectorAll(".panel_cell");
-var panelImgs = document.querySelectorAll(".panel_cell img");
 
 exports.dropdowns = dropdowns;
 exports.mainArea = mainArea;
-exports.panelRows = panelRows;
-exports.panelCells = panelCells;
-exports.panelImgs = panelImgs;
-},{}],28:[function(require,module,exports) {
+},{}],16:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -173,7 +167,7 @@ var panelsObj = [{
 }];
 
 exports.default = panelsObj;
-},{}],38:[function(require,module,exports) {
+},{}],15:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -217,7 +211,7 @@ var makeCells = function makeCells() {
   var row = void 0;
   var panelsToShow = getShownPanels();
 
-  return panelsToShow.forEach(function (panelCode, index) {
+  return panelsToShow.reduce(function (allCells, panelCode, index) {
     if (index % 5 === 0) {
       row = document.createElement("DIV");
       row.classList.add("panel_row");
@@ -234,32 +228,14 @@ var makeCells = function makeCells() {
 
     cell.appendChild(img);
     row.appendChild(cell);
-  });
+
+    allCells.push(cell);
+    return allCells;
+  }, []);
 };
 
 exports.default = makeCells;
-},{"./panelsObj":28,"./elements":14}],15:[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _makeCells = require("./makeCells");
-
-var _makeCells2 = _interopRequireDefault(_makeCells);
-
-var _elements = require("./elements");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var populateMainArea = function populateMainArea() {
-  _elements.mainArea.innerHTML = "";
-  (0, _makeCells2.default)();
-};
-
-exports.default = populateMainArea;
-},{"./makeCells":38,"./elements":14}],16:[function(require,module,exports) {
+},{"./panelsObj":16,"./elements":8}],10:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -285,7 +261,38 @@ var addSpacers = function addSpacers(elements) {
 };
 
 exports.default = addSpacers;
-},{}],18:[function(require,module,exports) {
+},{}],9:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SHOWNCELLS = exports.populateMainArea = undefined;
+
+var _makeCells = require("./makeCells");
+
+var _makeCells2 = _interopRequireDefault(_makeCells);
+
+var _elements = require("./elements");
+
+var _addSpacers = require("./addSpacers");
+
+var _addSpacers2 = _interopRequireDefault(_addSpacers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable import/no-mutable-exports */
+var SHOWNCELLS = void 0;
+
+var populateMainArea = function populateMainArea() {
+  _elements.mainArea.innerHTML = "";
+  exports.SHOWNCELLS = SHOWNCELLS = (0, _makeCells2.default)();
+  (0, _addSpacers2.default)(SHOWNCELLS);
+};
+
+exports.populateMainArea = populateMainArea;
+exports.SHOWNCELLS = SHOWNCELLS;
+},{"./makeCells":15,"./elements":8,"./addSpacers":10}],12:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -316,14 +323,12 @@ var scrollPanelInfo = function scrollPanelInfo(evt) {
 };
 
 exports.default = scrollPanelInfo;
-},{}],17:[function(require,module,exports) {
+},{}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _elements = require("./elements");
 
 var _scrollPanelInfo = require("./scrollPanelInfo");
 
@@ -349,7 +354,8 @@ var togglePanelInfo = function togglePanelInfo(target) {
   });
 };
 
-var enlargeOnFocus = function enlargeOnFocus(evt) {
+var enlargeOnFocus = function enlargeOnFocus(evt, cellsArr) {
+  console.log(cellsArr);
   var clickedObj = evt.target;
   var resetStyles = function resetStyles(elmt) {
     elmt.style.width = "";
@@ -358,14 +364,14 @@ var enlargeOnFocus = function enlargeOnFocus(evt) {
   };
 
   // Early break in case user clicks on non-cell items
-  if (!Array.from(_elements.panelCells).includes(clickedObj)) return;
+  if (!cellsArr.includes(clickedObj)) return;
 
   if (clickedObj !== opened) {
     // If clicked object is not open,
     // enlarge clicked object & make everything else smaller
     var newDivisions = 100 / 6;
     var newWidth = newDivisions * 2;
-    _elements.panelCells.forEach(function (cell) {
+    cellsArr.forEach(function (cell) {
       cell.style.width = newDivisions + "%";
       cell.style.height = "";
     });
@@ -377,7 +383,7 @@ var enlargeOnFocus = function enlargeOnFocus(evt) {
     opened = clickedObj;
   } else {
     // If clicked object is opened, reset everything
-    _elements.panelCells.forEach(function (cell) {
+    cellsArr.forEach(function (cell) {
       resetStyles(cell);
     });
     togglePanelInfo(clickedObj, "show");
@@ -387,18 +393,12 @@ var enlargeOnFocus = function enlargeOnFocus(evt) {
 };
 
 exports.default = enlargeOnFocus;
-},{"./elements":14,"./scrollPanelInfo":18}],8:[function(require,module,exports) {
+},{"./scrollPanelInfo":12}],4:[function(require,module,exports) {
 "use strict";
 
 var _elements = require("./src/elements");
 
 var _populateMainArea = require("./src/populateMainArea");
-
-var _populateMainArea2 = _interopRequireDefault(_populateMainArea);
-
-var _addSpacers = require("./src/addSpacers");
-
-var _addSpacers2 = _interopRequireDefault(_addSpacers);
 
 var _enlargeOnFocus = require("./src/enlargeOnFocus");
 
@@ -410,17 +410,18 @@ var _scrollPanelInfo2 = _interopRequireDefault(_scrollPanelInfo);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _populateMainArea2.default)();
-(0, _addSpacers2.default)(_elements.panelCells);
+(0, _populateMainArea.populateMainArea)();
 
 _elements.dropdowns.forEach(function (dropdown) {
-  dropdown.addEventListener("change", _populateMainArea2.default);
+  dropdown.addEventListener("change", _populateMainArea.populateMainArea);
 });
 
-_elements.mainArea.addEventListener("click", _enlargeOnFocus2.default);
+_elements.mainArea.addEventListener("click", function (evt) {
+  (0, _enlargeOnFocus2.default)(evt, _populateMainArea.SHOWNCELLS);
+});
 
 window.addEventListener("scroll", _scrollPanelInfo2.default);
-},{"./src/elements":14,"./src/populateMainArea":15,"./src/addSpacers":16,"./src/enlargeOnFocus":17,"./src/scrollPanelInfo":18}],40:[function(require,module,exports) {
+},{"./src/elements":8,"./src/populateMainArea":9,"./src/enlargeOnFocus":11,"./src/scrollPanelInfo":12}],26:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -450,7 +451,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '51645' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50793' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -589,5 +590,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[40,8])
+},{}]},{},[26,4])
 //# sourceMappingURL=/script.cf67eed1.map

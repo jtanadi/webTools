@@ -175,7 +175,7 @@
 .spacers {
   width: 1vw;
   height: 1vw;
-  background: #fff;
+  background: yellow;
   position: absolute;
   z-index: 300;
   border-radius: 50%;

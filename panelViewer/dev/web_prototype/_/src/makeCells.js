@@ -22,7 +22,7 @@ const makeCells = () => {
   let row;
   const panelsToShow = getShownPanels();
 
-  return panelsToShow.forEach((panelCode, index) => {
+  return panelsToShow.reduce((allCells, panelCode, index) => {
     if(index % 5 === 0) {
       row = document.createElement("DIV");
       row.classList.add("panel_row");
@@ -39,7 +39,10 @@ const makeCells = () => {
     
     cell.appendChild(img);
     row.appendChild(cell);
-  });
+
+    allCells.push(cell);
+    return allCells;
+  }, []);
 };
 
 export default makeCells;
