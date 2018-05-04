@@ -31,11 +31,18 @@ const makeCells = () => {
     
     const cell = document.createElement("DIV");
     cell.classList.add("panel_cell");
-        
+
     const img = document.createElement("IMG");
     img.src = `./_testImages/${panelCode}.jpg`;
     img.alt = `${panelCode}`;
     img.classList.add("panel");
+
+    if(panelCode.toLowerCase().includes("new")) {
+      const newSymbol = document.createElement("DIV");
+      newSymbol.classList.add("new_panel");
+      newSymbol.innerHTML = "&#9737;";
+      cell.appendChild(newSymbol);
+    }
     
     cell.appendChild(img);
     row.appendChild(cell);

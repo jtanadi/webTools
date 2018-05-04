@@ -42,7 +42,7 @@ const panelsObj = [
   
 
   {
-    code: "HH_IP_a2",
+    code: "HH_IP_a_new",
     selectors: {
       selector0: "human_history",
       selector1: "identification_panel",
@@ -50,7 +50,7 @@ const panelsObj = [
     },
   },
   {
-    code: "HH_ROL_GLWD2",
+    code: "HH_ROL_GLWD_new",
     selectors: {
       selector0: "human_history natural_history",
       selector1: "object_label",
@@ -58,27 +58,11 @@ const panelsObj = [
     },
   },
   {
-    code: "HH_SP_H12",
-    selectors: {
-      selector0: "human_history",
-      selector1: "story_panel",
-      selector2: "vertical",
-    },
-  },
-  {
-    code: "HH_SP_H3_a2",
+    code: "HH_SP_H3_a_new",
     selectors: {
       selector0: "natural_history",
       selector1: "story_panel",
       selector2: "vertical",
-    },
-  },
-  {
-    code: "HH_SP_R12",
-    selectors: {
-      selector0: "natural_history",
-      selector1: "story_panel",
-      selector2: "horizontal",
     },
   },
 ];
