@@ -16,7 +16,6 @@ const togglePanelInfo = (target, classToRemove = "", classToAdd = "") => {
 };
 
 const enlargeOnFocus = (evt, cellsArr) => {
-  console.log(cellsArr);
   const clickedObj = evt.target;
   const resetStyles = elmt => {
     elmt.style.width = "";
