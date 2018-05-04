@@ -22,7 +22,7 @@ const makeCells = () => {
   let row;
   const panelsToShow = getShownPanels();
 
-  return panelsToShow.reduce((allCells, panelCode, index) => {
+  const shownCells = panelsToShow.reduce((allCells, panelCode, index) => {
     if(index % 5 === 0) {
       row = document.createElement("DIV");
       row.classList.add("panel_row");
@@ -50,6 +50,18 @@ const makeCells = () => {
     allCells.push(cell);
     return allCells;
   }, []);
+
+  if(shownCells.length % 5 !== 0) {
+    const numCellsToAdd = 5 - shownCells.length % 5
+    let emptyCell;
+    for(let i = 0; i < numCellsToAdd; i++) {
+      emptyCell = document.createElement("DIV");
+      emptyCell.classList.add("panel_cell", "empty_cell");
+      row.appendChild(emptyCell);
+      shownCells.push(emptyCell);
+    }
+  }
+  return shownCells;
 };
 
 export default makeCells;

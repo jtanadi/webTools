@@ -39,8 +39,6 @@ const panelsObj = [
       selector2: "horizontal",
     },
   },
-  
-
   {
     code: "HH_IP_a_new",
     selectors: {
@@ -63,6 +61,39 @@ const panelsObj = [
       selector0: "natural_history",
       selector1: "story_panel",
       selector2: "vertical",
+    },
+  },
+
+  {
+    code: "HH_SP_H1",
+    selectors: {
+      selector0: "human_history",
+      selector1: "story_panel",
+      selector2: "vertical",
+    },
+  },
+  {
+    code: "HH_SP_H3_a",
+    selectors: {
+      selector0: "natural_history",
+      selector1: "story_panel",
+      selector2: "vertical",
+    },
+  },
+  {
+    code: "HH_SP_R1",
+    selectors: {
+      selector0: "natural_history",
+      selector1: "story_panel",
+      selector2: "horizontal",
+    },
+  },
+  {
+    code: "HH_IP_a_new",
+    selectors: {
+      selector0: "human_history",
+      selector1: "identification_panel",
+      selector2: "horizontal",
     },
   },
 ];
