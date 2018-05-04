@@ -18,6 +18,7 @@
   border-bottom: 1px solid black;
   display: flex;
   justify-content: flex-end;
+  z-index: 999;
 }
 
 #nav_container .nav_item {
@@ -87,12 +88,12 @@
 #sidebar .panel_info p,
 #sidebar_footnote p {
   font-size: 0.9rem;
-  line-height: 125%;
   letter-spacing: 0.5px;
 }
 
 #sidebar .panel_info p {
   margin: 0.5rem 0;
+  line-height: 125%;
 }
 
 #sidebar .panel_info.show {
@@ -109,6 +110,7 @@
 
 #sidebar_footnote p {
   margin: 0.25rem 0;
+  line-height: 110%;
 }
 
 #sidebar_footnote p:last-child {
@@ -123,6 +125,8 @@
 .symbol {
   position: absolute;
   width: 1rem;
+  left: -0.125rem;
+  text-align: center;
 }
 
 #sidebar_footnote .legend_row .symbol p {
@@ -130,7 +134,7 @@
 }
 
 .legend {
-  margin-left: 1.5rem;
+  margin-left: 1.25rem;
   width: 75%;
 }
 
