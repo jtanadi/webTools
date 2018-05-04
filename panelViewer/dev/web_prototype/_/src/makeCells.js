@@ -22,7 +22,18 @@ const makeCells = () => {
   let row;
   const panelsToShow = getShownPanels();
 
-  const shownCells = panelsToShow.reduce((allCells, panelCode, index) => {
+  // Making empty cells to have a consistent grid of spacers
+  const makeEmptyCells = (cellsRow, cellsArr) => {
+    const numCellsToAdd = 5 - cellsArr.length % 5
+    for(let i = 0; i < numCellsToAdd; i++) {
+      const emptyCell = document.createElement("DIV");
+      emptyCell.classList.add("panel_cell", "empty_cell");
+      cellsRow.appendChild(emptyCell);
+      cellsArr.push(emptyCell);
+    }
+  }
+
+  let shownCells = panelsToShow.reduce((allCells, panelCode, index) => {
     if(index % 5 === 0) {
       row = document.createElement("DIV");
       row.classList.add("panel_row");
@@ -52,14 +63,7 @@ const makeCells = () => {
   }, []);
 
   if(shownCells.length % 5 !== 0) {
-    const numCellsToAdd = 5 - shownCells.length % 5
-    let emptyCell;
-    for(let i = 0; i < numCellsToAdd; i++) {
-      emptyCell = document.createElement("DIV");
-      emptyCell.classList.add("panel_cell", "empty_cell");
-      row.appendChild(emptyCell);
-      shownCells.push(emptyCell);
-    }
+    makeEmptyCells(row, shownCells);
   }
   return shownCells;
 };
