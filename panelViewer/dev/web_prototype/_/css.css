@@ -128,11 +128,16 @@
   position: absolute;
   width: 1rem;
   left: -0.125rem;
+  top: .125rem;
   text-align: center;
+  margin: auto;
+  display: flex;
 }
 
-#sidebar_footnote .legend_row .symbol p {
-  font-size: 1rem;
+.symbol p {
+  font-size: 1rem !important;
+  flex: 1 !important;
+  margin: auto !important;
 }
 
 .legend {
@@ -230,7 +235,8 @@ img.panel {
 }
 
 @media 
-(-webkit-min-device-pixel-ratio: 1) {
+not screen and (-webkit-min-device-pixel-ratio: 2), 
+not screen and (min-resolution: 192dpi) {
   .nav_item select,
   #sidebar_footnote p {
     font-size: 0.9rem;
