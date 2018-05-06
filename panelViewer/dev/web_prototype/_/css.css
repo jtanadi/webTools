@@ -190,8 +190,8 @@
   border-right: none;
 }
 
-.panel_row .empty_cell {
-  border: 0 !important;
+.panel_row .panel_cell.empty_cell {
+  border: 0;
 }
 
 .spacers {

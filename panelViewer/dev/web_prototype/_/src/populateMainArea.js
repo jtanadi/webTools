@@ -8,7 +8,6 @@ let SHOWNCELLS;
 const populateMainArea = () => {
   mainArea.innerHTML = "";
   SHOWNCELLS = makeCells();
-  console.log(SHOWNCELLS)
   addSpacers(SHOWNCELLS);
 };
 
