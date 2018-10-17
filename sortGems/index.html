@@ -8,6 +8,7 @@
 
   <style>
     * {
+      font-family: sans-serif;
       font-size: 1rem;
     }
     
@@ -28,9 +29,12 @@
       margin: 200px 5%;
       width: 10%;
     }
-    label[for="sort_by_line"] {
-      font-family: sans-serif;
+
+    input[type="radio"] {
+      margin-top: 1rem;
+      margin-right: 2rem;
     }
+
     input[type="text"] {
       box-sizing: border-box;
       margin-top: 0.5rem;
@@ -53,7 +57,11 @@
 
       <div id="center">
         <label for="sort_by_line">Sort by line number:</label>
-        <input type="text" name="sort_by_line" id="sort_by_line"><br>
+        <input type="text" name="sort_by_line" id="sort_by_line">
+        <label for="sort_order">A–z</label>
+        <input type="radio" name="sort_order" id="sort_order_alphabetical" checked>
+        <label for="sort_order">Z–a</label>
+        <input type="radio" name="sort_order" id="sort_order_reverse">
         <button id="sort_button">SORT (A-z)</button>
       </div>
       <textarea name="output_text_area" id="output_text_area" cols="30" rows="50"></textarea>
@@ -64,10 +72,12 @@
 </body>
 
 <script>
-  const sortByLineInput = document.getElementById("sort_by_line")
+  const sortByLineInput = document.getElementById("sort_by_line");
   const inputTextArea = document.getElementById("input_text_area");
   const outputTextArea = document.getElementById("output_text_area");
-  const sortButton = document.getElementById("sort_button")
+  const sortAlphabetical = document.getElementById("sort_order_alphabetical");
+  const sortReverse = document.getElementById("sort_order_reverse");
+  const sortButton = document.getElementById("sort_button");
 
   let SORTBYLINE = "";
   let INPUTARRAY = [];
@@ -112,7 +122,6 @@
       return;
     }
 
-    SORTBYLINE = parseInt(SORTBYLINE) - 1; // Subtract 1 bc ppl don't start counting at 0
     const inputCopy = [...INPUTARRAY]; // Make a copy, just in case...
 
     // Prevent user from inputting index that doesn't exist in array
@@ -121,9 +130,15 @@
       sortByLineInput.value = ""
       return;
     } else {
-      inputCopy.sort((a, b) => {
-        return a[SORTBYLINE] < b[SORTBYLINE] ? -1 : 1;
-      });
+      if(sortAlphabetical.checked) {
+        inputCopy.sort((a, b) => {
+          return a[SORTBYLINE] < b[SORTBYLINE] ? -1 : 1;
+        });
+      } else if(sortReverse.checked) {
+        inputCopy.sort((a, b) => {
+          return a[SORTBYLINE] > b[SORTBYLINE] ? -1 : 1;
+        });
+      }
     }
 
     outputTextArea.value = inputCopy
@@ -134,6 +149,7 @@
 
   sortByLineInput.addEventListener("input", function() {
     checkForNaN(this.value);
+    SORTBYLINE = parseInt(SORTBYLINE) - 1; // Subtract 1 bc ppl don't start counting at 0
   });
 
   inputTextArea.addEventListener("change", function() {
@@ -144,6 +160,4 @@
   sortButton.addEventListener("click", sortInput);
 
 </script>
-
-
 </html>
