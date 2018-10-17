@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sort</title>
+
+  <style>
+    * {
+      font-size: 1rem;
+    }
+    
+    .container {
+      width: 70%;
+      margin: 4rem auto;
+    }
+
+    form {
+      display: flex;
+    }
+
+    textarea {
+      width: 40%;
+    }
+
+    #center {
+      margin: 200px 5%;
+      width: 10%;
+    }
+    label[for="sort_by_line"] {
+      font-family: sans-serif;
+    }
+    input[type="text"] {
+      box-sizing: border-box;
+      margin-top: 0.5rem;
+      width: 100%;
+      height: 1.5rem;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 2rem;
+      height: 100px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form>
+      <textarea name="input_text_area" id="input_text_area" cols="30" rows="50" placeholder="Paste unsorted list here..."></textarea>
+
+      <div id="center">
+        <label for="sort_by_line">Sort by line number:</label>
+        <input type="text" name="sort_by_line" id="sort_by_line"><br>
+        <button id="sort_button">SORT (A-z)</button>
+      </div>
+      <textarea name="output_text_area" id="output_text_area" cols="30" rows="50"></textarea>
+
+      
+    </form>
+  </div>
+</body>
+
+<script>
+  const sortByLineInput = document.getElementById("sort_by_line")
+  const inputTextArea = document.getElementById("input_text_area");
+  const outputTextArea = document.getElementById("output_text_area");
+  const sortButton = document.getElementById("sort_button")
+
+  let SORTBYLINE = "";
+  let INPUTARRAY = [];
+
+  function checkNaN() {
+    // Prevent user from typing in non-numbers
+    // If they try, it will be ignored (this.value replaced with what's stored)
+    if(isNaN(this.value)) {
+      this.value = SORTBYLINE
+    } else {
+      SORTBYLINE = this.value;
+    }
+  }
+
+  const checkLineNumber = (inputArrayOfArrays, lineNumber) => {
+    // Check if given line number exists in ALL arrays w/in input
+    return inputArrayOfArrays.every(arr => {
+      return arr[lineNumber] !== undefined
+    })
+  }
+
+  const makeArray = (inputText) => {
+    return inputText.trim()
+                    .split("\n\n")
+                    .map(cluster => cluster.split("\n"));
+  }
+
+  const sortInput = e => {
+    e.preventDefault();
+
+    // Make sure user inputs sort by line
+    if(inputTextArea.value === "" || sortByLineInput.value === "") {
+      alert("Please enter unsorted list and/or line number");
+      return;
+    }
+
+    SORTBYLINE = parseInt(SORTBYLINE) - 1; // Subtract 1 bc ppl don't start counting at 0
+    const inputCopy = [...INPUTARRAY]; // Make a copy, just in case...
+
+    // Prevent user from inputting index that doesn't exist in array
+    if(!checkLineNumber(inputCopy, SORTBYLINE)) {
+      alert(`Not all clusters have line number ${SORTBYLINE + 1}`) // Add 1 again bc robots start counting at 0
+      sortByLineInput.value = ""
+      return;
+    } else {
+      inputCopy.sort((a, b) => {
+        return a[SORTBYLINE] < b[SORTBYLINE] ? -1 : 1;
+      })
+    }
+
+    outputTextArea.value = inputCopy.map(cluster => cluster.join("\n"))
+                                    .join("\n\n")
+  }
+
+
+  sortByLineInput.addEventListener("input", checkNaN)
+  inputTextArea.addEventListener("change", function() {
+    // Convert to array now, so the button is only for sorting
+    INPUTARRAY = makeArray(this.value);
+  })
+  sortButton.addEventListener("click", sortInput)
+
+</script>
+
+
+</html>
