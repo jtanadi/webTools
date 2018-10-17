@@ -82,13 +82,13 @@
   let SORTBYLINE = "";
   let INPUTARRAY = [];
 
-  function checkForNaN(inputText) {
+  function checkForNaN() {
     // Prevent user from typing in non-numbers
     // If they try, it will be ignored (this.value replaced with what's stored)
-    if(isNaN(inputText)) {
-      inputText = SORTBYLINE
+    if(isNaN(this.value)) {
+      this.value = SORTBYLINE
     } else {
-      SORTBYLINE = inputText;
+      SORTBYLINE = parseInt(this.value);
     }
   }
 
@@ -121,22 +121,23 @@
       alert("Please enter unsorted list and/or line number");
       return;
     }
-
+    
+    const lineIndex = SORTBYLINE - 1;  // Subtract 1 bc ppl don't start counting at 0 but robots do
     const inputCopy = [...INPUTARRAY]; // Make a copy, just in case...
 
     // Prevent user from inputting index that doesn't exist in array
-    if(!checkLineNumber(inputCopy, SORTBYLINE)) {
-      alert(`Not all clusters have line number ${SORTBYLINE + 1}`) // Add 1 again bc robots start counting at 0
+    if(!checkLineNumber(inputCopy, lineIndex)) {
+      alert(`Not all clusters have line number ${SORTBYLINE}`)
       sortByLineInput.value = ""
       return;
     } else {
       if(sortAlphabetical.checked) {
         inputCopy.sort((a, b) => {
-          return a[SORTBYLINE] < b[SORTBYLINE] ? -1 : 1;
+          return a[lineIndex] < b[lineIndex] ? -1 : 1;
         });
       } else if(sortReverse.checked) {
         inputCopy.sort((a, b) => {
-          return a[SORTBYLINE] > b[SORTBYLINE] ? -1 : 1;
+          return a[lineIndex] > b[lineIndex] ? -1 : 1;
         });
       }
     }
@@ -147,10 +148,7 @@
   }
 
 
-  sortByLineInput.addEventListener("input", function() {
-    checkForNaN(this.value);
-    SORTBYLINE = parseInt(SORTBYLINE) - 1; // Subtract 1 bc ppl don't start counting at 0
-  });
+  sortByLineInput.addEventListener("input", checkForNaN);
 
   inputTextArea.addEventListener("change", function() {
     // Convert to array now, so the button is only for sorting
