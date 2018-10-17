@@ -72,23 +72,15 @@
   let SORTBYLINE = "";
   let INPUTARRAY = [];
 
-  function checkNaN() {
+  function checkForNaN(inputText) {
     // Prevent user from typing in non-numbers
     // If they try, it will be ignored (this.value replaced with what's stored)
-    if(isNaN(this.value)) {
-      this.value = SORTBYLINE
+    if(isNaN(inputText)) {
+      inputText = SORTBYLINE
     } else {
-      SORTBYLINE = this.value;
+      SORTBYLINE = inputText;
     }
   }
-
-  const checkLineNumber = (inputArrayOfArrays, lineNumber) => {
-    // Check if given line number exists in ALL arrays w/in input
-    return inputArrayOfArrays.every(arr => {
-      return arr[lineNumber] !== undefined
-    })
-  }
-
 
   const makeArray = (inputText) => {
     return inputText
@@ -102,6 +94,13 @@
             return (isNaN(line)) ? line : parseInt(line)
           })
       });
+  }
+
+  const checkLineNumber = (inputArrayOfArrays, lineNumber) => {
+    // Check if given line number exists in ALL arrays w/in input
+    return inputArrayOfArrays.every(arr => {
+      return arr[lineNumber] !== undefined
+    })
   }
 
   const sortInput = e => {
@@ -124,21 +123,25 @@
     } else {
       inputCopy.sort((a, b) => {
         return a[SORTBYLINE] < b[SORTBYLINE] ? -1 : 1;
-      })
+      });
     }
 
     outputTextArea.value = inputCopy
       .map(cluster => cluster.join("\n"))
-      .join("\n\n")
+      .join("\n\n");
   }
 
 
-  sortByLineInput.addEventListener("input", checkNaN)
+  sortByLineInput.addEventListener("input", function() {
+    checkForNaN(this.value);
+  });
+
   inputTextArea.addEventListener("change", function() {
     // Convert to array now, so the button is only for sorting
     INPUTARRAY = makeArray(this.value);
-  })
-  sortButton.addEventListener("click", sortInput)
+  });
+
+  sortButton.addEventListener("click", sortInput);
 
 </script>
 
