@@ -89,10 +89,19 @@
     })
   }
 
+
   const makeArray = (inputText) => {
-    return inputText.trim()
-                    .split("\n\n")
-                    .map(cluster => cluster.split("\n"));
+    return inputText
+      .trim()
+      .split("\n\n")
+      .map(cluster => {                      
+        return cluster
+          .split("\n")
+          .map(line => {
+            // Convert numbers to integers for sorting
+            return (isNaN(line)) ? line : parseInt(line)
+          })
+      });
   }
 
   const sortInput = e => {
@@ -118,8 +127,9 @@
       })
     }
 
-    outputTextArea.value = inputCopy.map(cluster => cluster.join("\n"))
-                                    .join("\n\n")
+    outputTextArea.value = inputCopy
+      .map(cluster => cluster.join("\n"))
+      .join("\n\n")
   }
 
 
