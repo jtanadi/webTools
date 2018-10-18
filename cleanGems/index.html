@@ -51,7 +51,7 @@
       <textarea name="input_text_area" id="input_text_area" cols="30" rows="50" placeholder="Paste here..."></textarea>
 
       <div id="center">
-        <label for="delete_lines">Delete first x lines:</label>
+        <label for="delete_lines">Delete <strong>first x</strong> lines:</label>
         <input type="text" name="delete_lines" id="delete_lines">
         <button id="delete_button">DELETE</button>
       </div>
@@ -96,6 +96,8 @@
   }
 
   const checkLineNumber = (inputArrayOfArrays, lineNumber) => {
+    if(lineNumber < 0) lineNumber = 0;
+
     // Check if given line number exists in ALL arrays w/in input
     return inputArrayOfArrays.every(arr => {
       return arr[lineNumber] !== undefined
@@ -110,23 +112,21 @@
       alert("Please enter list and/or line number");
       return;
     }
-    
-    const lineIndex = DELETELINE;  // Subtract 1 bc ppl don't start counting at 0 but robots do
+
     const inputCopy = [...INPUTARRAY]; // Make a copy, just in case...
-    let returnArr = [];
 
     // Prevent user from inputting index that doesn't exist in array
-    if(!checkLineNumber(inputCopy, lineIndex)) {
+    // subtract 1 because robots start counting at 0
+    if(!checkLineNumber(inputCopy, DELETELINE - 1)) {
       alert(`Not all clusters have line number ${DELETELINE}`)
       deleteLinesInput.value = ""
       return;
     } else {
-      returnArr = inputCopy.map(arr => arr.slice(lineIndex))
+      outputTextArea.value = inputCopy
+        .map(arr => arr.slice(DELETELINE))
+        .map(cluster => cluster.join("\n"))
+        .join("\n\n");
     }
-
-    outputTextArea.value = returnArr
-      .map(cluster => cluster.join("\n"))
-      .join("\n\n");
   }
 
 
