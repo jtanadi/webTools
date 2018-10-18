@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Clean Gems Labels</title>
+
+  <style>
+    * {
+      font-family: sans-serif;
+      font-size: 1rem;
+    }
+    
+    .container {
+      width: 70%;
+      margin: 4rem auto;
+    }
+
+    form {
+      display: flex;
+    }
+
+    textarea {
+      width: 40%;
+    }
+
+    #center {
+      margin: 200px 5%;
+      width: 10%;
+    }
+
+    input[type="text"] {
+      box-sizing: border-box;
+      margin-top: 0.5rem;
+      width: 100%;
+      height: 1.5rem;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 2rem;
+      height: 100px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form>
+      <textarea name="input_text_area" id="input_text_area" cols="30" rows="50" placeholder="Paste here..."></textarea>
+
+      <div id="center">
+        <label for="delete_lines">Delete first x lines:</label>
+        <input type="text" name="delete_lines" id="delete_lines">
+        <button id="delete_button">DELETE</button>
+      </div>
+      <textarea name="output_text_area" id="output_text_area" cols="30" rows="50"></textarea>
+
+      
+    </form>
+  </div>
+</body>
+
+<script>
+  const deleteLinesInput = document.getElementById("delete_lines");
+  const inputTextArea = document.getElementById("input_text_area");
+  const outputTextArea = document.getElementById("output_text_area");
+  const deleteButton = document.getElementById("delete_button");
+
+  let DELETELINE = "";
+  let INPUTARRAY = [];
+
+  function checkForNaN() {
+    // Prevent user from typing in non-numbers
+    // If they try, it will be ignored (this.value replaced with what's stored)
+    if(isNaN(this.value)) {
+      this.value = DELETELINE
+    } else {
+      DELETELINE = parseInt(this.value);
+    }
+  }
+
+  const makeArray = (inputText) => {
+    return inputText
+      .trim()
+      .split(/\n\n+/)
+      .map(cluster => {                      
+        return cluster
+          .split("\n")
+          .map(line => {
+            // Convert numbers to integers for sorting
+            return (isNaN(line)) ? line : parseInt(line)
+          })
+      });
+  }
+
+  const checkLineNumber = (inputArrayOfArrays, lineNumber) => {
+    // Check if given line number exists in ALL arrays w/in input
+    return inputArrayOfArrays.every(arr => {
+      return arr[lineNumber] !== undefined
+    })
+  }
+
+  const deleteLines = e => {
+    e.preventDefault();
+
+    // Make sure user inputs sort by line
+    if(inputTextArea.value === "" || deleteLinesInput.value === "") {
+      alert("Please enter list and/or line number");
+      return;
+    }
+    
+    const lineIndex = DELETELINE;  // Subtract 1 bc ppl don't start counting at 0 but robots do
+    const inputCopy = [...INPUTARRAY]; // Make a copy, just in case...
+    let returnArr = [];
+
+    // Prevent user from inputting index that doesn't exist in array
+    if(!checkLineNumber(inputCopy, lineIndex)) {
+      alert(`Not all clusters have line number ${DELETELINE}`)
+      deleteLinesInput.value = ""
+      return;
+    } else {
+      returnArr = inputCopy.map(arr => arr.slice(lineIndex))
+    }
+
+    outputTextArea.value = returnArr
+      .map(cluster => cluster.join("\n"))
+      .join("\n\n");
+  }
+
+
+  deleteLinesInput.addEventListener("input", checkForNaN);
+
+  inputTextArea.addEventListener("change", function() {
+    // Convert to array now, so the button is only for sorting
+    INPUTARRAY = makeArray(this.value);
+  });
+
+  deleteButton.addEventListener("click", deleteLines);
+
+</script>
+</html>
