@@ -33,6 +33,7 @@
     input[type="text"] {
       box-sizing: border-box;
       margin-top: 0.5rem;
+      margin-bottom: 1rem;
       width: 100%;
       height: 1.5rem;
       text-align: center;
@@ -51,8 +52,11 @@
       <textarea name="input_text_area" id="input_text_area" cols="30" rows="50" placeholder="Paste here..."></textarea>
 
       <div id="center">
-        <label for="delete_lines">Delete <strong>first x</strong> lines:</label>
+        <label for="delete_lines">Delete <strong>X</strong> lines:</label><br>
         <input type="text" name="delete_lines" id="delete_lines">
+        <label for="direction">from the:</label><br>
+        <input type="radio" name="direction" id="direction_front" checked>Front<br>
+        <input type="radio" name="direction" id="direction_back">Back
         <button id="delete_button">DELETE</button>
       </div>
       <textarea name="output_text_area" id="output_text_area" cols="30" rows="50"></textarea>
@@ -64,6 +68,8 @@
 
 <script>
   const deleteLinesInput = document.getElementById("delete_lines");
+  const frontRadio = document.getElementById("direction_front");
+  const backRadio = document.getElementById("direction_back");
   const inputTextArea = document.getElementById("input_text_area");
   const outputTextArea = document.getElementById("output_text_area");
   const deleteButton = document.getElementById("delete_button");
@@ -88,10 +94,6 @@
       .map(cluster => {                      
         return cluster
           .split("\n")
-          .map(line => {
-            // Convert numbers to integers for sorting
-            return (isNaN(line)) ? line : parseInt(line)
-          })
       });
   }
 
@@ -123,12 +125,18 @@
       return;
     } else {
       outputTextArea.value = inputCopy
-        .map(arr => arr.slice(DELETELINE))
+        .map(arr => {
+          if(frontRadio.checked) {
+            return arr.slice(DELETELINE)
+          } else if(backRadio.checked) {
+            const lengthOfCluster = arr.length
+            return arr.slice(0, lengthOfCluster - DELETELINE)
+          }
+        })
         .map(cluster => cluster.join("\n"))
         .join("\n\n");
     }
   }
-
 
   deleteLinesInput.addEventListener("input", checkForNaN);
 
